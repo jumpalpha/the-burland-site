@@ -118,7 +118,8 @@ section + section { border-top: 1px solid var(--line); }
   color: var(--plaster-hi);
 }
 .hero.short { min-height: 46vh; align-items: center; }
-.hero-inner { padding: 64px 24px 72px; max-width: var(--max); width: 100%; }
+.hero::before { content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(20,28,23,0.45) 0%, rgba(20,28,23,0.82) 100%); }
+.hero-inner { position: relative; z-index: 1; text-shadow: 0 1px 12px rgba(0,0,0,0.45); padding: 64px 24px 72px; max-width: var(--max); width: 100%; }
 .hero-inner > * { max-width: 780px; }
 .eyebrow-rule {
   display: inline-flex; align-items: center; gap: 10px;
