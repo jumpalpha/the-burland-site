@@ -1,5 +1,5 @@
 /* =========================================================
-   The Burland — design tokens
+   The Burland: design tokens
    Palette grounded in the restored 1912 building:
    parlor-green walls, brass hardware, plaster, walnut trim.
    ========================================================= */
@@ -166,7 +166,7 @@ section + section { border-top: 1px solid var(--line); }
 .feature-card .mark { font-family: var(--font-display); font-size: 1.4rem; color: var(--brass); margin-bottom: 10px; display:block; }
 @media (max-width: 780px) { .feature-grid { grid-template-columns: 1fr; } }
 
-/* ---------- Timeline (sample reunion weekend — real sequence) ---------- */
+/* ---------- Timeline (sample reunion weekend: real sequence) ---------- */
 .timeline { border-left: 2px solid var(--brass); margin-left: 6px; }
 .timeline-item { position: relative; padding: 0 0 40px 32px; }
 .timeline-item:last-child { padding-bottom: 4px; }
