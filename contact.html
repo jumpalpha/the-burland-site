@@ -52,9 +52,9 @@
       <p style="margin-top:28px; font-size:0.9rem; opacity:0.75;">Prefer to just look first? <a href="availability.html">Check the availability calendar</a> before you send a request.</p>
     </div>
     <div>
-      <!-- Inquiry-only form: submits to Formspree and emails the owner. Nothing here books automatically. -->
-      <form action="https://formspree.io/f/xeaezrqn" method="POST" class="form-grid">
-        <input type="hidden" name="_subject" value="New Burland booking inquiry">
+      <!-- Inquiry-only form: saves to our Google Sheet and emails the owner. Nothing here books automatically. -->
+      <form id="inquiry-form" action="https://script.google.com/macros/s/AKfycbyuwAzTwUtD1CHtg94bdir8_mx8_vSagoIu07MBtsykxTwnKAa6tB4ESmmFKq_-uan4/exec" method="POST" class="form-grid">
+        <input type="hidden" name="form" value="inquiry">
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
         <div class="full"><label for="name">Name</label><input type="text" id="name" name="name" required autocomplete="name"></div>
         <div><label for="email">Email</label><input type="email" id="email" name="email" required autocomplete="email"></div>
@@ -73,7 +73,9 @@
           <select id="found" name="found_us"><option>Google</option><option>Website</option><option>Referral from a friend</option><option>Facebook</option><option>Instagram</option><option>Flyer</option><option>Storefront</option></select></div>
         <div class="full"><label for="message">Anything else we should know?</label><textarea id="message" name="message"></textarea></div>
         <div class="full">
+          <label style="font-weight:400;margin-bottom:14px;"><input type="checkbox" name="newsletter" value="yes" style="width:auto;margin-right:8px;">Send me occasional Burland news and openings (optional)</label>
           <button type="submit" class="btn btn-brass">Send Inquiry</button>
+          <p id="inquiry-msg" role="status" aria-live="polite" style="margin-top:12px;font-weight:600;"></p>
           <p style="font-size:0.8rem; opacity:0.65; margin-top:10px;">This sends a request to our team. We'll follow up with a rental agreement to review and sign. Nothing is booked automatically.</p>
         </div>
       </form>
