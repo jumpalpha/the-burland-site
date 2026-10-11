@@ -52,14 +52,8 @@
       <p style="margin-top:28px; font-size:0.9rem; opacity:0.75;">Prefer to just look first? <a href="availability.html">Check the availability calendar</a> before you send a request.</p>
     </div>
     <div>
-      <!--
-        Inquiry-only form: submits to Formspree (free tier, no backend needed).
-        Replace YOUR_FORM_ID below once a Formspree account/form is created
-        for the real contact email, or swap the action for another form
-        service. Nothing here books automatically. Every submission is
-        just an email to the owner.
-      -->
-      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="form-grid">
+      <!-- Inquiry-only form: submits to Formspree and emails the owner. Nothing here books automatically. -->
+      <form action="https://formspree.io/f/xeaezrqn" method="POST" class="form-grid">
         <input type="hidden" name="_subject" value="New Burland booking inquiry">
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
         <div class="full"><label for="name">Name</label><input type="text" id="name" name="name" required autocomplete="name"></div>
