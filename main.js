@@ -8,6 +8,29 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// Spam protection: every form gets a page token and a "time on page" value.
+// The Apps Script checks both (see apps-script/Code.gs in the private backup repo).
+document.addEventListener("DOMContentLoaded", function () {
+  var t0 = Date.now();
+  var tk = (Math.floor(t0 / 1000) * 7 + 1912).toString(36);
+  ["guide-form", "inquiry-form"].forEach(function (id) {
+    var f = document.getElementById(id);
+    if (!f) return;
+    function hidden(name, value) {
+      var el = f.querySelector('input[name="' + name + '"]');
+      if (!el) { el = document.createElement("input"); el.type = "hidden"; el.name = name; f.appendChild(el); }
+      el.value = value;
+      return el;
+    }
+    hidden("t0", String(t0));
+    hidden("tk", tk);
+    var el = hidden("el", "0");
+    f.addEventListener("submit", function () { el.value = String(Math.round((Date.now() - t0) / 1000)); }, true);
+  });
+  var d = document.getElementById("date");
+  if (d) { var t = new Date(); d.min = new Date(t.getTime() - t.getTimezoneOffset() * 60000).toISOString().slice(0, 10); }
+});
+
 // Free planning guides: floating link on every page, and the guide request form.
 document.addEventListener("DOMContentLoaded", function () {
   var path = location.pathname;
