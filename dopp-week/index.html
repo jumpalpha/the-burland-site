@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Alan &amp; Milly's Week</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Our Week">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#EEF2F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11161C" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Layout: sticky week bar; desktop = week list + side rail (outlook, goals, task pile); phone = single column, outlook first */
+:root{
+  color-scheme:light;
+  --bg:#EEF2F5; --surface:#FFFFFF; --sunk:#E4EAEF; --ink:#18212B; --muted:#5A6878; --line:#D3DCE4;
+  --accent:#24557F; --accent-ink:#FFFFFF;
+  --work:#3567A6; --play:#22936F; --task:#C27F12; --must:#B8432F;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:12px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11161C; --surface:#19212A; --sunk:#141A21; --ink:#E5EBF1; --muted:#95A3B2; --line:#2A3540;
+  --accent:#86B1DC; --accent-ink:#0E1620;
+  --work:#7EA8DD; --play:#5BC8A4; --task:#E7B24E; --must:#F08A74; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161C; --surface:#19212A; --sunk:#141A21; --ink:#E5EBF1; --muted:#95A3B2; --line:#2A3540;
+  --accent:#86B1DC; --accent-ink:#0E1620;
+  --work:#7EA8DD; --play:#5BC8A4; --task:#E7B24E; --must:#F08A74; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 96px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+
+.wrap{max-width:1080px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:14px 10px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.toprow{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-size:1.35rem;font-weight:700;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:.85rem}
+.weeknav{display:flex;align-items:center;gap:6px}
+.weeknav .range{font-family:var(--display);font-weight:600;font-size:1.05rem;min-width:9.5em;text-align:center;font-variant-numeric:tabular-nums}
+.iconbtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);font-size:1.1rem;line-height:1;display:grid;place-items:center}
+.ghost{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:.85rem}
+.filters{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;align-items:center}
+.filters .lbl{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-right:2px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:.85rem}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+.rail{display:flex;flex-direction:column;gap:16px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 120px)}
+@media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}.rail{position:static;display:contents}
+  #outlookBox{order:-2}#goalsBox{order:-1}}
+.main{display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;min-width:0}
+.panel h2{font-size:.78rem;font-family:var(--body);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+
+/* 4-week outlook */
+.ol{display:flex;flex-direction:column;gap:4px}
+.olrow{display:grid;grid-template-columns:64px repeat(7,1fr);gap:3px;align-items:stretch;border-radius:8px;padding:4px;border:1px solid transparent;background:none;text-align:left;width:100%}
+.olrow[aria-current="true"]{border-color:var(--accent);background:var(--sunk)}
+.olrow .wk{font-size:.78rem;color:var(--muted);align-self:center;font-variant-numeric:tabular-nums}
+.olrow .wk b{display:block;color:var(--ink);font-size:.82rem}
+.olcell{background:var(--sunk);border-radius:5px;min-height:34px;padding:3px;display:flex;flex-direction:column;gap:2px;justify-content:flex-end;position:relative}
+.olcell.today{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.olcell .n{position:absolute;top:2px;left:4px;font-size:.62rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:4px;border-radius:2px}
+.olhead{display:grid;grid-template-columns:64px repeat(7,1fr);gap:3px;padding:0 4px;font-size:.66rem;color:var(--muted);text-align:center;text-transform:uppercase;letter-spacing:.04em}
+.legend{display:flex;gap:12px;margin-top:10px;font-size:.78rem;color:var(--muted);flex-wrap:wrap}
+.legend span::before{content:"";display:inline-block;width:10px;height:4px;border-radius:2px;margin-right:5px;vertical-align:middle;background:var(--c)}
+
+/* goals */
+textarea#goals{width:100%;min-height:92px;border:1px solid var(--line);border-radius:8px;background:var(--sunk);padding:10px;resize:vertical}
+.saved{font-size:.72rem;color:var(--muted);text-transform:none;letter-spacing:0;font-weight:400}
+
+/* days */
+.day{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.day.today{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.dayhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:12px 14px 6px}
+.dayhead h3{font-size:1.15rem;font-weight:700}
+.dayhead .date{color:var(--muted);font-weight:400;font-family:var(--body);font-size:.92rem;margin-left:6px}
+.pill{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-radius:999px;padding:2px 8px}
+.pill.today{background:var(--accent);color:var(--accent-ink)}
+.addday{border:none;background:none;color:var(--accent);font-weight:700;font-size:.88rem;padding:4px 2px}
+.list{list-style:none;margin:0;padding:0 6px 8px}
+.empty{color:var(--muted);font-size:.9rem;padding:2px 8px 10px}
+.item{display:flex;gap:10px;align-items:flex-start;padding:8px;border-radius:8px;border-left:4px solid var(--c);margin:4px 0;background:var(--sunk)}
+.item.done{opacity:.6}
+.item.done .t{text-decoration:line-through}
+.check{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--c);background:var(--surface);display:grid;place-items:center;margin-top:1px;padding:0}
+.item.done .check{background:var(--c)}
+.check svg{width:14px;height:14px;stroke:var(--surface);stroke-width:3;fill:none;opacity:0}
+.item.done .check svg{opacity:1}
+.ibody{flex:1;min-width:0;border:none;background:none;text-align:left;padding:0}
+.t{font-weight:700;overflow-wrap:anywhere}
+.meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:.8rem;color:var(--muted);margin-top:2px}
+.tag{border-radius:999px;padding:1px 7px;font-size:.72rem;font-weight:700;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.tag.cat{color:var(--c);border-color:var(--c)}
+.tag.must{background:var(--must);border-color:var(--must);color:var(--surface)}
+.note{font-size:.84rem;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}
+.loading{color:var(--muted);padding:20px;text-align:center}
+.banner{background:var(--sunk);border:1px dashed var(--line);border-radius:var(--r);padding:12px 14px;font-size:.9rem;color:var(--muted)}
+.banner b{color:var(--ink)}
+
+/* pile */
+.pilelist{list-style:none;margin:0;padding:0}
+.pilelist .item{margin:6px 0}
+
+/* FAB */
+.fab{position:fixed;right:calc(max(16px,env(safe-area-inset-right,0px)) + 4px);bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:6;background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:14px 20px;font-weight:700;font-size:1rem;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(10,15,20,.5);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);width:100%;max-width:560px;max-height:92%;overflow:auto;border-radius:16px 16px 0 0;padding:18px max(18px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 18px) max(18px,env(safe-area-inset-left,0px))}
+@media (min-width:700px){.scrim{align-items:center}.sheet{border-radius:16px}}
+.sheet h2{font-size:1.25rem;margin-bottom:12px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field>label,.flabel{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.in{border:1px solid var(--line);border-radius:8px;background:var(--sunk);padding:10px;width:100%;min-width:0}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{border:1.5px solid var(--line);border-radius:999px;padding:7px 14px;font-weight:700;font-size:.9rem;cursor:pointer;background:var(--surface)}
+.seg input:checked+label{background:var(--c,var(--accent));border-color:var(--c,var(--accent));color:var(--surface)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.toggles{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.tog{display:flex;align-items:center;gap:10px;font-size:.95rem}
+.tog input{width:20px;height:20px;accent-color:var(--accent)}
+.hint{font-size:.8rem;color:var(--muted)}
+.actions{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap;margin-top:6px}
+.primary{background:var(--accent);color:var(--accent-ink);border:none;border-radius:999px;padding:10px 22px;font-weight:700}
+.secondary{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:10px 16px}
+.danger{background:none;border:1px solid var(--must);color:var(--must);border-radius:999px;padding:10px 14px;font-weight:700}
+.confirm{background:var(--sunk);border-radius:10px;padding:10px;margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.confirm .btns{display:flex;gap:8px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 84px);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:999px;font-size:.88rem;z-index:30}
+@media (prefers-reduced-motion:no-preference){.item,.check{transition:opacity .15s,background .15s}}
+
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+[hidden]{display:none!important}
+.lock{position:fixed;inset:0;z-index:40;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px))}
+.lockcard{width:100%;max-width:360px;display:flex;flex-direction:column;gap:14px;text-align:center}
+.lockcard img{width:72px;height:72px;border-radius:18px;margin:0 auto}
+.lockcard h1{font-size:1.5rem}
+.lockcard p{margin:0;color:var(--muted)}
+.lockmsg{min-height:1.4em;font-size:.9rem;color:var(--must)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="toprow">
+      <div>
+        <h1>Alan &amp; Milly's Week</h1>
+        <div class="sub">Work, play, and the things that need doing</div>
+      </div>
+      <div class="weeknav">
+        <button class="iconbtn" id="prevWk" aria-label="Previous week">‹</button>
+        <div class="range" id="range">—</div>
+        <button class="iconbtn" id="nextWk" aria-label="Next week">›</button>
+        <button class="ghost" id="thisWk">This week</button>
+      </div>
+    </div>
+    <div class="filters" role="group" aria-label="Show items for">
+      <span class="lbl">Showing</span>
+      <button class="chip" data-who="all" aria-pressed="true">Everyone</button>
+      <button class="chip" data-who="orion" aria-pressed="false">Alan</button>
+      <button class="chip" data-who="milly" aria-pressed="false">Milly</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <section class="main" id="week" aria-label="Week plan">
+      <div class="loading">Loading your plan…</div>
+    </section>
+    <aside class="rail">
+      <section class="panel" id="outlookBox">
+        <h2>4-week outlook</h2>
+        <div class="olhead"><span></span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+        <div class="ol" id="outlook"></div>
+        <div class="legend"><span style="--c:var(--work)">Work</span><span style="--c:var(--play)">Play</span><span style="--c:var(--task)">Task</span></div>
+      </section>
+      <section class="panel" id="goalsBox">
+        <h2>This week's goals <span class="saved" id="goalsSaved"></span></h2>
+        <textarea id="goals" placeholder="What matters most this week? A date night, finish the deck stain, call Mom…"></textarea>
+      </section>
+      <section class="panel" id="pileBox">
+        <h2>Task pile <button class="addday" id="addPile">+ Add</button></h2>
+        <p class="hint" style="margin:-4px 0 8px">To-dos without a day yet. Tap one to give it a day.</p>
+        <ul class="pilelist" id="pile"></ul>
+        <button class="ghost" id="clearDone" hidden>Clear finished</button>
+      </section>
+    </aside>
+  </div>
+</div>
+
+<button class="fab" id="fab">+ Add</button>
+
+<div class="scrim" id="scrim" hidden>
+  <form class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <h2 id="sheetTitle">Add to the plan</h2>
+    <div class="field">
+      <label for="f-title">What</label>
+      <input class="in" id="f-title" required maxlength="120" placeholder="Javelin practice, oil change, date night…">
+    </div>
+    <div class="field">
+      <span class="flabel">Type</span>
+      <div class="seg">
+        <input type="radio" name="cat" id="c-work" value="work"><label for="c-work" style="--c:var(--work)">Work</label>
+        <input type="radio" name="cat" id="c-play" value="play"><label for="c-play" style="--c:var(--play)">Play</label>
+        <input type="radio" name="cat" id="c-task" value="task" checked><label for="c-task" style="--c:var(--task)">Task</label>
+      </div>
+    </div>
+    <div class="field">
+      <span class="flabel">Who</span>
+      <div class="seg">
+        <input type="radio" name="who" id="w-orion" value="orion"><label for="w-orion">Alan</label>
+        <input type="radio" name="who" id="w-milly" value="milly"><label for="w-milly">Milly</label>
+        <input type="radio" name="who" id="w-both" value="both" checked><label for="w-both">Both</label>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="field"><label for="f-date">Day</label><input class="in" type="date" id="f-date"></div>
+      <div class="field"><label for="f-time">Time (optional)</label><input class="in" type="time" id="f-time"></div>
+    </div>
+    <div class="toggles">
+      <label class="tog"><input type="checkbox" id="f-nodate"> No day yet (put in task pile)</label>
+      <label class="tog"><input type="checkbox" id="f-pri"> Must do</label>
+      <label class="tog"><input type="checkbox" id="f-rep"> Repeats every week on this day</label>
+      <div class="hint" id="repHint" hidden>Changes here apply to every week.</div>
+    </div>
+    <div class="field">
+      <label for="f-note">Note (optional)</label>
+      <textarea class="in" id="f-note" rows="2" maxlength="500"></textarea>
+    </div>
+    <div class="actions">
+      <button type="button" class="danger" id="delBtn" hidden>Delete</button>
+      <span style="flex:1"></span>
+      <button type="button" class="secondary" id="cancelBtn">Cancel</button>
+      <button type="submit" class="primary" id="saveBtn">Save</button>
+    </div>
+    <div class="confirm" id="confirmBox" hidden>
+      <div id="confirmText">Delete this item?</div>
+      <div class="btns" id="confirmBtns"></div>
+    </div>
+  </form>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+
+<div class="lock" id="lock" hidden>
+  <form class="lockcard" id="lockForm">
+    <img src="icon-192.png" alt="">
+    <h1>Alan &amp; Milly's Week</h1>
+    <p>Enter your shared passcode. You only need to do this once on each phone.</p>
+    <label for="lockInput" class="flabel" style="text-align:left">Passcode</label>
+    <input class="in" id="lockInput" autocomplete="current-password" autocapitalize="none" spellcheck="false" type="password">
+    <button class="primary" id="lockBtn" type="submit">Open planner</button>
+    <div class="lockmsg" id="lockMsg" role="status"></div>
+  </form>
+</div>
+<script>
+(function(){
+const SB_URL='https://vvjgriwldvnqnlgzvnvs.supabase.co';
+const SB_KEY='sb_publishable_wns9aERfjHvFgMla8vB6Lw_shmufhsx';
+const PASS_KEY='dopp-week-pass';
+
+const $=s=>document.querySelector(s);
+const WHO={orion:'Alan',milly:'Milly',both:'Both'};
+const CAT={work:'Work',play:'Play',task:'Task'};
+const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const parse=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const mondayOf=d=>{const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());return addDays(x,-((x.getDay()+6)%7))};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtTime=t=>{if(!t)return'';let[h,m]=t.split(':').map(Number);const ap=h>=12?'PM':'AM';h=h%12||12;return h+':'+pad(m)+' '+ap};
+const shortDate=d=>MON[d.getMonth()]+' '+d.getDate();
+const rangeLabel=m=>{const e=addDays(m,6);return m.getMonth()===e.getMonth()?shortDate(m)+'–'+e.getDate():shortDate(m)+' – '+shortDate(e)};
+const uuid=()=>(crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==='x'?r:(r&3|8)).toString(16)}));
+
+let today=new Date(),todayS=ymd(today),thisMon=mondayOf(today);
+let focus=(today.getDay()===0||today.getDay()===6)?addDays(thisMon,7):thisMon;
+let olStart=thisMon;
+let whoF='all';
+let items=[];let loaded=false;let pass=null;let pending=0;
+let editing=null;
+
+function toast(msg){const t=$('#toast');t.textContent=msg;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>t.hidden=true,2200)}
+function lsGet(k){try{return localStorage.getItem(k)}catch(_){return null}}
+function lsSet(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(_){}}
+
+// ---------- Supabase ----------
+async function rpc(fn,args){
+  const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p:pass,...args})});
+  if(!r.ok){let m='';try{m=(await r.json()).message||''}catch(_){}
+    const e=new Error(m||('HTTP '+r.status));e.status=r.status;e.bad=/passcode/i.test(m);throw e}
+  const txt=await r.text();return txt?JSON.parse(txt):null}
+
+const bodyOf=it=>{const{id,...rest}=it;return rest};
+async function write(fn){pending++;try{await fn()}catch(e){
+    if(e.bad){lock('That passcode stopped working. Enter the current one.')}
+    else if(/full/.test(e.message))toast('The planner is full. Clear some finished items.');
+    else toast("Couldn't save. Check your connection, then try again.");
+    await refresh(true)}finally{pending--}}
+const store={
+  add(o){const id=uuid();items.push({id,...o});render();return write(()=>rpc('planner_save',{item_id:id,item:o}))},
+  set(id,o){const i=items.findIndex(x=>x.id===id);if(i>=0)items[i]={id,...o};render();return write(()=>rpc('planner_save',{item_id:id,item:o}))},
+  del(id){items=items.filter(x=>x.id!==id);render();return write(()=>rpc('planner_delete',{item_id:id}))}
+};
+
+let offline=false;
+async function refresh(force){
+  if(!pass||(pending&&!force))return;
+  try{const rows=await rpc('planner_list',{});if(pending&&!force)return;
+    items=(rows||[]).map(r=>({id:r.id,...r.data}));loaded=true;offline=false;
+    if(!$('#scrim').hidden&&editing&&!items.find(x=>x.id===editing.id))closeSheet();
+    render()}
+  catch(e){if(e.bad){lock('Enter the passcode to open the planner.');return}
+    offline=true;loaded=true;render()}}
+
+// ---------- occurrences ----------
+function whoOk(it){return whoF==='all'||it.who===whoF||it.who==='both'}
+function occ(ds){const d=parse(ds),wd=d.getDay();const out=[];
+  for(const it of items){if(!it.date||!whoOk(it))continue;
+    if(it.repeat==='weekly'){const s=parse(it.date);if(s<=d&&s.getDay()===wd&&!(it.skip||[]).includes(ds))out.push({it,ds,done:(it.doneOn||[]).includes(ds)})}
+    else if(it.date===ds)out.push({it,ds,done:!!it.done})}
+  return out.sort((a,b)=>(a.done-b.done)||((b.it.pri?1:0)-(a.it.pri?1:0))||((a.it.time||'99')<(b.it.time||'99')?-1:(a.it.time||'99')>(b.it.time||'99')?1:0)||String(a.it.title).localeCompare(b.it.title))}
+
+// ---------- render ----------
+const CHECK='<svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+function itemHTML(o){const it=o.it;const meta=[];
+  meta.push('<span class="tag cat">'+CAT[it.cat||'task']+'</span>');
+  if(it.pri)meta.push('<span class="tag must">Must do</span>');
+  if(it.time)meta.push('<span>'+fmtTime(it.time)+'</span>');
+  meta.push('<span class="tag">'+WHO[it.who||'both']+'</span>');
+  if(it.repeat==='weekly')meta.push('<span>↻ Weekly</span>');
+  return '<li class="item'+(o.done?' done':'')+'" style="--c:var(--'+(it.cat||'task')+')">'+
+   '<button class="check" data-act="toggle" data-id="'+it.id+'" data-ds="'+(o.ds||'')+'" aria-label="'+(o.done?'Mark not done':'Mark done')+': '+esc(it.title)+'">'+CHECK+'</button>'+
+   '<button class="ibody" data-act="edit" data-id="'+it.id+'" data-ds="'+(o.ds||'')+'"><div class="t">'+esc(it.title)+'</div><div class="meta">'+meta.join('')+'</div>'+(it.note?'<div class="note">'+esc(it.note)+'</div>':'')+'</button></li>'}
+
+function render(){
+  $('#range').textContent=rangeLabel(focus);
+  $('#thisWk').hidden=ymd(focus)===ymd(thisMon);
+  $('#goalsBox h2').firstChild.textContent=(ymd(focus)===ymd(thisMon)?"This week's goals ":"Goals for "+rangeLabel(focus)+" ");
+  const w=$('#week');
+  if(!loaded){w.innerHTML='<div class="loading">Loading your plan…</div>'}
+  else{let h='';
+    if(offline)h+='<div class="banner"><b>Can\'t reach the planner right now.</b> Showing the last copy loaded. It will update when the connection comes back.</div>';
+    else if(!items.length)h+='<div class="banner"><b>Your plan is empty.</b> Tap <b>+ Add</b> on any day for an appointment, game, shift or chore. Use the task pile for to-dos that don\'t have a day yet.</div>';
+    for(let i=0;i<7;i++){const d=addDays(focus,i),ds=ymd(d),list=occ(ds),isT=ds===todayS;
+      h+='<article class="day'+(isT?' today':'')+'"><div class="dayhead"><h3>'+DAYS[d.getDay()]+'<span class="date">'+shortDate(d)+'</span></h3><div style="display:flex;gap:8px;align-items:center">'+(isT?'<span class="pill today">Today</span>':'')+'<button class="addday" data-act="add" data-ds="'+ds+'">+ Add</button></div></div>'+
+       (list.length?'<ul class="list">'+list.map(itemHTML).join('')+'</ul>':'<div class="empty">Nothing planned</div>')+'</article>'}
+    w.innerHTML=h}
+  let o='';
+  for(let k=0;k<4;k++){const m=addDays(olStart,7*k);const cur=ymd(m)===ymd(focus);
+    o+='<button class="olrow" data-act="week" data-mon="'+ymd(m)+'" aria-current="'+cur+'" aria-label="Focus week of '+rangeLabel(m)+'"><span class="wk"><b>'+shortDate(m)+'</b>'+(ymd(m)===ymd(thisMon)?'this wk':'')+'</span>';
+    for(let i=0;i<7;i++){const ds=ymd(addDays(m,i));const l=occ(ds).filter(x=>!x.done);const c={work:0,play:0,task:0};l.forEach(x=>c[x.it.cat||'task']++);
+      let bars='';['work','play','task'].forEach(cat=>{for(let j=0;j<Math.min(c[cat],3);j++)bars+='<span class="bar" style="background:var(--'+cat+')"></span>'});
+      o+='<span class="olcell'+(ds===todayS?' today':'')+'">'+(l.length?'<span class="n">'+l.length+'</span>':'')+bars+'</span>'}
+    o+='</button>'}
+  $('#outlook').innerHTML=o;
+  const pile=items.filter(it=>!it.date&&whoOk(it)).sort((a,b)=>(!!a.done-!!b.done)||((b.pri?1:0)-(a.pri?1:0))||(a.createdAt||0)-(b.createdAt||0));
+  $('#pile').innerHTML=pile.length?pile.map(it=>itemHTML({it,ds:'',done:!!it.done})).join(''):'<li class="empty" style="padding:4px 0">'+(loaded?'Nothing waiting. Nice.':'')+'</li>';
+  $('#clearDone').hidden=!pile.some(it=>it.done);
+  document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.who===whoF))}
+
+// ---------- week nav ----------
+function setFocus(m){focus=m;const end=addDays(olStart,21);if(m<olStart)olStart=m;else if(m>end)olStart=addDays(m,-21);render();loadGoals()}
+$('#prevWk').onclick=()=>setFocus(addDays(focus,-7));
+$('#nextWk').onclick=()=>setFocus(addDays(focus,7));
+$('#thisWk').onclick=()=>{olStart=thisMon;setFocus(thisMon)};
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{whoF=c.dataset.who;lsSet('dopp-week-who',whoF);render()});
+
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act;
+  if(a==='week')setFocus(parse(b.dataset.mon));
+  else if(a==='add')openSheet(null,b.dataset.ds);
+  else if(a==='edit')openSheet(items.find(x=>x.id===b.dataset.id),b.dataset.ds);
+  else if(a==='toggle')toggle(b.dataset.id,b.dataset.ds)});
+
+function toggle(id,ds){const it=items.find(x=>x.id===id);if(!it)return;
+  if(it.repeat==='weekly'&&ds){let d=it.doneOn||[];const cutoff=ymd(addDays(today,-60));d=d.filter(x=>x>=cutoff);
+    d=d.includes(ds)?d.filter(x=>x!==ds):[...d,ds];return store.set(id,{...bodyOf(it),doneOn:d})}
+  return store.set(id,{...bodyOf(it),done:!it.done})}
+
+$('#clearDone').onclick=async()=>{const done=items.filter(it=>!it.date&&it.done&&whoOk(it));for(const it of done)await store.del(it.id);toast('Cleared '+done.length+' finished')};
+$('#fab').onclick=()=>{const ds=(ymd(focus)===ymd(thisMon))?todayS:ymd(focus);openSheet(null,ds)};
+$('#addPile').onclick=()=>openSheet(null,'',true);
+
+// ---------- sheet ----------
+const f=id=>document.getElementById(id);
+function setRadio(name,v){const r=document.querySelector('input[name="'+name+'"][value="'+v+'"]');if(r)r.checked=true}
+function syncDateUI(){const nd=f('f-nodate').checked;f('f-date').disabled=nd;f('f-time').disabled=nd;f('f-rep').disabled=nd;if(nd)f('f-rep').checked=false}
+f('f-nodate').onchange=syncDateUI;
+function openSheet(it,ds,pile){editing=it?{id:it.id,ds}:null;
+  $('#sheetTitle').textContent=it?'Edit':'Add to the plan';
+  f('f-title').value=it?it.title:'';setRadio('cat',it?it.cat||'task':'task');setRadio('who',it?it.who||'both':'both');
+  f('f-date').value=it?(it.date||''):(ds||'');f('f-time').value=it?it.time||'':'';
+  f('f-nodate').checked=it?!it.date:!!pile;f('f-pri').checked=it?!!it.pri:false;f('f-rep').checked=it?it.repeat==='weekly':false;
+  f('f-note').value=it?it.note||'':'';
+  $('#repHint').hidden=!(it&&it.repeat==='weekly');$('#delBtn').hidden=!it;$('#confirmBox').hidden=true;
+  syncDateUI();$('#scrim').hidden=false;setTimeout(()=>f('f-title').focus(),30)}
+function closeSheet(){$('#scrim').hidden=true;editing=null}
+$('#cancelBtn').onclick=closeSheet;
+$('#scrim').addEventListener('click',e=>{if(e.target.id==='scrim')closeSheet()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#scrim').hidden)closeSheet()});
+$('#sheet').addEventListener('submit',e=>{e.preventDefault();
+  const title=f('f-title').value.trim();if(!title){f('f-title').focus();return}
+  const nd=f('f-nodate').checked;let date=nd?'':f('f-date').value;
+  if(!nd&&!date){f('f-date').focus();toast('Pick a day, or check "No day yet"');return}
+  const o={title,cat:document.querySelector('input[name=cat]:checked').value,who:document.querySelector('input[name=who]:checked').value,
+    date,time:nd?'':f('f-time').value,pri:f('f-pri').checked,repeat:(!nd&&f('f-rep').checked)?'weekly':'none',note:f('f-note').value.trim()};
+  const ed=editing;closeSheet();
+  if(ed){const old=items.find(x=>x.id===ed.id);if(!old)return;
+    const merged={...bodyOf(old),...o};
+    if(old.repeat==='weekly'&&o.repeat==='weekly'&&old.date&&parse(old.date).getDay()===parse(o.date).getDay()&&o.date>old.date)merged.date=old.date;
+    if(o.repeat!=='weekly'){delete merged.doneOn;delete merged.skip}
+    store.set(ed.id,merged);toast('Saved')}
+  else{store.add({...o,done:false,createdAt:Date.now()});toast(nd?'Added to the task pile':'Added to '+DAYS[parse(date).getDay()])}});
+
+$('#delBtn').onclick=()=>{const it=items.find(x=>x.id===editing?.id);if(!it)return;const box=$('#confirmBox'),btns=$('#confirmBtns');
+  if(it.repeat==='weekly'&&editing.ds){$('#confirmText').textContent='This repeats every week. Remove just '+DAYS[parse(editing.ds).getDay()]+' '+shortDate(parse(editing.ds))+', or every week?';
+    btns.innerHTML='<button type="button" class="secondary" data-c="one">Just this one</button><button type="button" class="danger" data-c="all">Every week</button><button type="button" class="secondary" data-c="no">Keep</button>'}
+  else{$('#confirmText').textContent='Delete "'+it.title+'"?';btns.innerHTML='<button type="button" class="danger" data-c="all">Delete</button><button type="button" class="secondary" data-c="no">Keep</button>'}
+  box.hidden=false};
+$('#confirmBtns').addEventListener('click',e=>{const c=e.target.dataset.c;if(!c)return;const ed=editing;const it=items.find(x=>x.id===ed?.id);
+  if(c==='no'){$('#confirmBox').hidden=true;return}closeSheet();if(!it)return;
+  if(c==='one'){store.set(it.id,{...bodyOf(it),skip:[...(it.skip||[]),ed.ds]});toast('Removed for that week')}
+  else{store.del(it.id);toast('Deleted')}});
+
+// ---------- weekly goals ----------
+let goalsTimer=null,goalsKey=null,lastSaved={};
+async function loadGoals(force){const key=ymd(focus);if(key===goalsKey&&!force)return;
+  if(goalsTimer&&goalsKey!==key){clearTimeout(goalsTimer);goalsTimer=null;saveGoals(goalsKey,$('#goals').value)}
+  const ta=$('#goals');if(goalsKey!==key){ta.value='';$('#goalsSaved').textContent=''}
+  goalsKey=key;if(!pass)return;
+  try{const t=await rpc('planner_week_get',{wk:key});if(goalsKey===key&&document.activeElement!==ta&&!goalsTimer){ta.value=t||'';lastSaved[key]=t||''}}catch(_){}}
+async function saveGoals(key,text){if(lastSaved[key]===text)return;
+  try{await rpc('planner_week_set',{wk:key,t:text});lastSaved[key]=text;if(key===goalsKey)$('#goalsSaved').textContent='Saved'}catch(e){if(key===goalsKey)$('#goalsSaved').textContent="Couldn't save"}}
+$('#goals').addEventListener('input',()=>{$('#goalsSaved').textContent='…';clearTimeout(goalsTimer);const k=goalsKey;goalsTimer=setTimeout(()=>{goalsTimer=null;saveGoals(k,$('#goals').value)},900)});
+$('#goals').addEventListener('blur',()=>{if(goalsTimer){clearTimeout(goalsTimer);goalsTimer=null;saveGoals(goalsKey,$('#goals').value)}});
+
+// ---------- passcode ----------
+function lock(msg){pass=null;lsSet(PASS_KEY,null);$('#lockMsg').textContent=msg||'';$('#lock').hidden=false;setTimeout(()=>$('#lockInput').focus(),30)}
+$('#lockForm').addEventListener('submit',async e=>{e.preventDefault();const v=$('#lockInput').value.trim().toLowerCase();if(!v)return;
+  $('#lockBtn').disabled=true;$('#lockMsg').textContent='Checking…';
+  try{const r=await fetch(SB_URL+'/rest/v1/rpc/planner_check',{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p:v})});
+    const ok=r.ok&&(await r.json())===true;
+    if(ok){pass=v;lsSet(PASS_KEY,v);$('#lock').hidden=true;$('#lockInput').value='';start()}
+    else $('#lockMsg').textContent=r.ok?"That passcode isn't right. Check the spelling and dashes.":"Can't reach the planner. Check your connection.";}
+  catch(_){$('#lockMsg').textContent="Can't reach the planner. Check your connection."}
+  finally{$('#lockBtn').disabled=false}});
+
+// ---------- boot ----------
+let pollT=null;
+function start(){goalsKey=null;refresh();loadGoals();clearInterval(pollT);pollT=setInterval(()=>{if(document.visibilityState==='visible')refresh()},15000)}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&pass){
+  const n=new Date();if(ymd(n)!==todayS){today=n;todayS=ymd(n);thisMon=mondayOf(n)}refresh();loadGoals(true)}});
+whoF=lsGet('dopp-week-who')||'all';
+render();
+pass=lsGet(PASS_KEY);
+if(pass)start();else lock('');
+})();
+</script>
+</body>
+</html>
