@@ -271,7 +271,7 @@ body{margin:0}
     <h1>Alan &amp; Milly's Week</h1>
     <p>Enter your shared passcode. You only need to do this once on each phone.</p>
     <label for="lockInput" class="flabel" style="text-align:left">Passcode</label>
-    <input class="in" id="lockInput" autocomplete="current-password" autocapitalize="none" spellcheck="false" type="password">
+    <input class="in" id="lockInput" autocomplete="current-password" autocapitalize="none" spellcheck="false" type="password" inputmode="numeric">
     <button class="primary" id="lockBtn" type="submit">Open planner</button>
     <div class="lockmsg" id="lockMsg" role="status"></div>
   </form>
@@ -467,7 +467,7 @@ $('#lockForm').addEventListener('submit',async e=>{e.preventDefault();const v=$(
   try{const r=await fetch(SB_URL+'/rest/v1/rpc/planner_check',{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p:v})});
     const ok=r.ok&&(await r.json())===true;
     if(ok){pass=v;lsSet(PASS_KEY,v);$('#lock').hidden=true;$('#lockInput').value='';start()}
-    else $('#lockMsg').textContent=r.ok?"That passcode isn't right. Check the spelling and dashes.":"Can't reach the planner. Check your connection.";}
+    else $('#lockMsg').textContent=r.ok?"That code isn't right. Check it and try again.":"Can't reach the planner. Check your connection.";}
   catch(_){$('#lockMsg').textContent="Can't reach the planner. Check your connection."}
   finally{$('#lockBtn').disabled=false}});
 
