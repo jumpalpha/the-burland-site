@@ -287,3 +287,10 @@ ul.check li::before { content: ""; position: absolute; left: 4px; top: 13px; wid
   body { background: #fff; }
   .guide-sec { break-inside: avoid; }
 }
+
+/* Rental agreement form */
+.rf-head { font-size: 1.15rem; margin: 18px 0 0; }
+.rf-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.rf-rooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 4px 16px; margin-top: 6px; }
+label.chk { display: flex; align-items: center; gap: 8px; font-weight: 400; margin: 6px 0; }
+label.chk input { width: auto; margin: 0; }
