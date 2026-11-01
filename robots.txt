@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Disallow: /rental-review.html
 Sitemap: https://theburland.com/sitemap.xml

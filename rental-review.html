@@ -1,0 +1,91 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Burland Rentals</title>
+<style>
+:root{--ink:#1d2822;--paper:#f7f3ea;--brass:#a8823f;--line:#d9d1c0;--muted:#6b6a62;--ok:#2f6b3f;--warn:#9a5a12}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.45 -apple-system,Segoe UI,Roboto,sans-serif}
+header{background:var(--ink);color:#fff;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:2}
+header h1{font-size:18px;margin:0;font-weight:600}header a{color:#e8d6ad;font-size:14px}
+main{max-width:720px;margin:0 auto;padding:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
+.row{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.name{font-weight:600;font-size:17px}
+.pill{font-size:12px;padding:2px 8px;border-radius:99px;background:#eee;white-space:nowrap}.pill.New{background:#fde9c8;color:var(--warn)}.pill.ok{background:#dcefe0;color:var(--ok)}
+.muted{color:var(--muted);font-size:14px}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 3px}
+input,textarea,select{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:#fff}
+textarea{min-height:90px}.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}input{min-width:0}
+h2{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--brass);margin:6px 0 4px}
+.sum div{display:flex;justify-content:space-between;padding:3px 0}.sum .big{font-weight:700;border-top:1px solid var(--line);margin-top:4px;padding-top:6px}
+.btn{display:block;width:100%;padding:13px;border:0;border-radius:9px;font:600 16px sans-serif;margin-top:10px;cursor:pointer;text-align:center;text-decoration:none}
+.go{background:var(--ink);color:#fff}.alt{background:#fff;border:1px solid var(--ink);color:var(--ink)}.brass{background:var(--brass);color:#fff}
+.note{background:#fbf6ea;border-left:3px solid var(--brass);padding:8px 10px;font-size:14px;margin-top:8px}
+.rooms{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px}.rooms label{display:flex;gap:6px;align-items:center;margin:2px 0;color:var(--ink);font-size:15px}.rooms input{width:auto}
+#msg{position:fixed;left:16px;right:16px;bottom:16px;background:var(--ink);color:#fff;padding:12px 14px;border-radius:9px;display:none;z-index:5}
+</style></head><body>
+<header><h1 id="ttl">Burland Rentals</h1><a href="#" id="back" style="display:none">All rentals</a></header>
+<main id="app"><p class="muted">Loading...</p></main><div id="msg"></div>
+<script>
+var API = 'https://script.google.com/macros/s/AKfycbyuwAzTwUtD1CHtg94bdir8_mx8_vSagoIu07MBtsykxTwnKAa6tB4ESmmFKq_-uan4/exec';
+var HP = new URLSearchParams(location.hash.slice(1)), KEY = HP.get('k') || '', D = null, cur = null;
+function run(fn, id, data, ok, bad){ fetch(API, {method: 'POST', body: new URLSearchParams({api: fn, k: KEY, id: id || '', data: JSON.stringify(data || {})})})
+  .then(function(r){ return r.json(); }).then(function(j){ if (!j.ok) throw new Error(j.error || 'Server error'); ok(j.data); }).catch(bad); }
+function $(s){return document.querySelector(s)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function toast(t,ms){var m=$('#msg');m.textContent=t;m.style.display='block';clearTimeout(m._t);if(ms!==0)m._t=setTimeout(function(){m.style.display='none'},ms||3500)}
+function money(n){n=Math.round(Number(n||0)*100)/100;return '$'+(n%1?n.toFixed(2):String(n)).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
+function load(open){if(!KEY){$('#app').innerHTML='<p>Open this page from the link in a Burland rental email.</p>';return}run('list','',{},function(d){D=d;var id=open||HP.get('id');if(id&&find(id))detail(id);else list()},function(e){$('#app').innerHTML='<p>'+esc(e.message)+'</p>'})}
+function find(id){for(var i=0;i<D.rows.length;i++)if(D.rows[i].ID===id)return D.rows[i];return null}
+function list(){
+  cur=null;$('#back').style.display='none';$('#ttl').textContent='Burland Rentals';
+  var h='';
+  if(!D.rows.length)h='<p class="muted">No rental details submitted yet. Renters use theburland.com/rental.html</p>';
+  D.rows.forEach(function(r){
+    var ok=/ready|sent|signed/i.test(r.Status);
+    h+='<div class="card" onclick="detail(\''+esc(r.ID)+'\')" style="cursor:pointer"><div class="row"><span class="name">'+esc(r.Name)+'</span><span class="pill '+(ok?'ok':esc(r.Status))+'">'+esc(r.Status)+'</span></div>'+
+      '<div class="muted">'+esc(r['Start date'])+(r['End date']&&r['End date']!==r['Start date']?' to '+esc(r['End date']):'')+' · '+esc(r['Event / purpose'])+' · '+esc(r.Guests)+' guests</div></div>';
+  });
+  h+='<a class="btn alt" href="'+esc(D.sheet)+'" target="_blank">Open the Google Sheet</a>';
+  $('#app').innerHTML=h;
+}
+function fld(lbl,key,type){var r=cur;return '<div><label>'+lbl+'</label><input data-k="'+key+'" type="'+(type||'text')+'" value="'+esc(r[key])+'"></div>'}
+function detail(id){
+  cur=find(id);var r=cur;$('#back').style.display='inline';$('#ttl').textContent=r.Name;
+  var sel=String(r.Rooms||'').split(/\s*,\s*/);
+  var rooms=D.rooms.map(function(x){return '<label><input type="checkbox" class="rm" value="'+esc(x)+'"'+(sel.indexOf(x)>=0?' checked':'')+'>'+esc(x)+'</label>'}).join('');
+  var done=r.Doc?'<div class="card"><h2>Contract</h2><p class="muted">Made '+esc(r['Approved on'])+'. Making it again creates a new copy.</p><a class="btn brass" href="'+esc(r.PDF)+'" target="_blank">Open PDF</a><a class="btn alt" href="'+esc(r.Doc)+'" target="_blank">Open Google Doc</a><a class="btn alt" href="https://app.signnow.com/" target="_blank">Open SignNow</a>'+
+    '<button class="btn alt" onclick="status(\'Sent in SignNow\')">Mark as sent in SignNow</button><button class="btn alt" onclick="status(\'Signed\')">Mark as signed</button></div>':'';
+  $('#app').innerHTML=done+
+  '<div class="card"><h2>Renter</h2>'+fld('Name on the agreement','Name')+'<div class="two">'+fld('Phone','Phone','tel')+fld('Email','Email','email')+'</div>'+fld('Mailing address','Mailing address')+fld('Event / purpose','Event / purpose')+'</div>'+
+  '<div class="card"><h2>Event</h2><div class="two">'+fld('Start date','Start date','date')+fld('End date','End date','date')+fld('Check in','Check in','time')+fld('Check out','Check out','time')+'</div>'+
+    '<label>Rooms / spaces</label><div class="rooms">'+rooms+'</div>'+fld('Most guests at one time','Guests','number')+
+    '<div class="two"><div><label>Alcohol</label><select data-k="Alcohol"><option'+(r.Alcohol!=='Yes'?' selected':'')+'>No</option><option'+(r.Alcohol==='Yes'?' selected':'')+'>Yes</option></select></div>'+fld('Alcohol types','Alcohol types')+'</div>'+
+    '<label>Renter notes</label><div class="note">'+(esc(r.Notes)||'None')+'<br><b>Decorations:</b> '+esc(r.Decorations)+'</div></div>'+
+  '<div class="card"><h2>Pricing</h2><label>Fee lines (one per line, amount at the end)</label><textarea data-k="Fee lines" id="fees" rows="4">'+esc(r['Fee lines'])+'</textarea>'+
+    '<div class="note">Suggested: '+esc(r['Pricing note'])+'</div><div class="two">'+fld('Security deposit','Deposit','number')+'<div><label>Due at signing (blank = automatic)</label><input id="due" type="number" placeholder=""></div></div>'+
+    '<div class="sum" id="sum" style="margin-top:12px"></div></div>'+
+  '<button class="btn alt" onclick="save()">Save changes</button><button class="btn go" onclick="approve()">Approve and make contract</button>'+
+  '<button class="btn alt" style="border-color:#9a3b2b;color:#9a3b2b" onclick="status(\'Declined\')">Decline</button>';
+  document.querySelectorAll('#app input,#app textarea,#app select').forEach(function(el){el.addEventListener('input',calc)});calc();window.scrollTo(0,0);
+}
+function edits(){var o={};document.querySelectorAll('[data-k]').forEach(function(el){o[el.dataset.k]=el.value});
+  o.Rooms=[].map.call(document.querySelectorAll('.rm:checked'),function(x){return x.value}).join(', ');
+  o['Due at signing']=$('#due')?$('#due').value:'';return o}
+function calc(){
+  var e=edits(),rental=0;(e['Fee lines']||'').split('\n').forEach(function(l){var m=l.match(/\$\s*([\d,]+(?:\.\d+)?)\s*$/);if(m)rental+=Number(m[1].replace(/,/g,''))});
+  var dep=Number(e.Deposit||0),start=new Date(e['Start date']+'T12:00:00'),dd=new Date(start.getTime()-D.finalDays*86400000),split=dd>new Date();
+  var due=e['Due at signing']!==''?Number(e['Due at signing']):(split?dep+Math.round(rental/2):dep+rental),rem=Math.max(0,dep+rental-due);
+  $('#due').placeholder=money(split?dep+Math.round(rental/2):dep+rental);
+  $('#sum').innerHTML='<div><span>Rental fees</span><span>'+money(rental)+'</span></div><div><span>Security deposit</span><span>'+money(dep)+'</span></div>'+
+    '<div class="big"><span>Total</span><span>'+money(rental+dep)+'</span></div><div><span>Due at signing</span><span>'+money(due)+'</span></div>'+
+    (rem>0?'<div><span>Remaining, due '+(dd.getMonth()+1)+'/'+dd.getDate()+'/'+dd.getFullYear()+'</span><span>'+money(rem)+'</span></div>':'')+
+    '<div class="muted"><span>Refundable if no damage</span><span>'+money(dep-D.cleaning)+'</span></div>';
+}
+function save(cb){toast('Saving...',0);run('save',cur.ID,edits(),function(){toast('Saved');if(cb)cb()},function(e){toast(e.message,6000)})}
+function status(s){run('save',cur.ID,{Status:s},function(){toast('Marked: '+s);load(cur.ID)},function(e){toast(e.message,6000)})}
+function approve(){
+  var e=edits();if(!e.Name||!e['Start date']){toast('Name and start date are needed.');return}
+  if(!confirm('Make the contract for '+e.Name+'?'))return;
+  toast('Making the contract, about 15 seconds...',0);
+  run('approve',cur.ID,e,function(res){toast('Contract ready. PDF also emailed to burlandevents.',5000);load(cur.ID)},function(err){toast(err.message,8000)});
+}
+$('#back').onclick=function(ev){ev.preventDefault();load('__list__')};
+load();
+</script></body></html>
