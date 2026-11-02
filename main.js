@@ -107,11 +107,51 @@ document.addEventListener("DOMContentLoaded", function () {
   all.addEventListener("change", function () { rooms.forEach(function (x) { x.checked = all.checked; }); });
   rooms.forEach(function (x) { x.addEventListener("change", function () { all.checked = [].every.call(rooms, function (y) { return y.checked; }); }); });
   var alc = document.getElementById("r-alc"), types = document.getElementById("r-alc-types");
-  alc.addEventListener("change", function () { types.hidden = alc.value !== "Yes"; });
+  var alcBoxes = f.querySelectorAll(".alc");
+  function syncAlc() {
+    types.hidden = alc.value !== "Yes";
+    if (types.hidden) alcBoxes.forEach(function (x) { x.checked = false; });
+  }
+  alc.addEventListener("change", syncAlc);
   var s = document.getElementById("r-start"), e = document.getElementById("r-end");
   var t = new Date(), today = new Date(t.getTime() - t.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
   s.min = today; e.min = today;
   s.addEventListener("change", function () { e.min = s.value || today; if (!e.value || e.value < s.value) e.value = s.value; });
+
+  // Pre-fill from a Request to Book: the owner's email links here with #r=CODE.
+  // The code is looked up by the Apps Script, so no personal details travel in the link.
+  var ref = new URLSearchParams(location.hash.slice(1)).get("r");
+  if (ref && /^[A-Za-z0-9]{8,40}$/.test(ref)) {
+    var note = document.getElementById("r-prefill");
+    fetch(f.action, { method: "POST", body: new URLSearchParams({ api: "prefill", r: ref }) })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j.ok || !j.data) throw new Error("bad");
+        var d = j.data;
+        function put(name, v) { var el = f.elements[name]; if (el && v != null && String(v) !== "") el.value = String(v); }
+        ["name", "phone", "email", "street", "city", "state", "zip", "max_guests"].forEach(function (k) { put(k, d[k]); });
+        put("purpose", d.event_type);
+        if (/^\d{4}-\d{2}-\d{2}$/.test(d.booking_date || "")) {
+          var start = new Date(d.booking_date + "T12:00:00");
+          put("start_date", d.booking_date);
+          var n = parseInt(d.nights, 10) || 0;
+          var end = new Date(start.getTime() + n * 86400000);
+          put("end_date", end.getFullYear() + "-" + String(end.getMonth() + 1).padStart(2, "0") + "-" + String(end.getDate()).padStart(2, "0"));
+        }
+        put("check_in", "15:00");
+        if (d.addons) put("decorations", d.addons);
+        if (d.alcohol === "Yes" || d.alcohol === "No") { put("alcohol", d.alcohol); syncAlc(); }
+        put("message", d.message);
+        put("inquiry_ref", ref);
+        note.textContent = "We filled in what you sent us. Please check it, then add your check-out time and the spaces you'd like" + (d.alcohol === "Yes" ? ", and the types of alcohol." : ".");
+        note.hidden = false;
+      })
+      .catch(function () {
+        note.textContent = "We couldn't load your earlier details. Please fill in the form below.";
+        note.hidden = false;
+      });
+  }
+
   f.addEventListener("submit", function (ev) {
     ev.preventDefault();
     var msg = document.getElementById("rental-msg");
@@ -119,6 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!picked.length) { msg.textContent = "Please choose at least one space."; return; }
     if (e.value < s.value) { msg.textContent = "The departure date can't be before the arrival date."; return; }
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.elements["email"].value.trim())) { msg.textContent = "Please enter a valid email address."; return; }
+    if (alc.value === "Yes" && ![].some.call(alcBoxes, function (x) { return x.checked; })) { msg.textContent = "Please check at least one type of alcohol."; return; }
     f.elements["rooms"].value = picked.join(", ");
     f.elements["alcohol_types"].value = [].filter.call(f.querySelectorAll(".alc"), function (x) { return x.checked; }).map(function (x) { return x.value; }).join(", ");
     msg.textContent = "Sending...";
@@ -131,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(function (j) {
         if (!j.ok) throw new Error("bad");
         msg.textContent = "Thank you. We received your details and will email your rental agreement from SignNow, usually within one or two business days. Please check your spam folder if you don't see it.";
-        f.reset(); types.hidden = true;
+        f.reset(); syncAlc(); document.getElementById("r-prefill").hidden = true;
       })
       .catch(function () {
         btn.disabled = false;

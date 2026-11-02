@@ -65,13 +65,17 @@
         <div><label for="date">Booking begins (3:00 p.m. check-in)</label><input type="date" id="date" name="booking_date"></div>
         <div><label for="nights">Number of nights</label><input type="number" min="1" max="14" id="nights" name="nights"></div>
         <div><label for="overnight">Estimated overnight guests</label><input type="number" min="0" id="overnight" name="overnight_guests"></div>
-        <div class="full"><label for="total">Most guests in the building at one time</label><input type="number" min="1" id="total" name="max_guests"></div>
+        <div class="full"><label for="total">Most guests in the building at one time</label><input type="number" min="1" max="130" id="total" name="max_guests"></div>
         <div><label for="addons">Decor add-ons</label>
           <select id="addons" name="addons"><option>None</option><option>Decoration rental</option><option>Decoration rental plus setup by staff</option></select></div>
-        <div><label for="alcohol">Will alcohol be served?</label>
-          <select id="alcohol" name="alcohol"><option>Not sure yet</option><option>Yes</option><option>No</option></select></div>
+        <div><label for="alcohol">Will alcohol be sold/served?</label>
+          <select id="alcohol" name="alcohol" required><option value="" disabled selected>Choose one</option><option>Yes</option><option>No</option></select></div>
         <div class="full"><label for="found">How did you find us?</label>
           <select id="found" name="found_us"><option>Google</option><option>Website</option><option>Referral from a friend</option><option>Facebook</option><option>Instagram</option><option>Flyer</option><option>Storefront</option></select></div>
+        <div class="full"><label for="street">Mailing address</label><input type="text" id="street" name="street" required autocomplete="street-address" placeholder="Street"></div>
+        <div><label for="city">City</label><input type="text" id="city" name="city" required autocomplete="address-level2"></div>
+        <div class="rf-two"><div><label for="state">State</label><input type="text" id="state" name="state" required autocomplete="address-level1" maxlength="20"></div>
+          <div><label for="zip">ZIP</label><input type="text" id="zip" name="zip" required autocomplete="postal-code" inputmode="numeric" maxlength="10"></div></div>
         <div class="full"><label for="message">Anything else we should know?</label><textarea id="message" name="message"></textarea></div>
         <div class="full">
           <label style="font-weight:400;margin-bottom:14px;"><input type="checkbox" name="newsletter" value="yes" style="width:auto;margin-right:8px;">Send me occasional Burland news and openings (optional)</label>

@@ -47,10 +47,12 @@
   <div class="container" style="max-width:820px;">
     <p style="margin-bottom:24px;">Still deciding on a date? <a href="availability.html">Check availability</a> or <a href="contact.html">send us a question</a> first. Your date is not reserved until the agreement is signed and the payment due at signing is received.</p>
     <!-- Saves to the Burland Google Sheet (Rentals tab) and emails the owner, who reviews it and makes the contract. -->
+    <p id="r-prefill" class="full" hidden style="background:#fbf6ea;border-left:3px solid #a8823f;padding:10px 12px;margin:0 0 16px;"></p>
     <form id="rental-form" action="https://script.google.com/macros/s/AKfycbyuwAzTwUtD1CHtg94bdir8_mx8_vSagoIu07MBtsykxTwnKAa6tB4ESmmFKq_-uan4/exec" method="POST" class="form-grid">
       <input type="hidden" name="form" value="rental">
       <input type="hidden" name="rooms">
       <input type="hidden" name="alcohol_types">
+      <input type="hidden" name="inquiry_ref">
       <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
       <h2 class="full rf-head">About you</h2>
@@ -89,7 +91,7 @@
 
       <div><label for="r-decor">Decorations</label>
         <select id="r-decor" name="decorations"><option>None</option><option>Decoration rental</option><option>Decoration rental plus setup by staff</option></select></div>
-      <div><label for="r-alc">Will alcohol be served?</label>
+      <div><label for="r-alc">Will alcohol be sold/served?</label>
         <select id="r-alc" name="alcohol"><option>No</option><option>Yes</option></select></div>
       <div class="full" id="r-alc-types" hidden><label>Which types? (alcohol rules and the alcohol fee are in the agreement)</label>
         <label class="chk"><input type="checkbox" class="alc" value="Beer"> Beer</label>
