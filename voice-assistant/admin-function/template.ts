@@ -7,6 +7,7 @@
 // ?do=backend  end-to-end checks against the live burland-voice function
 // ?do=lead     send ONE test inquiry (to burlandevents@gmail.com) through the full pipeline
 // ?do=sim&n=N  run simulated conversation scenario N
+// ?do=avail&s=YYYY-MM-DD&e=YYYY-MM-DD  live calendar check through burland-voice
 
 const ADMIN_KEY = "__KEY__";
 const PASSCODE = "__PASSCODE__"; // default test passcode (main function stores only its hash)
@@ -213,6 +214,21 @@ Deno.serve(async (req) => {
     if (d === "setup") return out(await setup());
     if (d === "backend") return out(await backend());
     if (d === "lead") return out(await lead());
+    if (d === "ics") {
+      // Debug: raw date/flag lines of feed events matching ?m= (e.g. 202705), no titles or people.
+      const r = await fetch("https://calendar.google.com/calendar/ical/burlandevents%40gmail.com/public/basic.ics");
+      const text = (await r.text()).replace(/\r\n/g, "\n").replace(/\n[ \t]/g, "");
+      const evs = text.split("BEGIN:VEVENT").slice(1).map((e) => e.split("END:VEVENT")[0]);
+      const m = u.searchParams.get("m") ?? "";
+      const keep = /^(DTSTART|DTEND|RRULE|EXDATE|RECURRENCE-ID|STATUS|TRANSP|SEQUENCE|DURATION)/;
+      return out({ http: r.status, total_events: evs.length, header: text.slice(0, 300).split("\n").filter((l) => /^(X-WR|PRODID|VERSION)/.test(l)),
+        matches: evs.filter((e) => e.includes(m)).map((e) => {
+          const lines = e.split("\n");
+          const sum = (lines.find((l) => l.startsWith("SUMMARY")) ?? "");
+          return { lines: lines.filter((l) => keep.test(l)), summary_kind: /not available|reserv|wedding/i.test(sum) ? "busy-word" : /holiday|rate/i.test(sum) ? "note-word" : sum ? "other" : "none" };
+        }) });
+    }
+    if (d === "avail") return out((await main({ action: "availability", token: await token(), start_date: u.searchParams.get("s"), end_date: u.searchParams.get("e") })).body);
     if (d === "sim") return out(await sim(Number(u.searchParams.get("n"))));
     return out({ error: "unknown do" }, 400);
   } catch (e) {
