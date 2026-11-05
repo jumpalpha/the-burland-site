@@ -36,6 +36,8 @@
   .va-msg.me { background: var(--parlor); color: var(--plaster-hi); align-self: flex-end; }
   .va-msg.sys { align-self: center; font-size: .85rem; opacity: .75; background: none; padding: 2px; }
   .va-hidden { display: none !important; }
+  .va-check { display: flex !important; align-items: center; gap: 8px; }
+  .va-check input { width: auto !important; margin: 0; flex: none; }
   .va .btn { cursor: pointer; border: 1px solid transparent; }
   .va .btn-line { border-color: var(--walnut); color: var(--walnut); background: transparent; }
 </style>
@@ -66,7 +68,7 @@
         <input id="pass" type="password" autocomplete="current-password" placeholder="Passcode" required aria-label="Passcode">
         <button class="btn btn-dark" type="submit">Unlock</button>
       </div>
-      <label class="va-small" style="display:block;margin-top:10px;"><input type="checkbox" id="remember"> Remember on this device</label>
+      <label class="va-small va-check" style="margin-top:10px;"><input type="checkbox" id="remember"> Remember on this device</label>
       <p id="gateMsg" class="va-small" style="color:var(--brick);" role="alert"></p>
     </form>
 

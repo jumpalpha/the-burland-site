@@ -8,13 +8,16 @@ Phone/browser  ──>  theburland.com/voice-assistant-test   (static page, GitH
                         ▼
                 Supabase edge function "burland-voice"     (project: worst-songs, free tier)
                  ├─ checks passcode, gets a 15-min ElevenLabs signed URL (API key stays here)
-                 ├─ availability: reads the PUBLIC Burland calendar feed (no Google login, can't edit)
+                 ├─ availability: asks the "Burland Voice Calendar (read-only)" Apps Script
+                 │    (burlandevents@gmail.com, view-only calendar permission) for busy dates
                  └─ inquiry: forwards to the existing Apps Script → Inquiries sheet + email to burlandevents@gmail.com
                         ▼
                 ElevenLabs agent "The Burland Receptionist" (voice, LLM, knowledge base)
 ```
 
 Nothing touches the live calendar except reading. The assistant has no way to book, hold, or change a date.
+The calendar script returns only busy start/end times, never names or titles. Source: `calendar-apps-script/`.
+(Google's public calendar feed was tried first: it was rate-limited from the server and missed a booking, so it's not used.)
 
 ## Test it
 1. Open `https://theburland.com/voice-assistant-test` (live only after the branch is merged — see Deploy).
@@ -34,6 +37,10 @@ Nothing touches the live calendar except reading. The assistant has no way to bo
 Same as website inquiries: email to burlandevents@gmail.com and a row in the **Inquiries** tab of
 "The Burland: Emails and Inquiries" sheet. Voice leads show `found_us: AI voice assistant` and a full summary.
 
+## Credits (read this)
+The Free plan gives 10,000 credits a month. Setup testing used all of them on 2026-11-04; they reset 2026-12-05.
+Until then, or until you upgrade to Starter, conversations won't connect. Automated tests also spend credits, so run them sparingly.
+
 ## Monitor usage and cost
 - ElevenLabs → Developers/Usage (minutes and credits) and Agents → Conversations (history).
 - Set Agent → Advanced → **Max conversation duration** to 600 s (10 min).
@@ -48,6 +55,9 @@ Fastest first:
 
 ## Change the passcode
 Supabase → Edge Functions → Secrets → add `TEST_PASSCODE` = new value (12+ characters). It overrides the built-in one; old remembered devices stop working.
+
+## Clean up after setup
+Supabase → Edge Functions: delete `burland-voice-admin` and `burland-voice-debug` once you're happy (keep `burland-voice`).
 
 ## Admin function (temporary)
 `burland-voice-admin` builds/updates the agent from `agent-prompt.md` + `knowledge-base.md` in this repo and runs tests. Its source template is `admin-function/template.ts` (the deployed copy holds a private access key). Delete it in Supabase when setup is finished; to re-sync agent text later without it, edit in the ElevenLabs dashboard.
