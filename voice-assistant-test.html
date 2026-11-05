@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=cfd8b3d1">
+<title>Assistant Test | The Burland</title>
+<meta name="theme-color" content="#1D2822">
+<style>
+  .va { max-width: 640px; margin: 0 auto; }
+  .va-card { background: var(--plaster-hi); border: 1px solid var(--line); border-radius: 10px; padding: 24px; }
+  .va-card + .va-card { margin-top: 16px; }
+  .va h2 { margin: 0 0 8px; font-size: 1.5rem; }
+  .va-small { font-size: .92rem; opacity: .85; margin: 6px 0 0; }
+  .va-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .va input[type=password], .va input[type=text] { flex: 1 1 200px; min-width: 0; font: inherit; padding: 12px 14px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--walnut); }
+  .va-disclose { background: var(--parlor); color: var(--plaster-hi); border-radius: 10px; padding: 16px 20px; font-size: .95rem; }
+  .va-disclose strong { color: var(--brass-light); }
+  .va-mic { display: block; margin: 20px auto 8px; width: 132px; height: 132px; border-radius: 50%; border: 0; cursor: pointer;
+    background: var(--brass); color: var(--parlor-deep); font: 600 1rem var(--font-body); box-shadow: 0 6px 24px rgba(59,42,30,.25); transition: transform .15s, background .15s; }
+  .va-mic:hover { background: var(--brass-light); }
+  .va-mic svg { width: 40px; height: 40px; display: block; margin: 0 auto 6px; }
+  .va-mic[data-state=live] { background: var(--brick); color: #fff; animation: va-pulse 1.6s infinite; }
+  .va-mic[data-state=speaking] { background: var(--parlor); color: var(--plaster-hi); }
+  .va-mic:disabled { opacity: .6; cursor: wait; }
+  @keyframes va-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(140,59,46,.45); } 50% { box-shadow: 0 0 0 16px rgba(140,59,46,0); } }
+  .va-status { text-align: center; font-weight: 600; min-height: 1.6em; }
+  .va-status[data-kind=err] { color: var(--brick); }
+  .va-log { max-height: 340px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin: 12px 0; padding: 4px; }
+  .va-msg { padding: 10px 14px; border-radius: 12px; max-width: 85%; line-height: 1.45; font-size: .97rem; }
+  .va-msg.ai { background: #fff; border: 1px solid var(--line); align-self: flex-start; }
+  .va-msg.me { background: var(--parlor); color: var(--plaster-hi); align-self: flex-end; }
+  .va-msg.sys { align-self: center; font-size: .85rem; opacity: .75; background: none; padding: 2px; }
+  .va-hidden { display: none !important; }
+  .va .btn { cursor: pointer; border: 1px solid transparent; }
+  .va .btn-line { border-color: var(--walnut); color: var(--walnut); background: transparent; }
+</style>
+</head><body>
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="wordmark">The <strong>Burland</strong></a>
+    <button class="nav-toggle" aria-label="Toggle menu">&#9776;</button>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="availability.html">Availability</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section>
+  <div class="container va">
+    <div class="eyebrow-rule">Private test</div>
+    <h1 style="margin-top:8px;">Virtual receptionist</h1>
+    <p class="lede">Owner testing only. Not linked anywhere on the site.</p>
+
+    <!-- Gate -->
+    <form id="gate" class="va-card" autocomplete="on">
+      <h2>Enter passcode</h2>
+      <div class="va-row">
+        <input id="pass" type="password" autocomplete="current-password" placeholder="Passcode" required aria-label="Passcode">
+        <button class="btn btn-dark" type="submit">Unlock</button>
+      </div>
+      <label class="va-small" style="display:block;margin-top:10px;"><input type="checkbox" id="remember"> Remember on this device</label>
+      <p id="gateMsg" class="va-small" style="color:var(--brick);" role="alert"></p>
+    </form>
+
+    <!-- Assistant -->
+    <div id="app" class="va-hidden">
+      <div class="va-disclose">
+        <strong>You're talking with an AI assistant.</strong> It can answer questions about The Burland and check whether dates look open, but it can't book or hold a date. The owner confirms every reservation personally.
+        <br><br><strong>Privacy:</strong> If you choose to share your name, phone, or email, it's sent only to The Burland so we can follow up. Conversations are processed by our voice provider (ElevenLabs).
+      </div>
+
+      <div class="va-card" style="margin-top:16px;">
+        <button id="mic" class="va-mic" data-state="idle" aria-label="Start talking">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+          <span id="micLabel">Tap to talk</span>
+        </button>
+        <div id="status" class="va-status" aria-live="polite">Ready</div>
+        <p id="micHelp" class="va-small" style="text-align:center;">Your browser will ask to use the microphone. Tap <em>Allow</em>. Audio is only used while a conversation is running.</p>
+
+        <div id="log" class="va-log" aria-live="polite"></div>
+
+        <form id="textForm" class="va-row">
+          <input id="text" type="text" placeholder="Or type a message" aria-label="Type a message" autocomplete="off">
+          <button class="btn btn-dark" type="submit">Send</button>
+        </form>
+        <div class="va-row" style="margin-top:12px; justify-content:space-between;">
+          <button id="end" class="btn btn-line va-hidden" type="button">End conversation</button>
+          <button id="lock" class="btn btn-line" type="button" style="margin-left:auto;">Lock</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.querySelector(".nav-toggle").addEventListener("click", function () { document.querySelector(".main-nav").classList.toggle("open"); });
+</script>
+<script type="module">
+import { Conversation, stripAudioTags } from "https://cdn.jsdelivr.net/npm/@elevenlabs/client@1.35.0/+esm";
+
+const API = "https://vvjgriwldvnqnlgzvnvs.supabase.co/functions/v1/burland-voice";
+const $ = (id) => document.getElementById(id);
+const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+                set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {} } };
+
+let passcode = "", token = "", convo = null, starting = false, textMode = false;
+
+async function call(body) {
+  const r = await fetch(API, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+  const data = await r.json().catch(() => ({}));
+  return { ok: r.ok, status: r.status, data };
+}
+function status(text, kind) { const s = $("status"); s.textContent = text; s.dataset.kind = kind || ""; }
+function say(who, text) {
+  if (!text) return;
+  const d = document.createElement("div");
+  d.className = "va-msg " + who; d.textContent = who === "ai" ? stripAudioTags(text).replace(/\s{2,}/g, " ").trim() : text;
+  $("log").appendChild(d); $("log").scrollTop = $("log").scrollHeight;
+}
+function micState(s, label) { $("mic").dataset.state = s; $("micLabel").textContent = label; }
+
+// ---- gate ----
+async function unlock(code) {
+  $("gateMsg").textContent = "Checking…";
+  const r = await call({ action: "session", passcode: code });
+  if (r.status === 401 || r.status === 429) { $("gateMsg").textContent = r.data.message || "Not allowed."; store.set("burland_va_pass", null); return null; }
+  if (r.status === 503) { $("gateMsg").textContent = r.data.message || "The assistant is turned off."; return null; }
+  passcode = code;
+  if ($("remember").checked) store.set("burland_va_pass", code);
+  $("gate").classList.add("va-hidden"); $("app").classList.remove("va-hidden");
+  if (!r.ok) status(r.data.message || "Voice service unavailable. Try again shortly.", "err");
+  return r.ok ? r.data : null;
+}
+$("gate").addEventListener("submit", (e) => { e.preventDefault(); unlock($("pass").value.trim()); });
+$("lock").addEventListener("click", async () => { await stop(); passcode = token = ""; store.set("burland_va_pass", null); location.reload(); });
+const saved = store.get("burland_va_pass");
+if (saved) { $("remember").checked = true; unlock(saved); }
+
+// ---- tools the agent can call (run here, authorized by the short-lived token) ----
+const clientTools = {
+  check_availability: async (p) => {
+    const r = await call({ action: "availability", token, start_date: p.start_date, end_date: p.end_date || p.start_date });
+    if (!r.ok) return JSON.stringify({ status: "unable_to_check", note: "Calendar could not be checked. Offer to send an inquiry." });
+    say("sys", "Checked calendar: " + r.data.status.replace(/_/g, " "));
+    return JSON.stringify(r.data);
+  },
+  submit_inquiry: async (p) => {
+    const r = await call(Object.assign({}, p, { action: "inquiry", token }));
+    say("sys", r.data.ok ? "Inquiry sent to The Burland." : "Inquiry not sent.");
+    return JSON.stringify(r.ok ? r.data : { ok: false, note: "Couldn't send. Give them 208-709-1403." });
+  },
+};
+
+// ---- conversation ----
+async function start(opts) {
+  if (starting || convo) return;
+  starting = true; $("mic").disabled = true;
+  textMode = !!opts.textOnly;
+  try {
+    if (!textMode) {
+      status("Asking for microphone…");
+      try { (await navigator.mediaDevices.getUserMedia({ audio: true })).getTracks().forEach((t) => t.stop()); }
+      catch (err) {
+        status("Microphone blocked.", "err");
+        $("micHelp").innerHTML = "Microphone access was denied. To fix it, tap the lock or <em>aA</em> icon in the address bar, allow the microphone, and reload. Or just type below. The text chat works without a microphone.";
+        return;
+      }
+    }
+    status("Connecting…");
+    const s = await call({ action: "session", passcode });
+    if (!s.ok) { status(s.data.message || "Couldn't connect. Try again.", "err"); return; }
+    token = s.data.token;
+    convo = await Conversation.startSession({
+      signedUrl: s.data.signed_url,
+      textOnly: textMode,
+      clientTools,
+      onConnect: () => { status(textMode ? "Connected (text)" : "Listening"); micState(textMode ? "idle" : "live", textMode ? "Tap to talk" : "Listening"); $("end").classList.remove("va-hidden"); },
+      onDisconnect: () => { convo = null; status("Conversation ended"); micState("idle", "Tap to talk"); $("end").classList.add("va-hidden"); },
+      onModeChange: ({ mode }) => { if (textMode) return; if (mode === "speaking") { micState("speaking", "Speaking"); status("Assistant speaking. Talk anytime to interrupt."); } else { micState("live", "Listening"); status("Listening"); } },
+      onMessage: (m) => { if (m.source === "ai" || m.role === "agent") say("ai", m.message); else if (!textMode) say("me", m.message); },
+      onError: (msg) => { console.error(msg); status("Connection problem. Tap to try again.", "err"); },
+    });
+  } catch (err) {
+    console.error(err); convo = null;
+    status("Couldn't start. Check your connection and tap to try again.", "err");
+  } finally { starting = false; $("mic").disabled = false; }
+}
+async function stop() { if (convo) { try { await convo.endSession(); } catch {} convo = null; } }
+
+$("mic").addEventListener("click", async () => { if (convo) await stop(); else start({ textOnly: false }); });
+$("end").addEventListener("click", stop);
+$("textForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const t = $("text").value.trim(); if (!t) return;
+  $("text").value = "";
+  say("me", t);
+  if (!convo) { await start({ textOnly: true }); if (!convo) return; }
+  convo.sendUserMessage(t);
+});
+window.addEventListener("pagehide", stop);
+</script>
+</body>
+</html>

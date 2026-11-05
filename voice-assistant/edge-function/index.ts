@@ -1,0 +1,237 @@
+// The Burland voice assistant backend (Supabase Edge Function "burland-voice").
+//
+// POST {action:"session", passcode}            -> {signed_url, token}       (gate for the test page)
+// POST {action:"availability", token, start_date, end_date}                  (read-only calendar check)
+// POST {action:"inquiry", token, ...lead}                                    (forwards to the existing
+//                                                                              Apps Script inquiry pipeline)
+// Secrets (Supabase > Edge Functions > Secrets):
+//   ELEVENLABS_API_KEY   ElevenLabs key (only needs Agents "read"/convai access)
+//   ELEVENLABS_AGENT_ID  optional; if unset, the agent named "The Burland Receptionist" is used
+//   TEST_PASSCODE        optional override for the test-page passcode (12+ characters).
+//                        If unset, the built-in passcode (stored below only as a SHA-256 hash) is used.
+//   ASSISTANT_MODE       "private" (default), "off" (kill switch), or "public" (no passcode; later)
+//
+// No Google credentials exist here. Availability comes from a separate Apps Script that holds only
+// read-only calendar permission and returns busy date ranges, so nothing here can change the calendar.
+
+import { checkAvailability, liveToIcs } from "./calendar.ts";
+
+// Read-only Apps Script in burlandevents@gmail.com ("Burland Voice Calendar (read-only)"): live busy ranges, no titles.
+// (Google's public .ics feed was rate-limited from this server and lagged hours behind, so it is not used.)
+const CAL_URL = "https://script.google.com/macros/s/AKfycbyIDlI75smlerwJk4FdykGOJXOfAu-D7HTrBhSng3ARrMY2_8Qxroa3nJb68eRMY15Rsg/exec";
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbyuwAzTwUtD1CHtg94bdir8_mx8_vSagoIu07MBtsykxTwnKAa6tB4ESmmFKq_-uan4/exec";
+const ALLOWED_ORIGINS = ["https://theburland.com", "https://www.theburland.com", "http://localhost:8000", "http://127.0.0.1:8000"];
+const TOKEN_TTL_MS = 30 * 60 * 1000;
+const MAX_LEADS_PER_TOKEN = 3;
+// SHA-256 of the default test passcode (random, 80+ bits). The passcode itself is not in this repo.
+const PASS_HASH = "83052455232c7d21efd33f6e028c5dc8a420c3f2d048aa2cc886b6244a5b63ea";
+
+const env = (k: string) => Deno.env.get(k) ?? "";
+const enc = new TextEncoder();
+
+function cors(origin: string | null): Record<string, string> {
+  const ok = origin && ALLOWED_ORIGINS.includes(origin);
+  return {
+    "Access-Control-Allow-Origin": ok ? origin! : "https://theburland.com",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "content-type",
+    "Vary": "Origin",
+  };
+}
+function json(body: unknown, status: number, origin: string | null) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", "Cache-Control": "no-store", ...cors(origin) },
+  });
+}
+
+// ---------- signed session tokens (HMAC, no extra secret to manage) ----------
+async function hmacKey() {
+  const raw = await crypto.subtle.digest("SHA-256", enc.encode("burland-session|" + env("ELEVENLABS_API_KEY") + "|" + (env("TEST_PASSCODE") || PASS_HASH)));
+  return crypto.subtle.importKey("raw", raw, { name: "HMAC", hash: "SHA-256" }, false, ["sign", "verify"]);
+}
+const b64 = (b: ArrayBuffer) => btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+async function makeToken() {
+  const payload = `${Date.now() + TOKEN_TTL_MS}.${crypto.randomUUID()}`;
+  const sig = await crypto.subtle.sign("HMAC", await hmacKey(), enc.encode(payload));
+  return `${payload}.${b64(sig)}`;
+}
+async function verifyToken(t: unknown): Promise<string | null> {
+  if (typeof t !== "string") return null;
+  const i = t.lastIndexOf(".");
+  if (i < 0) return null;
+  const payload = t.slice(0, i);
+  const expect = b64(await crypto.subtle.sign("HMAC", await hmacKey(), enc.encode(payload)));
+  if (!safeEqual(expect, t.slice(i + 1))) return null;
+  if (Number(payload.split(".")[0]) < Date.now()) return null;
+  return payload;
+}
+function safeEqual(a: string, b: string) {
+  if (a.length !== b.length) return false;
+  let d = 0;
+  for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return d === 0;
+}
+
+async function passOk(given: string) {
+  const override = env("TEST_PASSCODE");
+  if (override) return override.length >= 12 && safeEqual(given, override);
+  const h = await crypto.subtle.digest("SHA-256", enc.encode(given));
+  return safeEqual([...new Uint8Array(h)].map((b) => b.toString(16).padStart(2, "0")).join(""), PASS_HASH);
+}
+
+// ---------- light abuse limits (per warm instance) ----------
+const fails = new Map<string, { n: number; until: number }>();
+const leadCount = new Map<string, number>();
+function blocked(ip: string) {
+  const f = fails.get(ip);
+  return !!f && f.n >= 5 && f.until > Date.now();
+}
+function noteFail(ip: string) {
+  const f = fails.get(ip) ?? { n: 0, until: 0 };
+  f.n += 1;
+  f.until = Date.now() + 15 * 60 * 1000;
+  fails.set(ip, f);
+}
+
+// ---------- agent lookup: ELEVENLABS_AGENT_ID if set, else find by name ----------
+const AGENT_NAME = "The Burland Receptionist";
+let cachedAgent = "";
+async function agentId() {
+  if (env("ELEVENLABS_AGENT_ID")) return env("ELEVENLABS_AGENT_ID");
+  if (cachedAgent) return cachedAgent;
+  const r = await fetch(`https://api.elevenlabs.io/v1/convai/agents?search=${encodeURIComponent(AGENT_NAME)}&page_size=10`, {
+    headers: { "xi-api-key": env("ELEVENLABS_API_KEY") },
+    signal: AbortSignal.timeout(10000),
+  });
+  if (!r.ok) throw new Error("agent lookup " + r.status);
+  const hit = ((await r.json()).agents ?? []).find((a: { name: string }) => a.name === AGENT_NAME);
+  if (!hit) throw new Error("agent not found");
+  return (cachedAgent = hit.agent_id);
+}
+
+// ---------- handlers ----------
+async function session(body: Record<string, unknown>, ip: string, origin: string | null) {
+  const mode = env("ASSISTANT_MODE") || "private";
+  if (mode === "off") return json({ error: "disabled", message: "The assistant is turned off right now." }, 503, origin);
+  if (mode !== "public") {
+    if (blocked(ip)) return json({ error: "locked", message: "Too many tries. Wait 15 minutes." }, 429, origin);
+    if (!(await passOk(String(body.passcode ?? "")))) {
+      noteFail(ip);
+      await new Promise((r) => setTimeout(r, 800));
+      return json({ error: "denied", message: "That passcode didn't work." }, 401, origin);
+    }
+    fails.delete(ip);
+  }
+  let signed_url = "";
+  try {
+    const agent = await agentId();
+    const r = await fetch(`https://api.elevenlabs.io/v1/convai/conversation/get-signed-url?agent_id=${encodeURIComponent(agent)}`, {
+      headers: { "xi-api-key": env("ELEVENLABS_API_KEY") },
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!r.ok) throw new Error("status " + r.status);
+    signed_url = (await r.json()).signed_url;
+    if (!signed_url) throw new Error("no signed_url");
+  } catch (e) {
+    console.error("signed url failed", String(e));
+    return json({ error: "voice_unavailable", message: "The voice service isn't reachable right now." }, 502, origin);
+  }
+  return json({ signed_url, token: await makeToken() }, 200, origin);
+}
+
+async function availability(body: Record<string, unknown>, origin: string | null) {
+  const start = String(body.start_date ?? ""), end = String(body.end_date ?? body.start_date ?? "");
+  const pre = checkAvailability("", start, end, new Date());
+  if (pre.status === "invalid_dates") return json(pre, 200, origin);
+  try {
+    const shift = (ymd: string, d: number) => new Date(Date.parse(ymd + "T00:00:00Z") + d * 86400000).toISOString().slice(0, 10);
+    const r = await fetch(`${CAL_URL}?from=${shift(start, -3)}&to=${shift(end, 3)}`, { redirect: "follow", signal: AbortSignal.timeout(12000) });
+    const data = await r.json();
+    if (!r.ok || !data.ok || !Array.isArray(data.events)) throw new Error("calendar " + r.status + " " + (data.error ?? ""));
+    return json(checkAvailability(liveToIcs(data.events), start, end, new Date()), 200, origin);
+  } catch (e) {
+    console.error("calendar check failed", String(e));
+    return json({ status: "unable_to_check", note: "Calendar could not be reached. Offer to send an inquiry instead." }, 200, origin);
+  }
+}
+
+const clean = (v: unknown, max = 200) => String(v ?? "").replace(/[\u0000-\u001f]/g, " ").trim().slice(0, max);
+
+async function inquiry(body: Record<string, unknown>, tokenPayload: string, origin: string | null) {
+  if (body.consent !== true) return json({ ok: false, error: "no_consent", note: "Ask the guest for permission first." }, 200, origin);
+  const n = leadCount.get(tokenPayload) ?? 0;
+  if (n >= MAX_LEADS_PER_TOKEN) return json({ ok: false, error: "limit", note: "Already sent; the owner will follow up." }, 200, origin);
+  const email = clean(body.email, 254).toLowerCase();
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ ok: false, error: "email", note: "Email looks incomplete. Ask them to spell it." }, 200, origin);
+  const name = clean(body.name, 80);
+  if (!name) return json({ ok: false, error: "name", note: "Ask for their name." }, 200, origin);
+
+  const startDate = /^\d{4}-\d{2}-\d{2}$/.test(String(body.start_date)) ? String(body.start_date) : "";
+  const summary = [
+    "NEW BURLAND BOOKING INQUIRY (via AI voice assistant)",
+    `Name: ${name}`,
+    `Phone: ${clean(body.phone, 40)}`,
+    `Email: ${email}`,
+    `Event: ${clean(body.event_type, 60)}`,
+    `Requested dates: ${clean(body.start_date, 10)} to ${clean(body.end_date, 10)}`,
+    `Guest count: ${clean(body.guest_count, 10)}`,
+    `Overnight guests: ${clean(body.overnight_guests, 10)}`,
+    `Special requests: ${clean(body.special_requests, 600)}`,
+    `Questions for owner: ${clean(body.followup_questions, 600)}`,
+    `Tour requested: ${body.tour_requested ? "Yes" : "No"}`,
+    `Calendar availability: ${clean(body.calendar_result, 120) || "not checked"}`,
+    `Recommended follow-up: ${body.tour_requested ? "Schedule a tour; " : ""}confirm the date and send the rental-agreement details link.`,
+  ].join("\n");
+
+  // The existing site form adds a page token and time-on-page; we supply the same fields
+  // so the inquiry goes through the normal Inquiries sheet + owner email path.
+  const t0 = Date.now() - 30_000;
+  const form = new URLSearchParams({
+    form: "inquiry",
+    t0: String(t0),
+    tk: (Math.floor(t0 / 1000) * 7 + 1912).toString(36),
+    el: "30",
+    name,
+    email,
+    phone: clean(body.phone, 40),
+    event_type: clean(body.event_type, 60),
+    booking_date: startDate,
+    nights: clean(body.nights, 3),
+    max_guests: clean(body.guest_count, 6),
+    overnight_guests: clean(body.overnight_guests, 6),
+    found_us: "AI voice assistant",
+    message: summary,
+  });
+  try {
+    const r = await fetch(APPS_SCRIPT_URL, { method: "POST", body: form, redirect: "follow", signal: AbortSignal.timeout(15000) });
+    const out = await r.json().catch(() => ({}));
+    if (!r.ok || !out.ok) throw new Error("apps script " + r.status + " " + JSON.stringify(out));
+    leadCount.set(tokenPayload, n + 1);
+    return json({ ok: true, note: "Sent. They'll get a confirmation email; the owner usually replies within one business day." }, 200, origin);
+  } catch (e) {
+    console.error("lead forward failed", String(e)); // no customer details logged
+    return json({ ok: false, error: "send_failed", note: "Couldn't send. Give them 208-709-1403 and burlandevents@gmail.com." }, 200, origin);
+  }
+}
+
+Deno.serve(async (req) => {
+  const origin = req.headers.get("origin");
+  if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: cors(origin) });
+  if (req.method !== "POST") return json({ error: "method" }, 405, origin);
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return json({ error: "bad_json" }, 400, origin);
+  }
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "?";
+  if (body.action === "session") return session(body, ip, origin);
+  if ((env("ASSISTANT_MODE") || "private") === "off") return json({ error: "disabled" }, 503, origin);
+  const payload = await verifyToken(body.token);
+  if (!payload) return json({ error: "unauthorized" }, 401, origin);
+  if (body.action === "availability") return availability(body, origin);
+  if (body.action === "inquiry") return inquiry(body, payload, origin);
+  return json({ error: "unknown_action" }, 400, origin);
+});

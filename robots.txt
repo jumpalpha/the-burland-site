@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /rental-review.html
+Disallow: /voice-assistant-test
+Disallow: /voice-assistant/
 Sitemap: https://theburland.com/sitemap.xml
