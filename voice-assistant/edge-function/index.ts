@@ -6,7 +6,7 @@
 //                                                                              Apps Script inquiry pipeline)
 // Secrets (Supabase > Edge Functions > Secrets):
 //   ELEVENLABS_API_KEY   ElevenLabs key (only needs Agents "read"/convai access)
-//   ELEVENLABS_AGENT_ID  the Burland agent's ID
+//   ELEVENLABS_AGENT_ID  optional; if unset, the agent named "The Burland Receptionist" is used
 //   TEST_PASSCODE        passcode for the private test page (12+ characters)
 //   ASSISTANT_MODE       "private" (default), "off" (kill switch), or "public" (no passcode; later)
 //
@@ -83,6 +83,22 @@ function noteFail(ip: string) {
   fails.set(ip, f);
 }
 
+// ---------- agent lookup: ELEVENLABS_AGENT_ID if set, else find by name ----------
+const AGENT_NAME = "The Burland Receptionist";
+let cachedAgent = "";
+async function agentId() {
+  if (env("ELEVENLABS_AGENT_ID")) return env("ELEVENLABS_AGENT_ID");
+  if (cachedAgent) return cachedAgent;
+  const r = await fetch(`https://api.elevenlabs.io/v1/convai/agents?search=${encodeURIComponent(AGENT_NAME)}&page_size=10`, {
+    headers: { "xi-api-key": env("ELEVENLABS_API_KEY") },
+    signal: AbortSignal.timeout(10000),
+  });
+  if (!r.ok) throw new Error("agent lookup " + r.status);
+  const hit = ((await r.json()).agents ?? []).find((a: { name: string }) => a.name === AGENT_NAME);
+  if (!hit) throw new Error("agent not found");
+  return (cachedAgent = hit.agent_id);
+}
+
 // ---------- handlers ----------
 async function session(body: Record<string, unknown>, ip: string, origin: string | null) {
   const mode = env("ASSISTANT_MODE") || "private";
@@ -97,9 +113,9 @@ async function session(body: Record<string, unknown>, ip: string, origin: string
     }
     fails.delete(ip);
   }
-  const agent = env("ELEVENLABS_AGENT_ID");
   let signed_url = "";
   try {
+    const agent = await agentId();
     const r = await fetch(`https://api.elevenlabs.io/v1/convai/conversation/get-signed-url?agent_id=${encodeURIComponent(agent)}`, {
       headers: { "xi-api-key": env("ELEVENLABS_API_KEY") },
       signal: AbortSignal.timeout(10000),
