@@ -55,3 +55,29 @@ console.log(`${leak ? "FAIL" : "PASS"}  no event titles in output`);
 if (leak) fail++;
 console.log(fail ? `${fail} FAILED` : `all ${cases.length + 1} passed`);
 if (fail) Deno.exit(1);
+
+// Live Apps Script shape -> same logic (real bookings seen 2026-11-04)
+import { liveToIcs } from "./calendar.ts";
+const live = liveToIcs([
+  { allDay: false, start: "20261218T150000", end: "20261220T110000", kind: "busy" },
+  { allDay: true, start: "20270108", end: "20270109", kind: "busy" },
+  { allDay: false, start: "20270527T150000", end: "20270530T103000", kind: "busy" },
+  { allDay: true, start: "20261126", end: "20261127", kind: "note" },
+  { allDay: true, start: "bad", end: "x", kind: "busy" },
+]);
+const liveCases: [string, string, string][] = [
+  ["2026-12-18", "2026-12-20", "conflict"], ["2026-12-19", "2026-12-19", "conflict"],
+  ["2026-12-20", "2026-12-22", "possible_conflict"], ["2026-12-16", "2026-12-18", "possible_conflict"],
+  ["2026-12-21", "2026-12-23", "appears_available"], ["2027-01-08", "2027-01-08", "conflict"],
+  ["2027-01-09", "2027-01-11", "appears_available"], ["2027-05-28", "2027-05-29", "conflict"],
+  ["2027-05-24", "2027-05-26", "appears_available"], ["2027-05-30", "2027-06-01", "possible_conflict"],
+  ["2026-11-25", "2026-11-28", "appears_available"],
+];
+let lf = 0;
+for (const [s, e, want] of liveCases) {
+  const r = checkAvailability(live, s, e, now) as any;
+  const ok = r.status === want; if (!ok) lf++;
+  console.log(`${ok ? "PASS" : "FAIL"}  live ${s}..${e} -> ${r.status}${ok ? "" : " want " + want}`);
+}
+console.log(lf ? `${lf} live FAILED` : `all ${liveCases.length} live passed`);
+if (lf) Deno.exit(1);

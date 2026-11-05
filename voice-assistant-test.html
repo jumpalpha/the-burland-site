@@ -104,7 +104,7 @@
 document.querySelector(".nav-toggle").addEventListener("click", function () { document.querySelector(".main-nav").classList.toggle("open"); });
 </script>
 <script type="module">
-import { Conversation } from "https://cdn.jsdelivr.net/npm/@elevenlabs/client@1.35.0/+esm";
+import { Conversation, stripAudioTags } from "https://cdn.jsdelivr.net/npm/@elevenlabs/client@1.35.0/+esm";
 
 const API = "https://vvjgriwldvnqnlgzvnvs.supabase.co/functions/v1/burland-voice";
 const $ = (id) => document.getElementById(id);
@@ -122,7 +122,7 @@ function status(text, kind) { const s = $("status"); s.textContent = text; s.dat
 function say(who, text) {
   if (!text) return;
   const d = document.createElement("div");
-  d.className = "va-msg " + who; d.textContent = text;
+  d.className = "va-msg " + who; d.textContent = who === "ai" ? stripAudioTags(text).replace(/\s{2,}/g, " ").trim() : text;
   $("log").appendChild(d); $("log").scrollTop = $("log").scrollHeight;
 }
 function micState(s, label) { $("mic").dataset.state = s; $("micLabel").textContent = label; }

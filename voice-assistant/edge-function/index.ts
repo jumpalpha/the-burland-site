@@ -11,12 +11,14 @@
 //                        If unset, the built-in passcode (stored below only as a SHA-256 hash) is used.
 //   ASSISTANT_MODE       "private" (default), "off" (kill switch), or "public" (no passcode; later)
 //
-// No Google credentials exist here. The calendar is read from its PUBLIC iCal feed,
-// so this code has no way to create, change, or delete calendar events.
+// No Google credentials exist here. Availability comes from a separate Apps Script that holds only
+// read-only calendar permission and returns busy date ranges, so nothing here can change the calendar.
 
-import { checkAvailability } from "./calendar.ts";
+import { checkAvailability, liveToIcs } from "./calendar.ts";
 
-const ICS_URL = "https://calendar.google.com/calendar/ical/burlandevents%40gmail.com/public/basic.ics";
+// Read-only Apps Script in burlandevents@gmail.com ("Burland Voice Calendar (read-only)"): live busy ranges, no titles.
+// (Google's public .ics feed was rate-limited from this server and lagged hours behind, so it is not used.)
+const CAL_URL = "https://script.google.com/macros/s/AKfycbyIDlI75smlerwJk4FdykGOJXOfAu-D7HTrBhSng3ARrMY2_8Qxroa3nJb68eRMY15Rsg/exec";
 const APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbyuwAzTwUtD1CHtg94bdir8_mx8_vSagoIu07MBtsykxTwnKAa6tB4ESmmFKq_-uan4/exec";
 const ALLOWED_ORIGINS = ["https://theburland.com", "https://www.theburland.com", "http://localhost:8000", "http://127.0.0.1:8000"];
@@ -140,11 +142,15 @@ async function session(body: Record<string, unknown>, ip: string, origin: string
 }
 
 async function availability(body: Record<string, unknown>, origin: string | null) {
+  const start = String(body.start_date ?? ""), end = String(body.end_date ?? body.start_date ?? "");
+  const pre = checkAvailability("", start, end, new Date());
+  if (pre.status === "invalid_dates") return json(pre, 200, origin);
   try {
-    const r = await fetch(ICS_URL, { signal: AbortSignal.timeout(8000) });
-    if (!r.ok) throw new Error("ics " + r.status);
-    const result = checkAvailability(await r.text(), String(body.start_date ?? ""), String(body.end_date ?? body.start_date ?? ""), new Date());
-    return json(result, 200, origin);
+    const shift = (ymd: string, d: number) => new Date(Date.parse(ymd + "T00:00:00Z") + d * 86400000).toISOString().slice(0, 10);
+    const r = await fetch(`${CAL_URL}?from=${shift(start, -3)}&to=${shift(end, 3)}`, { redirect: "follow", signal: AbortSignal.timeout(12000) });
+    const data = await r.json();
+    if (!r.ok || !data.ok || !Array.isArray(data.events)) throw new Error("calendar " + r.status + " " + (data.error ?? ""));
+    return json(checkAvailability(liveToIcs(data.events), start, end, new Date()), 200, origin);
   } catch (e) {
     console.error("calendar check failed", String(e));
     return json({ status: "unable_to_check", note: "Calendar could not be reached. Offer to send an inquiry instead." }, 200, origin);

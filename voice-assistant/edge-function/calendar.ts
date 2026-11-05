@@ -158,3 +158,18 @@ export function checkAvailability(ics: string, start: string, end: string, now: 
       : "Looks open on the calendar. Not reserved until the owner confirms and the agreement is signed.";
   return { status, start_date: start, end_date: end, nights, conflicting_dates: sorted(conflicts), turnover_dates: sorted(turnover), holiday_rate_dates: sorted(holiday), note };
 }
+
+// Convert events from the read-only "Burland Voice Calendar" Apps Script into iCal text,
+// so the same tested checkAvailability() logic handles both sources.
+export type LiveEvent = { allDay: boolean; start: string; end: string; kind: "busy" | "note" };
+export function liveToIcs(events: LiveEvent[]): string {
+  const ok = (v: string) => /^\d{8}(T\d{6})?$/.test(v);
+  const out = ["BEGIN:VCALENDAR"];
+  for (const e of events) {
+    if (!ok(e.start) || !ok(e.end)) continue;
+    const p = e.allDay ? ";VALUE=DATE" : "";
+    out.push("BEGIN:VEVENT", `DTSTART${p}:${e.start}`, `DTEND${p}:${e.end}`, `SUMMARY:${e.kind === "note" ? "Holiday rate" : "Reserved"}`, "END:VEVENT");
+  }
+  out.push("END:VCALENDAR");
+  return out.join("\r\n");
+}
