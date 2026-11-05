@@ -9,6 +9,8 @@
 // ?do=sim&n=N  run simulated conversation scenario N
 
 const ADMIN_KEY = "__KEY__";
+const PASSCODE = "__PASSCODE__"; // default test passcode (main function stores only its hash)
+const PASS_HASH = "__PASSHASH__";
 const RAW = "https://raw.githubusercontent.com/jumpalpha/the-burland-site";
 // Prompt and knowledge base come from the repo (main, else the dev branch), so the repo files are the master copy.
 async function repoFile(path: string) {
@@ -122,7 +124,7 @@ async function setup() {
 
 // mint a session token exactly like burland-voice does (same project secrets)
 async function token() {
-  const raw = await crypto.subtle.digest("SHA-256", enc.encode("burland-session|" + env("ELEVENLABS_API_KEY") + "|" + env("TEST_PASSCODE")));
+  const raw = await crypto.subtle.digest("SHA-256", enc.encode("burland-session|" + env("ELEVENLABS_API_KEY") + "|" + (env("TEST_PASSCODE") || PASS_HASH)));
   const key = await crypto.subtle.importKey("raw", raw, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
   const payload = `${Date.now() + 600000}.${crypto.randomUUID()}`;
   const sig = btoa(String.fromCharCode(...new Uint8Array(await crypto.subtle.sign("HMAC", key, enc.encode(payload))))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
@@ -135,7 +137,7 @@ async function main(body: unknown) {
 
 async function backend() {
   const res: Record<string, unknown> = {};
-  const good = await main({ action: "session", passcode: env("TEST_PASSCODE") });
+  const good = await main({ action: "session", passcode: env("TEST_PASSCODE") || PASSCODE });
   res.correct_passcode = { status: good.status, got_signed_url: !!good.body?.signed_url, got_token: !!good.body?.token, error: good.body?.error };
   const bad = await main({ action: "session", passcode: "wrong-passcode-123" });
   res.wrong_passcode = { status: bad.status, leaked_url: !!bad.body?.signed_url };
@@ -207,7 +209,7 @@ Deno.serve(async (req) => {
   if (u.searchParams.get("k") !== ADMIN_KEY) return out({ error: "not found" }, 404);
   try {
     const d = u.searchParams.get("do");
-    if (d === "status") return out({ api_key_set: !!env("ELEVENLABS_API_KEY"), passcode_set: env("TEST_PASSCODE").length >= 12, mode: env("ASSISTANT_MODE") || "private", agent_id: env("ELEVENLABS_API_KEY") ? await findAgent() : null });
+    if (d === "status") return out({ api_key_set: !!env("ELEVENLABS_API_KEY"), passcode: env("TEST_PASSCODE") ? "override secret" : "built-in", mode: env("ASSISTANT_MODE") || "private", agent_id: env("ELEVENLABS_API_KEY") ? await findAgent() : null });
     if (d === "setup") return out(await setup());
     if (d === "backend") return out(await backend());
     if (d === "lead") return out(await lead());

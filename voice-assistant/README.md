@@ -18,7 +18,7 @@ Nothing touches the live calendar except reading. The assistant has no way to bo
 
 ## Test it
 1. Open `https://theburland.com/voice-assistant-test` (live only after the branch is merged — see Deploy).
-2. Enter the passcode (the value of `TEST_PASSCODE` in Supabase). Tick "Remember on this device" on your phone.
+2. Enter the passcode (sent to you in chat; only its hash is in the code). To change it, set a `TEST_PASSCODE` secret in Supabase and that replaces it. Tick "Remember on this device" on your phone.
 3. Tap the mic, allow microphone, talk. Or type in the box.
 4. "Lock" forgets the passcode on that device.
 
@@ -47,7 +47,10 @@ Fastest first:
 3. Remove the page (rollback below).
 
 ## Change the passcode
-Supabase → Edge Functions → Secrets → `TEST_PASSCODE` → new value (12+ characters). Old remembered devices stop working.
+Supabase → Edge Functions → Secrets → add `TEST_PASSCODE` = new value (12+ characters). It overrides the built-in one; old remembered devices stop working.
+
+## Admin function (temporary)
+`burland-voice-admin` builds/updates the agent from `agent-prompt.md` + `knowledge-base.md` in this repo and runs tests. Its source template is `admin-function/template.ts` (the deployed copy holds a private access key). Delete it in Supabase when setup is finished; to re-sync agent text later without it, edit in the ElevenLabs dashboard.
 
 ## Deploy / rollback
 - Work lives on branch `voice-assistant-dev`. GitHub Pages serves only `main`, so the branch is invisible until merged.

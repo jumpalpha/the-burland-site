@@ -7,7 +7,8 @@
 // Secrets (Supabase > Edge Functions > Secrets):
 //   ELEVENLABS_API_KEY   ElevenLabs key (only needs Agents "read"/convai access)
 //   ELEVENLABS_AGENT_ID  optional; if unset, the agent named "The Burland Receptionist" is used
-//   TEST_PASSCODE        passcode for the private test page (12+ characters)
+//   TEST_PASSCODE        optional override for the test-page passcode (12+ characters).
+//                        If unset, the built-in passcode (stored below only as a SHA-256 hash) is used.
 //   ASSISTANT_MODE       "private" (default), "off" (kill switch), or "public" (no passcode; later)
 //
 // No Google credentials exist here. The calendar is read from its PUBLIC iCal feed,
@@ -21,6 +22,8 @@ const APPS_SCRIPT_URL =
 const ALLOWED_ORIGINS = ["https://theburland.com", "https://www.theburland.com", "http://localhost:8000", "http://127.0.0.1:8000"];
 const TOKEN_TTL_MS = 30 * 60 * 1000;
 const MAX_LEADS_PER_TOKEN = 3;
+// SHA-256 of the default test passcode (random, 80+ bits). The passcode itself is not in this repo.
+const PASS_HASH = "83052455232c7d21efd33f6e028c5dc8a420c3f2d048aa2cc886b6244a5b63ea";
 
 const env = (k: string) => Deno.env.get(k) ?? "";
 const enc = new TextEncoder();
@@ -43,7 +46,7 @@ function json(body: unknown, status: number, origin: string | null) {
 
 // ---------- signed session tokens (HMAC, no extra secret to manage) ----------
 async function hmacKey() {
-  const raw = await crypto.subtle.digest("SHA-256", enc.encode("burland-session|" + env("ELEVENLABS_API_KEY") + "|" + env("TEST_PASSCODE")));
+  const raw = await crypto.subtle.digest("SHA-256", enc.encode("burland-session|" + env("ELEVENLABS_API_KEY") + "|" + (env("TEST_PASSCODE") || PASS_HASH)));
   return crypto.subtle.importKey("raw", raw, { name: "HMAC", hash: "SHA-256" }, false, ["sign", "verify"]);
 }
 const b64 = (b: ArrayBuffer) => btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
@@ -67,6 +70,13 @@ function safeEqual(a: string, b: string) {
   let d = 0;
   for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return d === 0;
+}
+
+async function passOk(given: string) {
+  const override = env("TEST_PASSCODE");
+  if (override) return override.length >= 12 && safeEqual(given, override);
+  const h = await crypto.subtle.digest("SHA-256", enc.encode(given));
+  return safeEqual([...new Uint8Array(h)].map((b) => b.toString(16).padStart(2, "0")).join(""), PASS_HASH);
 }
 
 // ---------- light abuse limits (per warm instance) ----------
@@ -105,8 +115,7 @@ async function session(body: Record<string, unknown>, ip: string, origin: string
   if (mode === "off") return json({ error: "disabled", message: "The assistant is turned off right now." }, 503, origin);
   if (mode !== "public") {
     if (blocked(ip)) return json({ error: "locked", message: "Too many tries. Wait 15 minutes." }, 429, origin);
-    const pass = env("TEST_PASSCODE");
-    if (pass.length < 12 || !safeEqual(String(body.passcode ?? ""), pass)) {
+    if (!(await passOk(String(body.passcode ?? "")))) {
       noteFail(ip);
       await new Promise((r) => setTimeout(r, 800));
       return json({ error: "denied", message: "That passcode didn't work." }, 401, origin);
