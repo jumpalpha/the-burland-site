@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { addDays, diffDays, fmtDate, icsFile, isISO, todayLocal } from "@/lib/dates";
 import { quote, quoteText, type DecorKey, type LineItem } from "@/lib/pricing";
 import { copyText, useStored } from "@/lib/useStored";
-import { ADDONS, POLICY, SITE, fmtUSD } from "@/lib/site";
+import { ADDONS, POLICY, SITE, asset, fmtUSD } from "@/lib/site";
 import { EstimateCard } from "@/components/booking/EstimateCard";
 
 type Tab = "quote" | "replies" | "payments" | "checklists" | "links";
@@ -243,9 +243,9 @@ function Links() {
   const fixed = [
     { label: "Google Calendar", url: "https://calendar.google.com/" },
     { label: "SignNow", url: "https://app.signnow.com/" },
-    { label: "Rental review page", url: "/rental-review.html" },
+    { label: "Rental review page", url: asset("/rental-review.html") },
     { label: "Gmail", url: "https://mail.google.com/" },
-    { label: "Public availability page", url: "/availability" },
+    { label: "Public availability page", url: asset("/availability/") },
   ];
   return (
     <div className="grid" style={{ gap: 18 }}>

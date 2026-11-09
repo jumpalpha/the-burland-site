@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect } from "react";
 import { splitCost, type Household } from "@/lib/split";
 import { copyText, useStored } from "@/lib/useStored";
@@ -78,7 +79,7 @@ export function CostSplitter() {
         <button type="button" className="btn btn-line btn-sm" onClick={() => window.print()}>Print</button>
         <button type="button" className="btn btn-line btn-sm" onClick={() => setS(init)}>Reset</button>
       </div>
-      <p className="small muted">Saved on this device only. Need the total? Get an <a href="/book">instant estimate</a> first.</p>
+      <p className="small muted">Saved on this device only. Need the total? Get an <Link href="/book">instant estimate</Link> first.</p>
     </div>
   );
 }

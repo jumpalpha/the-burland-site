@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { PHOTOS, type Photo } from "@/lib/content";
+import { asset } from "@/lib/site";
 
 const GROUPS = ["All", ...Array.from(new Set(PHOTOS.filter((p) => p.group !== "Area").map((p) => p.group)))];
 
@@ -34,8 +35,8 @@ export function Gallery() {
         {list.map((p, i) => (
           <button key={p.src} type="button" onClick={() => setOpen(i)} aria-label={`Open photo: ${p.alt}`}>
             <picture>
-              <source type="image/webp" srcSet={`/opt/${p.src}-640.webp 640w, /opt/${p.src}-1080.webp 1080w`} sizes="(max-width: 700px) 100vw, 33vw" />
-              <img src={`/${p.src}.jpg`} alt={p.alt} width={p.w} height={p.h} loading="lazy" decoding="async" />
+              <source type="image/webp" srcSet={`${asset("/opt/")}${p.src}-640.webp 640w, ${asset("/opt/")}${p.src}-1080.webp 1080w`} sizes="(max-width: 700px) 100vw, 33vw" />
+              <img src={asset(`/${p.src}.jpg`)} alt={p.alt} width={p.w} height={p.h} loading="lazy" decoding="async" />
             </picture>
           </button>
         ))}
@@ -44,8 +45,8 @@ export function Gallery() {
         <div className="lightbox" role="dialog" aria-modal="true" aria-label={cur.alt} onClick={() => setOpen(null)}>
           <figure style={{ margin: 0 }} onClick={(e) => e.stopPropagation()}>
             <picture>
-              <source type="image/webp" srcSet={`/opt/${cur.src}-1600.webp`} />
-              <img src={`/${cur.src}.jpg`} alt={cur.alt} />
+              <source type="image/webp" srcSet={asset(`/opt/${cur.src}-1600.webp`)} />
+              <img src={asset(`/${cur.src}.jpg`)} alt={cur.alt} />
             </picture>
             <figcaption>{cur.alt} &middot; {(open ?? 0) + 1} of {list.length}</figcaption>
           </figure>

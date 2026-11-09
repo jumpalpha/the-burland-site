@@ -38,6 +38,9 @@ export const SITE = {
   checkOutDefault: "11:00 a.m.",
 };
 
+// Prefix for raw asset paths when the site is served under a sub-path (preview builds).
+export const asset = (p: string) => (process.env.NEXT_PUBLIC_BASE_PATH || "") + p;
+
 export const IS_PREVIEW = process.env.NEXT_PUBLIC_SITE_ENV !== "production";
 
 export const EVENT_TYPES = ["Family reunion", "Wedding", "Reception", "Party", "Retreat"] as const;
