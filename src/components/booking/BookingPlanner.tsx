@@ -84,7 +84,7 @@ export function BookingPlanner() {
   const go = (s: Step) => { setStep(s); topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }); };
   const datesOk = !!q && q.problems.length === 0;
   const maxGuests = Number(d.maxGuests) || 0;
-  const detailsOk = !!d.eventType && d.alcohol !== "" && maxGuests > 0;
+  const detailsOk = !!d.eventType && d.alcohol !== "" && maxGuests > 0 && maxGuests <= SITE.maxInBuilding;
 
   async function send() {
     if (!c.name.trim() || !validEmail(c.email)) return setStatus({ kind: "err", msg: "Please add your name and a valid email address." });
@@ -226,7 +226,8 @@ export function BookingPlanner() {
                 <label className="field"><span>Most guests in the building at once *</span><input type="number" min={1} max={SITE.maxInBuilding} inputMode="numeric" value={d.maxGuests} onChange={(e) => set("maxGuests", e.target.value)} placeholder="e.g. 60" /></label>
               </div>
               {Number(d.overnight) > 40 && <p className="notice small">The Burland sleeps 40+. Tell us your exact count and we&apos;ll help you plan beds by household.</p>}
-              {maxGuests > SITE.weddingSeats && <p className="notice small">Wedding seating is up to about {SITE.weddingSeats}. For bigger groups we&apos;ll confirm what works for your event.</p>}
+              {maxGuests > SITE.maxInBuilding && <p className="notice warn small">The building holds up to {SITE.maxInBuilding} guests at one time. Call or text {SITE.phone} and we&apos;ll talk through options.</p>}
+              {d.eventType === "Wedding" && maxGuests > SITE.weddingSeats && maxGuests <= SITE.maxInBuilding && <p className="notice small">Wedding seating is up to about {SITE.weddingSeats}. Up to {SITE.maxInBuilding} can be in the building for a standing reception.</p>}
               <div className="field">
                 <span className="legend">Spaces you&apos;re most excited about (optional)</span>
                 <div className="choice">
@@ -305,7 +306,7 @@ export function BookingPlanner() {
                 <li>We email a short rental details form, then your agreement through SignNow.</li>
                 <li>Your date is reserved once you sign and pay {fmtUSD(q.dueAtBooking)} (50%).</li>
                 {q.balanceDue && <li>The balance of {fmtUSD(q.balance)} is due by {fmtDate(q.balanceDue)}.</li>}
-                <li>Check in from 3:00 p.m. on {fmtDate(start, { weekday: true })}, and start making memories.</li>
+                <li>Check in from 3:00 p.m. on {fmtDate(start, { weekday: true })}{mode === "overnight" && end ? `, check out by 11:00 a.m. on ${fmtDate(end, { weekday: true })}` : ""}.</li>
               </ol>
               <p className="small muted">Didn&apos;t hear back in two business days? Check your spam folder, or call or text {SITE.phone}.</p>
               <div className="row no-print" style={{ marginTop: 20 }}>

@@ -19,6 +19,7 @@ const peakExamples = [
   ["Monday, Tuesday, Wednesday", 3, 3 * RATES.peak.weeknight],
   ["Friday, Saturday, Sunday", 3, 3 * RATES.peak.weekend],
   ["Monday to Thursday", 4, 4 * RATES.peak.weeknight],
+  ["Thursday to Sunday", 4, RATES.peak.weeknight + 3 * RATES.peak.weekend],
 ] as const;
 
 const priceFaqs = FAQS.filter((f) => f.tag === "booking");
@@ -86,7 +87,7 @@ export default function Pricing() {
               <li>{POLICY.bookingPercent * 100}% due when you book</li>
               <li>Remaining balance due {POLICY.balanceDaysBefore} days before arrival</li>
               <li>{fmtUSD(POLICY.securityDeposit)} refundable security deposit. After your stay you get {fmtUSD(POLICY.securityDeposit - POLICY.cleaningFee)} back if there&apos;s no damage, since {fmtUSD(POLICY.cleaningFee)} covers cleaning.</li>
-              <li>Check-in begins at 3:00 p.m.</li>
+              <li>Check-in begins at 3:00 p.m. and check-out is 11:00 a.m.</li>
               <li>Every total is confirmed in writing before you sign.</li>
             </ul>
           </div>

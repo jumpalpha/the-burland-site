@@ -15,7 +15,7 @@ describe("published pricing page examples (peak season)", () => {
   it("Fri, Sat, Sun = $4,500", () => expect(total(addDays(PEAK_MON, 4), 3)).toBe(4500));
   it("Mon to Thu, 4 nights = $4,800", () => expect(total(PEAK_MON, 4)).toBe(4800));
   it("Thu + Fri = $2,700", () => expect(total(addDays(PEAK_MON, 3), 2)).toBe(2700));
-  it("Thu to Sun, 4 nights adds up to $5,700 (pricing page said $5,800; owner to confirm)", () =>
+  it("Thu to Sun, 4 nights = $5,700 (confirmed by owner)", () =>
     expect(total(addDays(PEAK_MON, 3), 4)).toBe(5700));
 });
 

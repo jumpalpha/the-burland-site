@@ -6,7 +6,7 @@ export const SITE = {
   url: "https://theburland.com",
   tagline: "A restored 1912 gathering place in downtown St. Anthony, Idaho",
   description:
-    "A restored 1912 building in downtown St. Anthony, Idaho, built for family reunions, weddings, and retreats where everyone stays under one roof. Sleeps 40+, 45 minutes from Yellowstone.",
+    "A restored 1912 building in downtown St. Anthony, Idaho, built for family reunions, weddings, and retreats where everyone stays under one roof. Sleeps 40+, minutes from the St. Anthony Sand Dunes.",
   phone: "208-709-1403",
   phoneE164: "+12087091403",
   email: "burlandevents@gmail.com",

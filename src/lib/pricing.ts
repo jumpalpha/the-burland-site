@@ -35,7 +35,7 @@ export interface Quote {
 export const seasonOf = (d: ISODate): Season => (RATES.peakMonths.includes(month(d)) ? "peak" : "off");
 export const isWeekendNight = (d: ISODate) => [5, 6, 0].includes(dow(d)); // Fri, Sat, Sun nights
 
-// Off-season holiday nights. [CONFIRM WITH OWNER] The pricing page lists a holiday rate but not which days.
+// Off-season holiday nights, confirmed by the owner 2026-11-08.
 export function holidayNights(year: number): ISODate[] {
   const thanksgiving = nthWeekday(year, 11, 4, 4);
   return [
@@ -109,7 +109,6 @@ export function quote(q: QuoteInput, today?: ISODate): Quote {
       for (const [label, g] of groups) {
         lines.push({ label: `${label}${g.count > 1 ? "s" : ""} (${g.count} x $${g.rate.toLocaleString("en-US")})`, amount: g.count * g.rate });
       }
-      if (nights.some((x) => x.kind === "holiday")) notes.push("Holiday rates are confirmed by the owner for your exact dates.");
     }
   } else {
     const h = Math.ceil(q.hours ?? 0);

@@ -14,7 +14,7 @@ export function EstimateCard({ q, start, end, title = "Your estimate", children 
       ) : (
         <p className="muted">Pick your dates to see an instant price.</p>
       )}
-      {q && q.nights.length > 0 && <p className="small muted" style={{ margin: 0 }}>{q.nights.length} night{q.nights.length > 1 ? "s" : ""}, check-in 3:00 p.m.</p>}
+      {q && q.nights.length > 0 && <p className="small muted" style={{ margin: 0 }}>{q.nights.length} night{q.nights.length > 1 ? "s" : ""}, check-in 3:00 p.m., check-out 11:00 a.m.</p>}
       {q && q.lines.length > 0 && (
         <>
           <div className="lines">
