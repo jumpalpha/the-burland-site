@@ -4,7 +4,7 @@ Owner-editable. This is the ONLY source of facts the assistant may state.
 To change what the assistant says: edit this text, then paste it into the
 ElevenLabs agent's Knowledge Base document (see README "Update business info").
 
-Last verified: 2026-11-04, against theburland.com pages and the rental-form defaults.
+Last verified: 2026-11-09. Capacity, Thu-Sun total, holidays, check-out, tables/chairs, cancellation policy, and house rules confirmed by owner; Yellowstone drive time checked against road distances.
 Lines marked [CONFIRM WITH OWNER] are unverified or conflicting. The assistant
 must not state those as fact; it says the owner will confirm.
 
@@ -13,7 +13,7 @@ must not state those as fact; it says the owner will confirm.
 - Built for family reunions, weddings, and gatherings where everyone stays under one roof.
 - "Not a hotel, not a conference center — a family home, made bigger."
 - Over 10,000 square feet across three floors.
-- About 45 minutes from Yellowstone (West Yellowstone entrance closest).
+- A little over an hour from Yellowstone's West Entrance (about 60 to 70 miles on US-20 through Ashton and Island Park).
 - 10–15 minutes from both Rexburg, Idaho temples.
 - Easy access from Rexburg and Idaho Falls.
 - Contact: call or text 208-709-1403, email burlandevents@gmail.com, website theburland.com.
@@ -26,20 +26,17 @@ must not state those as fact; it says the owner will confirm.
 - Weddings: ceremony and reception both on site; bridal suite and groom's lounge; tables and chairs; dance floor; sound system / PA; lighting options; photo backdrops; heating and cooling; Wi-Fi; restrooms; ADA accessible; flexible vendor policy; off-site parking available.
 - Accessibility: designed for all ages; ADA accessible per the weddings page. Specific accessibility questions → owner follows up.
 
-## Capacity  [CONFLICT — CONFIRM WITH OWNER]
-- Overnight: sleeps 40+ on site. (Consistent across pages.)
-- Wedding seating: "up to 100 guests" (weddings page).
-- Daytime events: "up to 100+ guests" (reunions FAQ).
-- Reunions page stat card says "up to 200+ guests."
-- Rental form caps "most guests in the building at one time" at 130.
-- Assistant rule: say it sleeps 40+ and weddings seat up to about 100; for larger
-  groups, say the owner will confirm the exact limit for their event.
+## Capacity (confirmed by owner 2026-11-08)
+- Overnight: sleeps 40+ on site.
+- Most guests in the building at one time: 130.
+- Wedding seating: up to about 100 guests.
+- More than 130 guests: say that's over the building limit and the owner can talk through options.
 
 ## Pricing (verified from pricing page; matches internal rate sheet)
 Off-season, October through April:
 - Monday–Thursday: $800 per night, no minimum.
 - Friday–Sunday: $1,000 per night, 2-night minimum.
-- Holidays: $1,300 per night, 3-night minimum.
+- Holidays: $1,300 per night, 3-night minimum. Holiday nights: the night before Thanksgiving, Thanksgiving, Dec 24, Dec 25, Dec 31, Jan 1.
 - Hourly (Monday–Thursday, off-season only): $200 first hour, $75 each additional hour.
 
 Peak season, May through September (all peak stays: 2-night minimum):
@@ -48,20 +45,16 @@ Peak season, May through September (all peak stays: 2-night minimum):
 - Examples from the pricing page: 2 weeknights $2,400; 2 weekend nights $3,000;
   Mon–Wed (3 nights) $3,600; Fri–Sun (3 nights) $4,500; Mon–Thu (4 nights) $4,800;
   one weeknight plus one weekend night (e.g. Thu+Fri) $2,700.
-- [CONFLICT] The pricing page lists Thursday–Sunday (4 nights) as $5,800, but its own
-  nightly rates add up to $5,700. Do not quote either; say the owner confirms the exact total.
+- Thursday–Sunday (4 nights): $5,700 (confirmed by owner 2026-11-08).
 - No hourly rentals in peak season.
 
 Add-ons and fees:
-- Wedding Basic decor package: $200 per event — 10 round tables, 100 chairs, black
-  tablecloths, table centerpieces from current selection. White tablecloths $10 each. Renter sets up.
+- Tables and chairs are included with every rental, no decor package needed (confirmed by owner 2026-11-09).
+- Wedding Basic decor package: $200 per event — black tablecloths and table centerpieces
+  from current selection. White tablecloths $10 each. Renter sets up.
 - Wedding Deluxe Celebration package: $500 per event — everything in Basic plus two
   pre-wedding consultations, octagon backdrop and decor signs, microphone, projector,
   cake table, choice of all decor varieties, staff setup.
-- [CONFLICT] The weddings page lists "Tables and chairs" under "What's included," but the $200 Basic
-  package also lists 10 round tables and 100 chairs (and "Venue access"). Do not say whether tables and
-  chairs cost extra; say the decor packages add setup and decor, and the owner will confirm exactly
-  what comes with the rental.
 - Alcohol fee when alcohol is served: $200.
 
 Payment and policies:
@@ -69,9 +62,10 @@ Payment and policies:
 - $1,000 security deposit, refunded after the stay minus a $250 cleaning fee
   ($750 back if there's no damage).
 - Check-in begins at 3:00 p.m.
-- [CONFIRM WITH OWNER] Check-out time is not published (rental form defaults to 11:00 a.m.).
-- [MISSING] Cancellation / refund policy is not published. Say the rental agreement covers it and the owner will explain.
-- [MISSING] House rules (noise, quiet hours, smoking, pets) are not published. Owner follows up.
+- Check-out is 11:00 a.m.
+- Cancellation: payments are non-refundable. If the owner can rebook the dates, all but $500 is refunded. Notify the owner as soon as possible if plans change.
+- House rules: no smoking, no pets, no discharge of firearms. Quiet time is 10:00 PM. Remove shoes indoors when possible. (Confirmed by owner 2026-11-09.)
+- Exact totals are always confirmed in writing by the owner.
 - [CONFLICT] Reunions FAQ says pricing "depends on guest count." The pricing page bases price on season and days only. Use the pricing page.
 - Exact totals are always confirmed in writing by the owner.
 
@@ -88,7 +82,7 @@ Payment and policies:
   collects the request and preferred times. No set tour schedule is published.
 
 ## Area
-- Yellowstone (~45 min), Upper Mesa Falls (~40 min, 114-ft falls, accessible boardwalk),
+- Yellowstone West Entrance (a little over an hour), Upper Mesa Falls (~40 min, 114-ft falls, accessible boardwalk),
   St. Anthony Sand Dunes (minutes away), Henry's Fork fly fishing, Island Park and Ashton
   reservoirs, Henry's Lake, Caribou-Targhee trails, Ashton-Tetonia rail trail, Tetons ~1 hour.
 - Free planning guides: theburland.com/guides (reunion and wedding).
