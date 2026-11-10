@@ -36,6 +36,7 @@ export function Footer() {
             <ul>
               <li><Link href="/gallery">Photo gallery</Link></li>
               <li><Link href="/our-story">Our story</Link></li>
+              <li><Link href="/basecamp">Burland Basecamp guide &amp; podcast</Link></li>
               <li><Link href="/area-attractions">Things to do nearby</Link></li>
               <li><Link href="/area/st-anthony-sand-dunes">St. Anthony Sand Dunes</Link></li>
               <li><Link href="/area/yellowstone">Yellowstone day trips</Link></li>

@@ -91,7 +91,8 @@ section { padding: clamp(64px, 9vw, 120px) 0; }
 .menu-btn { display: none; background: none; border: 0; color: inherit; padding: 8px; cursor: pointer; }
 @media (max-width: 1080px) {
   .menu-btn { display: inline-flex; }
-  .nav { position: fixed; inset: 76px 0 0 0; background: var(--plaster); color: var(--ink); flex-direction: column; align-items: stretch; padding: 20px var(--gutter) 40px; gap: 2px; transform: translateY(-8px); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; overflow-y: auto; }
+  /* Height is explicit because .site-header.solid has backdrop-filter, which makes the header (76px tall) the containing block for this fixed menu. */
+  .nav { position: fixed; inset: 76px 0 auto 0; height: calc(100vh - 76px); height: calc(100dvh - 76px); background: var(--plaster); color: var(--ink); flex-direction: column; align-items: stretch; padding: 20px var(--gutter) 40px; gap: 2px; transform: translateY(-8px); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; overflow-y: auto; }
   .nav.open { opacity: 1; transform: none; pointer-events: auto; }
   .nav a { font-size: 1.15rem; padding: 14px 8px; border-radius: 10px; border-bottom: 1px solid var(--line); }
   .nav .btn { margin: 18px 0 0; justify-content: center; border-bottom: 0; color: #fff; }
@@ -303,3 +304,41 @@ td.amt { font-weight: 600; white-space: nowrap; }
   .panel, .card { box-shadow: none; border-color: #ccc; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+
+/* ---------- Burland Basecamp (/basecamp) ---------- */
+.bc-show { display: grid; grid-template-columns: 220px 1fr; gap: clamp(24px, 4vw, 48px); align-items: center; margin-bottom: 40px; }
+.bc-cover { position: relative; aspect-ratio: 1; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); color: #fff; }
+.bc-cover picture, .bc-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bc-cover > div { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; background: linear-gradient(180deg, rgba(23, 35, 29, 0.1), rgba(23, 35, 29, 0.85)); }
+.bc-cover small { text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.66rem; color: var(--brass-hi); }
+.bc-cover strong { font-family: var(--display); font-size: 1.7rem; line-height: 1.05; font-weight: 600; }
+.bc-episodes { display: grid; border-top: 1px solid var(--line); }
+.bc-ep { display: grid; grid-template-columns: 64px 1fr; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+.bc-ep h3 { margin: 0 0 4px; }
+.bc-ep-n { font-family: var(--display); font-size: 2rem; color: var(--brass); line-height: 1; }
+.bc-soon { background: transparent; border: 1px solid var(--rose); color: var(--rose); }
+.bc-ph { aspect-ratio: 4 / 3; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 12px; background: var(--sand); color: var(--walnut); font-family: var(--display); font-size: 1.15rem; }
+.bc-room { padding: 14px; display: flex; flex-direction: column; gap: 6px; }
+.bc-room h4 { margin: 10px 0 0; font-size: 1.05rem; }
+.bc-room p { margin: 0; }
+.bc-season { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: -12px 0 18px; font-size: 0.92rem; }
+.bc-season button { font: inherit; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; }
+.bc-season button[aria-pressed="true"] { background: var(--moss); border-color: var(--moss); color: #fff; }
+.bc-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.bc-map { height: clamp(340px, 55vw, 520px); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: var(--sand-2); z-index: 0; }
+.bc-pin { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4); }
+.bc-home { width: 24px; height: 24px; border-radius: 50%; background: var(--evergreen); color: var(--brass-hi); font-family: var(--display); font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid var(--brass); box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4); }
+.bc-ring { font-size: 11px; font-weight: 600; color: var(--walnut); background: rgba(251, 248, 242, 0.9); border-radius: 999px; text-align: center; line-height: 18px; }
+.bc-card { border-top: 4px solid var(--c, var(--brass)); padding: 22px; }
+.bc-card h3 { font-size: 1.2rem; margin: 0 0 6px; }
+.bc-card p { margin: 8px 0 12px; }
+.bc-gem { background: var(--brass); color: #fff; }
+.bc-steps { margin: 12px 0 0; padding-left: 1.2em; display: grid; gap: 8px; }
+@media (max-width: 620px) {
+  .bc-show { grid-template-columns: 1fr; }
+  .bc-cover { max-width: 220px; }
+  .bc-ep { grid-template-columns: 1fr; gap: 6px; }
+  .bc-rooms { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .bc-room { padding: 10px; }
+  .bc-ph { font-size: 0.95rem; }
+}

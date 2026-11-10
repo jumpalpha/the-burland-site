@@ -13,6 +13,7 @@ const PAGES: [string, number][] = [
   ["/availability", 0.8],
   ["/retreats", 0.7],
   ["/gallery", 0.7],
+  ["/basecamp", 0.7],
   ["/area-attractions", 0.7],
   ["/our-story", 0.6],
   ["/faq", 0.6],

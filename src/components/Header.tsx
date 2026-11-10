@@ -35,7 +35,7 @@ export function Header() {
         </button>
         <nav id="site-nav" className={"nav" + (open ? " open" : "")} aria-label="Main">
           {NAV.map((n) => (
-            <Link key={n.href} href={n.href} aria-current={path === n.href ? "page" : undefined}>
+            <Link key={n.href} href={n.href} aria-current={path.replace(/\/$/, "") === n.href ? "page" : undefined}>
               {n.label}
             </Link>
           ))}

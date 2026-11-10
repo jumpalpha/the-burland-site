@@ -10,6 +10,7 @@ Keep `voice-assistant/knowledge-base.md` in sync so the voice assistant says the
 Other copy:
 - `src/lib/content.ts`: photos, area guide, FAQs, reviews, sample weekend.
 - `src/lib/guides.ts`: the printable reunion and wedding guides.
+- `src/lib/basecamp.ts`: the Burland Basecamp page (`/basecamp`): podcast episodes, the 150-mile map, and ready-made reunion days. Its drive times are unconfirmed and hidden (`SHOW_DRIVE`).
 
 Local facts in the area guide are sourced (links on each `/area/...` page). Check drive times in Google Maps before changing them.
 
@@ -37,3 +38,9 @@ Builds are **preview** (noindex, robots blocks everything, red banner) unless `N
 `.github/workflows/deploy.yml` builds and deploys `main` to GitHub Pages. Before merging this branch to `main`, switch **Settings > Pages > Source** to **GitHub Actions**. Otherwise Pages keeps serving the branch root, which no longer has the old HTML files.
 
 Old URLs keep working: `/pricing.html`, `/rental.html#r=CODE`, and the rest redirect to the new pages. `rental-review.html`, `voice-assistant-test.html`, and `dopp-week/` are served unchanged from `public/`.
+
+## Publish a Burland Basecamp episode
+
+1. Make the episode in NotebookLM from the source pack in `basecamp/notebooklm/` (not published to the site). Download the Audio Overview.
+2. `scripts/compress-episode.sh <downloaded file> <episode number>` writes a small mono MP3 to `public/basecamp/audio/` and prints its length. Needs ffmpeg.
+3. In `src/lib/basecamp.ts`, set that episode's `audio`, `status: "live"`, `date`, and `length`.

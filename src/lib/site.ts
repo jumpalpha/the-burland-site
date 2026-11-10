@@ -120,7 +120,7 @@ export const NAV = [
   { href: "/pricing", label: "Pricing" },
   { href: "/availability", label: "Availability" },
   { href: "/gallery", label: "Gallery" },
-  { href: "/area-attractions", label: "The Area" },
+  { href: "/basecamp", label: "Basecamp" },
   { href: "/plan", label: "Planning Tools" },
 ];
 
