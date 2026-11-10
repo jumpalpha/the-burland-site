@@ -4,7 +4,11 @@ Owner-editable. This is the ONLY source of facts the assistant may state.
 To change what the assistant says: edit this text, then paste it into the
 ElevenLabs agent's Knowledge Base document (see README "Update business info").
 
+<<<<<<< HEAD
 Last verified: 2026-11-09. Capacity, Thu-Sun total, holidays, and check-out confirmed by owner; Yellowstone drive time checked against road distances. Cancellation policy and house rules confirmed by owner 2026-11-09.
+=======
+Last verified: 2026-11-09. Capacity, Thu-Sun total, holidays, check-out, tables/chairs, cancellation policy, and house rules confirmed by owner; Yellowstone drive time checked against road distances.
+>>>>>>> feature/cancellation-house-rules
 Lines marked [CONFIRM WITH OWNER] are unverified or conflicting. The assistant
 must not state those as fact; it says the owner will confirm.
 
@@ -63,8 +67,8 @@ Payment and policies:
   ($750 back if there's no damage).
 - Check-in begins at 3:00 p.m.
 - Check-out is 11:00 a.m.
-- Cancellation policy (confirmed by owner 2026-11-09): Payments are non-refundable. If the owner can rebook the dates, all but $500 is refunded. Guests should notify the owner as soon as possible if plans change.
-- House rules (confirmed by owner 2026-11-09): No smoking. No pets. No discharge of firearms. Quiet time is 10:00 PM. Remove shoes indoors when possible.
+- Cancellation: payments are non-refundable. If the owner can rebook the dates, all but $500 is refunded. Notify the owner as soon as possible if plans change. (Confirmed by owner 2026-11-09.)
+- House rules: no smoking, no pets, no discharge of firearms. Quiet time is 10:00 PM. Remove shoes indoors when possible. (Confirmed by owner 2026-11-09.)
 - [CONFLICT] Reunions FAQ says pricing "depends on guest count." The pricing page bases price on season and days only. Use the pricing page.
 - Exact totals are always confirmed in writing by the owner.
 

@@ -91,6 +91,17 @@ export default function Pricing() {
               <li>Check-in begins at 3:00 p.m. and check-out is 11:00 a.m.</li>
               <li>Every total is confirmed in writing before you sign.</li>
             </ul>
+            <div className="eyebrow" style={{ marginTop: 32 }}>Cancellation</div>
+            <ul className="check">
+              <li>Payments are non-refundable.</li>
+              <li>If we can rebook your dates, all but $500 is refunded. Let us know as soon as possible if your plans change.</li>
+            </ul>
+            <div className="eyebrow" style={{ marginTop: 32 }}>House rules</div>
+            <ul className="check">
+              <li>No smoking, no pets, no discharge of firearms.</li>
+              <li>Quiet time is 10:00 p.m.</li>
+              <li>Please remove shoes indoors when possible.</li>
+            </ul>
           </div>
         </div>
       </section>
