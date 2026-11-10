@@ -24,7 +24,7 @@ const DETAILS = [
   ["Accessibility", "ADA accessible"],
 ];
 
-const AMENITIES = ["Dance floor", "Sound system and PA", "Lighting options", "Photo backdrops", "Prep kitchen access", "Bridal suite", "Groom's lounge", "Decor rentals", "Decor setup and teardown", "Venue host", "Heating and cooling", "Wi-Fi", "Restrooms", "Trash and cleanup", "Flexible vendor policy", "ADA accessibility"];
+const AMENITIES = ["Tables and chairs", "Dance floor", "Sound system and PA", "Lighting options", "Photo backdrops", "Prep kitchen access", "Bridal suite", "Groom's lounge", "Decor rentals", "Decor setup and teardown", "Venue host", "Heating and cooling", "Wi-Fi", "Restrooms", "Trash and cleanup", "Flexible vendor policy", "ADA accessibility"];
 
 const wedFaqs = FAQS.filter((f) => f.tag === "events");
 
@@ -55,7 +55,7 @@ export default function Weddings() {
 
       <section className="sand" id="packages">
         <div className="container">
-          <div className="section-head center"><div className="eyebrow">Decor packages</div><h2>Pick the help you want</h2></div>
+          <div className="section-head center"><div className="eyebrow">Decor packages</div><h2>Pick the help you want</h2><p className="muted">Tables and chairs come with every rental. A package adds linens, decor, and setup help.</p></div>
           <div className="grid g2" style={{ maxWidth: 920, margin: "0 auto" }}>
             {PACKAGES.map((p) => (
               <div key={p.key} className="card" style={p.key === "deluxe" ? { borderColor: "var(--brass)", borderWidth: 2 } : undefined}>

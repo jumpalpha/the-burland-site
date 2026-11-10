@@ -240,6 +240,7 @@ export const FAQS: { q: string; a: string; tag: "booking" | "stay" | "events" | 
   { tag: "stay", q: "What are check-in and check-out times?", a: "Check-in begins at 3:00 p.m. and check-out is 11:00 a.m." },
   { tag: "stay", q: "Is it good for grandparents and little kids?", a: "Yes. The Burland is designed for all ages and the wedding spaces are ADA accessible. Kids get their own game room with ping-pong, air hockey, and an arcade corner. Tell us about any specific accessibility needs and we'll do our best to help." },
   { tag: "events", q: "How many guests can attend a wedding?", a: "Wedding seating is up to about 100 guests, and the building holds up to 130 at one time." },
+  { tag: "events", q: "Are tables and chairs included?", a: "Yes. Tables and chairs come with every rental, no package needed. The decor packages add linens, centerpieces, and, with the Deluxe package, staff setup." },
   { tag: "events", q: "Can we bring our own vendors?", a: "Yes. We have a flexible vendor policy, so you can bring the caterer, photographer, and DJ you love." },
   { tag: "events", q: "Is alcohol allowed?", a: "Alcohol can be served with approval. There's a $200 alcohol fee, and the rules are covered in your rental agreement." },
   { tag: "events", q: "How close are the Rexburg temples?", a: "Both Rexburg temples are about 15 minutes away, so a temple sealing in the morning and a celebration at The Burland that afternoon is easy." },

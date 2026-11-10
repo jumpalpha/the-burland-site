@@ -72,6 +72,7 @@ export default function Pricing() {
           <div>
             <div className="eyebrow">Add-ons</div>
             <h2>Optional extras</h2>
+            <p>Tables and chairs come with every rental at no extra cost.</p>
             <ul className="check">
               <li>Basic decor package: {fmtUSD(ADDONS.decor.basic.price)} per event</li>
               <li>Deluxe Celebration package with staff setup: {fmtUSD(ADDONS.decor.deluxe.price)} per event</li>

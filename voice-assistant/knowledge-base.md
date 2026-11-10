@@ -49,15 +49,12 @@ Peak season, May through September (all peak stays: 2-night minimum):
 - No hourly rentals in peak season.
 
 Add-ons and fees:
-- Wedding Basic decor package: $200 per event — 10 round tables, 100 chairs, black
-  tablecloths, table centerpieces from current selection. White tablecloths $10 each. Renter sets up.
+- Tables and chairs are included with every rental, no decor package needed (confirmed by owner 2026-11-09).
+- Wedding Basic decor package: $200 per event — black tablecloths and table centerpieces
+  from current selection. White tablecloths $10 each. Renter sets up.
 - Wedding Deluxe Celebration package: $500 per event — everything in Basic plus two
   pre-wedding consultations, octagon backdrop and decor signs, microphone, projector,
   cake table, choice of all decor varieties, staff setup.
-- [CONFLICT] The weddings page lists "Tables and chairs" under "What's included," but the $200 Basic
-  package also lists 10 round tables and 100 chairs (and "Venue access"). Do not say whether tables and
-  chairs cost extra; say the decor packages add setup and decor, and the owner will confirm exactly
-  what comes with the rental.
 - Alcohol fee when alcohol is served: $200.
 
 Payment and policies:

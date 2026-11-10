@@ -91,11 +91,8 @@ export const PACKAGES = [
     key: "basic" as const,
     name: "Basic Package",
     price: 200,
-    blurb: "You handle setup; we provide the pieces.",
+    blurb: "You handle setup; we provide the linens and centerpieces.",
     items: [
-      "Venue access",
-      "10 round tables",
-      "100 chairs",
       "Black tablecloths",
       "Table centerpieces from our current selection",
       "White tablecloths available, $10 each",
