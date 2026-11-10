@@ -1,0 +1,24 @@
+"use client";
+import { useEffect, useState } from "react";
+
+// State that survives a page refresh in this browser only. Never used for anything that must be shared or kept.
+export function useStored<T>(key: string, initial: T) {
+  const [v, setV] = useState<T>(initial);
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    try {
+      const s = localStorage.getItem(key);
+      if (s) setV(JSON.parse(s));
+    } catch {}
+    setReady(true);
+  }, [key]);
+  useEffect(() => {
+    if (!ready) return;
+    try { localStorage.setItem(key, JSON.stringify(v)); } catch {}
+  }, [key, v, ready]);
+  return [v, setV, ready] as const;
+}
+
+export async function copyText(s: string) {
+  try { await navigator.clipboard.writeText(s); return true; } catch { return false; }
+}
