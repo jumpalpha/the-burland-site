@@ -1,7 +1,7 @@
 # Burland Basecamp, Episode 1: source pack for NotebookLM
 
-Title: Welcome to Basecamp: a reunion week in Eastern Idaho
-Show: Burland Basecamp, a podcast from The Burland in St. Anthony, Idaho.
+Title: Welcome to Basecamp: a reunion week in Eastern Idaho  
+Show: Burland Basecamp, a podcast from The Burland in St. Anthony, Idaho.  
 New episodes every other week.
 
 Upload this file as the only source in a new NotebookLM notebook.
@@ -28,6 +28,7 @@ Today it is a place for family reunions, weddings, and gatherings where everyone
 ### The rooms
 
 Shared spaces:
+
 - **Aspen Ballroom**: dinners, dancing, programs, and the big family photo.
 - **Game Room**: ping-pong, air hockey, and an arcade corner for kids and teens.
 - **Movie / Play Room**: movie nights and a place for the little ones to wind down.
