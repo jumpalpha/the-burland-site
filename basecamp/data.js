@@ -22,10 +22,10 @@ window.BASECAMP_EPISODES = [
     n: 1,
     title: "Welcome to Basecamp: a reunion week in Eastern Idaho",
     blurb: "The big picture: what's within a day's drive of The Burland, and how to split a reunion week between Yellowstone days and easy close-to-home days.",
-    date: "",
-    length: "",
-    audio: "",
-    status: "soon",
+    date: "November 2026",
+    length: "22 min",
+    audio: "basecamp/audio/ep01.mp3",
+    status: "live",
     links: ["yellowstone-west", "sand-dunes", "mesa-falls"]
   },
   {
