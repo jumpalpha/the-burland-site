@@ -1,6 +1,8 @@
 /* Burland Basecamp: podcast list, area map, and explorer. Data lives in basecamp/data.js. */
 (function () {
   var HOME = [43.9663, -111.6824]; // The Burland, downtown St. Anthony
+  // Drive times in data.js are unconfirmed estimates. Keep false until Orion confirms them.
+  var SHOW_DRIVE = false;
   var CATS = {
     parks:     { label: "National parks",       color: "#2B3A2E" },
     water:     { label: "Rivers & fishing",     color: "#2F6F8F" },
@@ -118,7 +120,7 @@
   function card(p) {
     var c = el("article", { class: "bc-card", id: "place-" + p.id, style: "--c:" + CATS[p.cat].color });
     c.appendChild(el("h3", null, p.name));
-    c.appendChild(el("div", { class: "when" }, "About " + p.drive + " · ~" + p.miles + " mi"));
+    if (SHOW_DRIVE) c.appendChild(el("div", { class: "when" }, "About " + p.drive + " · ~" + p.miles + " mi"));
     c.appendChild(el("p", null, p.blurb));
     var tags = el("div", { class: "bc-tags" });
     if (p.gem) tags.appendChild(el("span", { class: "bc-tag gem" }, "Local favorite"));
@@ -190,7 +192,7 @@
     places.forEach(function (p) {
       var icon = L.divIcon({ className: "", html: '<div class="bc-pin" style="background:' + CATS[p.cat].color + '"></div>', iconSize: [14, 14], iconAnchor: [7, 7] });
       markers[p.id] = L.marker([p.lat, p.lng], { icon: icon, title: p.name })
-        .bindPopup("<strong>" + p.name + "</strong><br>About " + p.drive + " from The Burland" +
+        .bindPopup("<strong>" + p.name + "</strong>" + (SHOW_DRIVE ? "<br>About " + p.drive + " from The Burland" : "") +
           '<br><a href="#place-' + p.id + '">Details ↓</a>');
     });
   }
