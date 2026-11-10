@@ -2,9 +2,11 @@
    Burland Basecamp: page data. EDIT THIS FILE to update the page.
 
    EPISODES: newest first. To publish an episode:
-     1. Download the NotebookLM Audio Overview (.m4a or .mp3).
-     2. Put it in basecamp/audio/ (e.g. basecamp/audio/ep01.m4a).
-     3. Set audio: "basecamp/audio/ep01.m4a" and status: "live".
+     1. Download the NotebookLM Audio Overview.
+     2. Run: scripts/compress-episode.sh <downloaded file> <episode number>
+        (makes a small mono MP3, e.g. basecamp/audio/ep01.mp3).
+     3. Set audio: "basecamp/audio/ep01.mp3" and status: "live".
+   NotebookLM source packs live in basecamp/notebooklm/.
    status "soon" shows the episode as "Coming soon" with no player.
 
    ATTRACTIONS: drive / miles are ESTIMATES from St. Anthony.
@@ -51,7 +53,7 @@ window.BASECAMP_EPISODES = [
 window.BASECAMP_ATTRACTIONS = [
   /* ---------- National parks ---------- */
   { id: "yellowstone-west", name: "Yellowstone: West Entrance & West Yellowstone", cat: "parks", season: "year", lat: 44.6621, lng: -111.1043, drive: "1 hr 15 min", miles: 70, check: true,
-    blurb: "The closest full-service gateway to the park. Gas, food, and the start of the geyser basins. Interior roads close to cars from early November to late April." },
+    blurb: "The closest full-service gateway to the park. Gas, food, and the start of the geyser basins. Most park roads are open to cars mid-April through October; winter travel inside is by guided snowmobile or snowcoach." },
   { id: "old-faithful", name: "Old Faithful & Upper Geyser Basin", cat: "parks", season: "summer", lat: 44.4605, lng: -110.8281, drive: "2 hr 15 min", miles: 100, check: true,
     blurb: "Eruptions roughly every 60 to 110 minutes, with flat boardwalks that work for strollers and grandparents." },
   { id: "grand-prismatic", name: "Grand Prismatic Spring", cat: "parks", season: "summer", lat: 44.5251, lng: -110.8382, drive: "2 hr", miles: 95, check: true,
