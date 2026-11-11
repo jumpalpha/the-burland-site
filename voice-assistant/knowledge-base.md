@@ -4,11 +4,7 @@ Owner-editable. This is the ONLY source of facts the assistant may state.
 To change what the assistant says: edit this text, then paste it into the
 ElevenLabs agent's Knowledge Base document (see README "Update business info").
 
-<<<<<<< HEAD
-Last verified: 2026-11-09. Capacity, Thu-Sun total, holidays, and check-out confirmed by owner; Yellowstone drive time checked against road distances. Cancellation policy and house rules confirmed by owner 2026-11-09.
-=======
 Last verified: 2026-11-09. Capacity, Thu-Sun total, holidays, check-out, tables/chairs, cancellation policy, and house rules confirmed by owner; Yellowstone drive time checked against road distances.
->>>>>>> feature/cancellation-house-rules
 Lines marked [CONFIRM WITH OWNER] are unverified or conflicting. The assistant
 must not state those as fact; it says the owner will confirm.
 
