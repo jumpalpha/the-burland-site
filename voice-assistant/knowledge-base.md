@@ -76,6 +76,11 @@ Payment and policies:
 5. The date is reserved only after the agreement is signed and the payment due at signing is received.
 - Summer weekends fill fast; reach out 6–12 months ahead for peak dates.
 
+## Getting here / navigation (confirmed by owner 2026-11-10)
+- The Burland has no street mailing address at the site. Do not state or publish "38 N Bridge St."
+- Navigation instruction for guests: "Search 'The Burland Event Center' in Google Maps, or navigate to downtown St. Anthony, Idaho — historic three-story building on Bridge Street."
+- Tour / arrival instruction: "We're in downtown St. Anthony. Text me at 208-709-1403 when you're out front and I'll meet you at the door."
+
 ## Tours
 - Site visits are encouraged. The owner arranges a time personally; the assistant
   collects the request and preferred times. No set tour schedule is published.
