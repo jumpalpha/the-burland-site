@@ -89,7 +89,7 @@ export const PLACES: Place[] = [
     blurb: "A wide waterfall in Yellowstone's Bechler corner, reached from Ashton with no entrance-station crowds. The last stretch is gravel." },
   { id: "grand-teton", name: "Grand Teton National Park (Jenny Lake)", cat: "parks", season: "summer", lat: 43.7504, lng: -110.7271, drive: "2 hr 30 min", miles: 115,
     blurb: "Jagged peaks, the Jenny Lake shuttle boat, and easy lakeshore walks. Go over Teton Pass through Driggs and Victor." },
-  { id: "harriman", name: "Harriman State Park (Henry's Fork)", cat: "water", season: "year", lat: 44.3367, lng: -111.4689, drive: "55 min", miles: 45, area: "harriman-state-park",
+  { id: "harriman", name: "Harriman State Park (Henry's Fork)", cat: "water", season: "year", lat: 44.3367, lng: -111.4689, drive: "34 min", miles: 33, area: "harriman-state-park",
     blurb: "Historic ranch on the Henry's Fork's famous Railroad Ranch water. Trumpeter swans, moose, easy trails, and fly fishing." },
   { id: "box-canyon", name: "Box Canyon & Last Chance (Henry's Fork)", cat: "water", season: "summer", lat: 44.425, lng: -111.397, drive: "1 hr", miles: 55, area: "henrys-fork",
     blurb: "Some of the most famous fly fishing water in North America. Local fly shops in Last Chance rent gear and run guided trips." },
@@ -191,7 +191,7 @@ export const PLANS = [
 export const ROOMS: { name: string; img?: string; text?: string }[] = [
   { name: "Aspen Ballroom", img: "img-ballroom-wide", text: "Dinners, dancing, programs, and the big family photo." },
   { name: "Game Room", img: "img-game-room", text: "Ping-pong, air hockey, and an arcade corner for kids and teens." },
-  { name: "Movie / Play Room", img: "img-media-room", text: "Movie nights and a place for the little ones to wind down." },
+  { name: "Movie / Play Room", img: "img-media-room", text: "A 20 by 60-foot open floor on the upper level, padded with gymnastics mats and stocked with activities. The place for cousins to burn energy, do cartwheels, or just sprawl out." },
   { name: "Kitchen", img: "img-kitchen-island", text: "A full kitchen built for cooking for a crowd." },
   { name: "Bear Den" },
   { name: "Loft" },
