@@ -29,7 +29,7 @@ export const PHOTOS: Photo[] = [
   L("img-arcade-corner", "Arcade corner", "Games & media"),
   L("img-media-room", "Media room for movie night", "Games & media"),
   L("img-restoration-roof", "Roof work during the restoration", "Restoration", 1400, 1050),
-  L("img-restoration-facade", "The 1912 brick facade during restoration", "Restoration", 1400, 1867),
+  L("img-restoration-facade", "The finished Burland Event Center exterior, downtown St. Anthony", "Exterior", 333, 257),
   L("img-restoration-hall-balcony", "Hall and balcony during restoration", "Restoration", 1400, 1050),
   L("img-restoration-hall", "The main hall mid-restoration", "Restoration", 1400, 1050),
   L("img-restoration-room", "A room mid-restoration", "Restoration", 1400, 1867),
