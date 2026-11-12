@@ -10,7 +10,7 @@ Upload this file as the only source in a new NotebookLM notebook.
 
 ## Ground rules for this episode
 
-- Do not state drive times, driving miles, or "minutes from" figures for any place. Say "about an hour," "a half-day trip," or "a long day from The Burland" instead.
+- Do not state drive times, driving miles, or "minutes from" figures for any place. Say "a short drive," "a half-day trip," or "a long day from The Burland" instead.
 - Do not name or invent hosts, owners, prices, or booking terms.
 - Park entry fees and visitor center hours change. Tell listeners to check current conditions and fees before they go. Never give specific figures as fixed facts.
 - Do not invent details about trail lengths, facilities, or road conditions beyond what is in this document.
@@ -59,7 +59,7 @@ Practical note: the trail to the North Butte rim is a short hike. The footing is
 
 ## St. Anthony Sand Dunes
 
-The St. Anthony Sand Dunes, eight miles west of The Burland, seem like they should not exist: a large field of white sand dunes in the middle of lava and farmland. They do exist because of the same geological history. Wind has deposited and shifted sand eroded from the Snake River Plain over thousands of years. The result is a dune system large enough for ATVs, horses, sandboarding, and kids who want to run.
+The St. Anthony Sand Dunes, just outside St. Anthony, seem like they should not exist: a large field of white sand dunes in the middle of lava and farmland. They do exist because of the same geological history. Wind has deposited and shifted sand eroded from the Snake River Plain over thousands of years. The result is a dune system large enough for ATVs, horses, sandboarding, and kids who want to run.
 
 Egin Lakes, beside the dunes, is a series of ponds fed by the aquifer. They are cold and clear and good for a cool-off after the sand.
 
@@ -79,9 +79,9 @@ The drive between Ashton and Macks Inn on the byway is scenic in its own right -
 
 ## Hell's Half Acre Lava Field
 
-Hell's Half Acre is a lava flow right off Interstate 15, about an hour southwest of St. Anthony. It is a convenient stop on the way to or from the airport or Craters of the Moon. A short paved trail leads into the flow from the roadside. The lava here is pahoehoe and aa -- two textures that form from the same eruption at different temperatures and flow speeds. The pahoehoe is ropy and smooth-looking, the aa is sharp and broken. Both are black and new-looking. This eruption happened roughly 6,100 years ago.
+Hell's Half Acre is a lava flow right off Interstate 15, southwest of St. Anthony. It is a convenient stop on the way to or from the airport or Craters of the Moon. A short paved trail leads into the flow from the roadside. The lava here is pahoehoe and aa -- two textures that form from the same eruption at different temperatures and flow speeds. The pahoehoe is ropy and smooth-looking, the aa is sharp and broken. Both are black and new-looking. This eruption happened roughly 6,100 years ago.
 
-Hell's Half Acre is not a destination on its own for most families, but as a 20-minute stop on a drive, it is a quick and genuine introduction to lava country.
+Hell's Half Acre is not a destination on its own for most families, but as a short stop on a drive, it is a quick and genuine introduction to lava country.
 
 ---
 
@@ -97,7 +97,7 @@ For a family with kids who are curious about science, EBR-I is the right amount 
 
 ## Craters of the Moon National Monument
 
-Craters of the Moon is an hour and a half southwest of St. Anthony, in the central Snake River Plain. It is the most visited lava destination in the region and the one that justifies a full-day trip.
+Craters of the Moon lies southwest of St. Anthony, in the central Snake River Plain. It is the most visited lava destination in the region and the one that justifies a full-day trip.
 
 What it is: a lava field unlike anything most visitors have seen. Cinder cones, lava tubes, spatter cones, and tree mold caves cover an area the size of a small state. The park road loops through the monument and stops at multiple features.
 
@@ -127,7 +127,7 @@ The caves are the highlight for kids. Indian Tunnel is accessible to most ages w
 
 ## Building a lava-country day
 
-**Option A: Close to home, half day.** Morning at the Sand Dunes, then Menan Buttes in the afternoon. Both are within 30 minutes of The Burland. Pair with a swim at Egin Lakes. Easy for all ages.
+**Option A: Close to home, half day.** Morning at the Sand Dunes, then Menan Buttes in the afternoon. Both are close to home. Pair with a swim at Egin Lakes. Easy for all ages.
 
 **Option B: Mesa Falls and the byway.** Drive the Mesa Falls Scenic Byway: Warm River for a picnic, then Upper and Lower Mesa Falls, then back through Ashton. This is a half-day trip with good scenery and a dramatic waterfall. Add Box Canyon or the Henry's Fork for the anglers in the group.
 
@@ -137,7 +137,7 @@ The caves are the highlight for kids. Indian Tunnel is accessible to most ages w
 
 ## A note on what guests expect
 
-Most guests coming to The Burland are thinking about Yellowstone and the Tetons. The lava country is a surprise. It is older, stranger, and closer than they expect. The sand dunes are eight miles away. The lava fields at Menan Buttes are visible from the valley. Craters of the Moon is a full day but a different kind of full day -- not the crowds of Yellowstone, not the dramatic peaks of the Tetons, but something genuinely other. For reunion groups that have done Yellowstone before, lava country is often the discovery of the trip.
+Most guests coming to The Burland are thinking about Yellowstone and the Tetons. The lava country is a surprise. It is older, stranger, and closer than they expect. The sand dunes are just down the road. The lava fields at Menan Buttes are visible from the valley. Craters of the Moon is a full day but a different kind of full day -- not the crowds of Yellowstone, not the dramatic peaks of the Tetons, but something genuinely other. For reunion groups that have done Yellowstone before, lava country is often the discovery of the trip.
 
 ---
 

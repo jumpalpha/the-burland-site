@@ -48,6 +48,16 @@ export const EPISODES: Episode[] = [
     status: "live",
     links: ["harriman","box-canyon","south-fork"],
   },
+  {
+    n: 4,
+    title: "Lava country: the other side of Eastern Idaho",
+    blurb: "Cinder cones, lava tube caves, and where nuclear power began: Menan Buttes, Hell's Half Acre, EBR-I, and a full day at Craters of the Moon.",
+    date: "",
+    length: "",
+    audio: "",
+    status: "soon",
+    links: ["menan-buttes","ebr1","craters"],
+  },
 ];
 
 export const CATS = {
