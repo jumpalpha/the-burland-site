@@ -20,7 +20,7 @@ export default function BookPage() {
         </div>
         <BookingPlanner />
         <p className="small muted" style={{ marginTop: 24 }}>
-          Already worked out your date with us? <Link href="/rental">Send your rental agreement details</Link>.
+          Already worked out your date with us? <Link href="/how-to-book#rental-details">Send your rental agreement details</Link>. New to booking with us? <Link href="/how-to-book">See how it works</Link>.
         </p>
       </div>
     </section>

@@ -227,6 +227,14 @@ export const REVIEWS = [
   { text: "A returning guest said their family loves staying at The Burland, calling St. Anthony the perfect small town with plenty to do for young kids.", who: "Returning guest" },
 ];
 
+export const BOOKING_STEPS: { t: string; short: string; d: string; href?: string; cta?: string }[] = [
+  { t: "Pick your dates", short: "See your price instantly and send a request.", d: "Choose your dates in the booking planner. You'll see the full price, minimum-stay rules, and payment schedule right away. Sending a request is free and doesn't commit you to anything.", href: "/book", cta: "Check dates and pricing" },
+  { t: "We confirm personally", short: "We check the calendar and reach out, usually within one business day.", d: "Nothing is booked automatically. We look over your request, confirm the date is open, and get back to you by phone, text, or email, usually within one business day. This is a good time to ask questions or set up a tour." },
+  { t: "Fill out your rental details", short: "One short form with everything we need for your agreement.", d: "Once your date is confirmed, fill out the rental details form below (we'll also email you a link). It asks for your contact info, dates, guest count, the spaces you want, and add-ons. You only fill it out once.", href: "#rental-details", cta: "Go to the form" },
+  { t: "Sign through SignNow", short: "Your agreement arrives by email. Sign it online in a few minutes.", d: "We review your details, prepare your rental agreement, and send it to your email through SignNow. Read it over and sign online. No printing or scanning." },
+  { t: "Pay to reserve your date", short: "Your date is held once it's signed and the first payment is in.", d: "At signing you pay 50% of the rental plus the $1,000 security deposit. The rest of the rental is due 90 days before you arrive. If your stay is less than 90 days away, the full amount is due at signing. Your date is reserved once the agreement is signed and that payment is received." },
+];
+
 export const FAQS: { q: string; a: string; tag: "booking" | "stay" | "events" | "area" }[] = [
   { tag: "booking", q: "How does booking work?", a: "Pick your dates in our booking planner and you'll see an instant estimate. Send it to us and we'll confirm your date personally, usually within one business day. We then email a short rental details form and your agreement through SignNow. Your date is reserved once the agreement is signed and the payment due at signing is received. Nothing is booked automatically." },
   { tag: "booking", q: "What does it cost?", a: "Off-season (October through April) is $800 a night Monday through Thursday and $1,000 a night Friday through Sunday, with holiday nights at $1,300. Peak season (May through September) is $1,200 a weeknight and $1,500 a weekend night. Off-season weekdays can also be rented by the hour. We confirm every total in writing." },
