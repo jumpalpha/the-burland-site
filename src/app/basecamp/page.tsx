@@ -73,7 +73,7 @@ export default function Basecamp() {
               </article>
             ))}
           </div>
-          <p className="small muted" style={{ marginTop: 18 }}>Episodes are AI-generated audio overviews based on our area guide. Always check park and road conditions before you go.</p>
+          <p className="small muted" style={{ marginTop: 18 }}>Episodes are audio overviews based on our area guide. Always check park and road conditions before you go.</p>
         </div>
       </section>
 

@@ -99,7 +99,7 @@ export function ChatBubble() {
           <div className="chat-head">
             <div>
               <strong>Ask The Burland</strong>
-              <span>AI assistant. The owner confirms every booking.</span>
+              <span>Quick answers anytime. The owner confirms every booking.</span>
             </div>
             <button type="button" className="chat-x" aria-label="Close chat" onClick={() => setOpen(false)}>&times;</button>
           </div>
@@ -117,7 +117,7 @@ export function ChatBubble() {
             <input ref={input} value={text} onChange={(e) => setText(e.target.value)} placeholder="Type your question" aria-label="Type your question" maxLength={500} autoComplete="off" />
             <button type="submit" className="btn btn-brass btn-sm" disabled={busy || !text.trim()}>Send</button>
           </form>
-          <p className="chat-note">You&apos;re chatting with an AI. If you share contact details, they go only to The Burland. Chats are processed by ElevenLabs.</p>
+          <p className="chat-note">If you share contact details, they go only to The Burland. Chats are handled by our chat service provider.</p>
         </div>
       )}
       <button type="button" className="chat-btn" aria-expanded={open} aria-label={open ? "Close chat" : "Chat with us"} onClick={() => setOpen(!open)}>
