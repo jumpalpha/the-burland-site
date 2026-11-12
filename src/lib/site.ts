@@ -122,7 +122,6 @@ export const NAV = [
   { href: "/gallery", label: "Gallery" },
   { href: "/basecamp", label: "Basecamp" },
   { href: "/plan", label: "Planning Tools" },
-  { href: "/how-to-book", label: "How to Book" },
 ];
 
 export const fmtUSD = (n: number) =>
