@@ -19,6 +19,14 @@ Nothing touches the live calendar except reading. The assistant has no way to bo
 The calendar script returns only busy start/end times, never names or titles. Source: `calendar-apps-script/`.
 (Google's public calendar feed was tried first: it was rate-limited from the server and missed a booking, so it's not used.)
 
+## Public chat bubble (live since 2026-11-11)
+- Every public page shows an "Ask a question" bubble (src/components/ChatBubble.tsx). Hidden on /owner, /rental, and the test page.
+- Text only. The agent has chat mode on, the client "Text only" override is off, file attachments are off, and bursting is off.
+  Voice will not work anywhere (including the test page mic) until chat mode is turned off in ElevenLabs Agent settings.
+- Limits: ElevenLabs daily conversation limit is 60 (Agent settings > Security > Limits). The backend also allows 6 chats per visitor per hour.
+- Leads from chat arrive like other inquiries, marked "AI chat assistant".
+- Turn off only the bubble: Supabase > Edge Functions > Secrets > set PUBLIC_CHAT = off. Turn off everything: ASSISTANT_MODE = off.
+
 ## Test it
 1. Open `https://theburland.com/voice-assistant-test` (live only after the branch is merged — see Deploy).
 2. Enter the passcode (sent to you in chat; only its hash is in the code). To change it, set a `TEST_PASSCODE` secret in Supabase and that replaces it. Tick "Remember on this device" on your phone.

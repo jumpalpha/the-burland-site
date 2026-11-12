@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StickyCta } from "@/components/Blocks";
+import { ChatBubble } from "@/components/ChatBubble";
 import { JsonLd } from "@/components/JsonLd";
 import { venueSchema } from "@/lib/seo";
 import { IS_PREVIEW, SITE } from "@/lib/site";
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <Footer />
         <StickyCta />
+        <ChatBubble />
         <JsonLd data={venueSchema()} />
       </body>
     </html>

@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@elevenlabs/client": "^1.35.0",
     "leaflet": "1.9.4",
     "next": "16.4.5",
     "react": "19.3.1",
