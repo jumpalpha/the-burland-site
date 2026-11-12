@@ -1,17 +1,17 @@
-# The Burland — Assistant Knowledge Base
+# The Burland: Assistant Knowledge Base
 
 Owner-editable. This is the ONLY source of facts the assistant may state.
 To change what the assistant says: edit this text, then paste it into the
 ElevenLabs agent's Knowledge Base document (see README "Update business info").
 
-Last verified: 2026-11-09. Capacity, Thu-Sun total, holidays, check-out, tables/chairs, cancellation policy, and house rules confirmed by owner; Yellowstone drive time checked against road distances.
+Last verified: 2026-11-11. Hourly cleaning fee waiver confirmed by owner 2026-11-11. Capacity, Thu-Sun total, holidays, check-out, tables/chairs, cancellation policy, and house rules confirmed by owner; Yellowstone drive time checked against road distances.
 Lines marked [CONFIRM WITH OWNER] are unverified or conflicting. The assistant
 must not state those as fact; it says the owner will confirm.
 
 ## About
 - The Burland is a restored historic building, built in 1912, in downtown St. Anthony, Idaho.
 - Built for family reunions, weddings, and gatherings where everyone stays under one roof.
-- "Not a hotel, not a conference center — a family home, made bigger."
+- "Not a hotel, not a conference center. A family home, made bigger."
 - Over 10,000 square feet across three floors.
 - A little over an hour from Yellowstone's West Entrance (about 60 to 70 miles on US-20 through Ashton and Island Park).
 - 10–15 minutes from both Rexburg, Idaho temples.
@@ -50,9 +50,9 @@ Peak season, May through September (all peak stays: 2-night minimum):
 
 Add-ons and fees:
 - Tables and chairs are included with every rental, no decor package needed (confirmed by owner 2026-11-09).
-- Wedding Basic decor package: $200 per event — black tablecloths and table centerpieces
+- Wedding Basic decor package: $200 per event, including black tablecloths and table centerpieces
   from current selection. White tablecloths $10 each. Renter sets up.
-- Wedding Deluxe Celebration package: $500 per event — everything in Basic plus two
+- Wedding Deluxe Celebration package: $500 per event, including everything in Basic plus two
   pre-wedding consultations, octagon backdrop and decor signs, microphone, projector,
   cake table, choice of all decor varieties, staff setup.
 - Alcohol fee when alcohol is served: $200.
@@ -79,7 +79,7 @@ Payment and policies:
 
 ## Getting here / navigation (confirmed by owner 2026-11-10)
 - The Burland has no street mailing address at the site. Do not state or publish "38 N Bridge St."
-- Navigation instruction for guests: "Search 'The Burland Event Center' in Google Maps, or navigate to downtown St. Anthony, Idaho — historic three-story building on Bridge Street."
+- Navigation instruction for guests: "Search 'The Burland Event Center' in Google Maps, or navigate to downtown St. Anthony, Idaho. It is the historic three-story building on Bridge Street."
 - Tour / arrival instruction: "We're in downtown St. Anthony. Text me at 208-709-1403 when you're out front and I'll meet you at the door."
 
 ## Tours
