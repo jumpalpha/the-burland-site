@@ -29,6 +29,7 @@ export function Footer() {
               <li><Link href="/pricing">Pricing</Link></li>
               <li><Link href="/availability">Availability</Link></li>
               <li><Link href="/book">Plan and book</Link></li>
+              <li><Link href="/how-to-book">How booking works</Link></li>
             </ul>
           </div>
           <div>

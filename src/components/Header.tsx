@@ -39,10 +39,7 @@ export function Header() {
               {n.label}
             </Link>
           ))}
-          <div className="nav-cta">
-            <Link href="/how-to-book" className="btn btn-ghost" aria-current={path.replace(/\/$/, "") === "/how-to-book" ? "page" : undefined}>How to Book</Link>
-            <Link href="/book" className="btn btn-brass">Plan &amp; Book</Link>
-          </div>
+          <Link href="/book" className="btn btn-brass">Plan &amp; Book</Link>
         </nav>
       </div>
     </header>
