@@ -9,6 +9,7 @@ const PAGES: [string, number][] = [
   ["/reunions", 0.9],
   ["/weddings", 0.9],
   ["/book", 0.9],
+  ["/how-to-book", 0.8],
   ["/pricing", 0.8],
   ["/availability", 0.8],
   ["/retreats", 0.7],
