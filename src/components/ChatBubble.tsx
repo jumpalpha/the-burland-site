@@ -24,6 +24,7 @@ export function ChatBubble() {
   const [thinking, setThinking] = useState(false);
   const convo = useRef<Convo | null>(null);
   const token = useRef("");
+  const greeted = useRef(false);
   const log = useRef<HTMLDivElement>(null);
   const input = useRef<HTMLInputElement>(null);
 
@@ -41,6 +42,7 @@ export function ChatBubble() {
       return null;
     }
     token.current = s.data.token;
+    greeted.current = false;
     const { Conversation } = await import("@elevenlabs/client");
     const c = await Conversation.startSession({
       signedUrl: s.data.signed_url,
@@ -57,7 +59,11 @@ export function ChatBubble() {
         },
       },
       onMessage: (m: { source?: string; role?: string; message: string }) => {
-        if (m.source === "ai" || m.role === "agent") { setThinking(false); add({ who: "ai", text: m.message.replace(/\s{2,}/g, " ").trim() }); }
+        if (m.source !== "ai" && m.role !== "agent") return;
+        // The agent's spoken greeting repeats the bubble's built-in welcome.
+        if (!greeted.current) { greeted.current = true; if (/welcome to The Burland/i.test(m.message)) return; }
+        setThinking(false);
+        add({ who: "ai", text: m.message.replace(/\s{2,}/g, " ").trim() });
       },
       onDisconnect: () => { convo.current = null; setThinking(false); },
       onError: () => { setThinking(false); },
