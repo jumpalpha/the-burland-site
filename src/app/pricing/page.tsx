@@ -7,7 +7,7 @@ import { ADDONS, HOURLY_CLEANING_NOTE, POLICY, RATES, fmtUSD } from "@/lib/site"
 
 export const metadata = meta({
   title: "Pricing and Rates",
-  description: "Whole-building rates for The Burland in St. Anthony, Idaho. Off-season from $800 a night, peak season from $1,200, hourly off-season weekdays, plus deposit and payment policies.",
+  description: "Whole-building rates for The Burland in St. Anthony, Idaho. Off-season from $800 a night, peak season from $1,200, hourly off-season rentals any day of the week, plus deposit and payment policies.",
   path: "/pricing",
   image: "img-dining-area",
 });
@@ -43,7 +43,7 @@ export default function Pricing() {
                   <tr><td>Monday to Thursday nights</td><td className="amt">{fmtUSD(RATES.off.weeknight)} / night</td><td>None</td></tr>
                   <tr><td>Friday to Sunday nights</td><td className="amt">{fmtUSD(RATES.off.weekend)} / night</td><td>2 nights</td></tr>
                   <tr><td>Holidays</td><td className="amt">{fmtUSD(RATES.off.holiday)} / night</td><td>3 nights</td></tr>
-                  <tr><td>Hourly, Monday to Thursday</td><td className="amt">{fmtUSD(RATES.hourly.first)} first hour, then {fmtUSD(RATES.hourly.additional)} / hour</td><td>None</td></tr>
+                  <tr><td>Hourly, any day (except holidays)</td><td className="amt">{fmtUSD(RATES.hourly.first)} first hour, then {fmtUSD(RATES.hourly.additional)} / hour</td><td>None</td></tr>
                 </tbody>
               </table>
             </div>

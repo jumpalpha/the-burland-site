@@ -37,7 +37,7 @@ Off-season, October through April:
 - Monday–Thursday: $800 per night, no minimum.
 - Friday–Sunday: $1,000 per night, 2-night minimum.
 - Holidays: $1,300 per night, 3-night minimum. Holiday nights: the night before Thanksgiving, Thanksgiving, Dec 24, Dec 25, Dec 31, Jan 1.
-- Hourly (Monday–Thursday, off-season only): $200 first hour, $75 each additional hour.
+- Hourly (any day of the week, off-season only, not on holiday dates): $200 first hour, $75 each additional hour. Weekend day rentals confirmed by owner 2026-11-11. Good for Christmas parties, company parties, and other daytime events.
 
 Peak season, May through September (all peak stays: 2-night minimum):
 - Weeknights (Monday–Thursday): $1,200 per night.
