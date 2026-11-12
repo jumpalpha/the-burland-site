@@ -7,7 +7,7 @@ import { RATES, fmtUSD } from "@/lib/site";
 
 export const metadata = meta({
   title: "Retreats, Parties, and Group Getaways",
-  description: "Church groups, youth retreats, milestone birthdays, and team getaways at The Burland in St. Anthony, Idaho. Sleeps 40+, hourly off-season weekday rentals from $200.",
+  description: "Church groups, youth retreats, milestone birthdays, and team getaways at The Burland in St. Anthony, Idaho. Sleeps 40+, hourly off-season rentals from $200 any day of the week.",
   path: "/retreats",
   image: "img-lounge-barn-doors",
 });
@@ -16,7 +16,7 @@ const USES = [
   { t: "Church and youth retreats", d: "Sleep 40+ on site, worship or meet in the ballroom, and cook together in the full kitchen." },
   { t: "Milestone birthdays and anniversaries", d: "A 50th anniversary dinner under the chandeliers, with the whole family staying over." },
   { t: "Team and club getaways", d: "Lounges for breakout conversations, a media room for presentations or movie night, and the dunes for an afternoon outing." },
-  { t: "Daytime gatherings", d: `Off-season weekdays by the hour: ${fmtUSD(RATES.hourly.first)} for the first hour, ${fmtUSD(RATES.hourly.additional)} for each hour after.` },
+  { t: "Daytime gatherings", d: `Off-season, any day, by the hour: ${fmtUSD(RATES.hourly.first)} for the first hour, ${fmtUSD(RATES.hourly.additional)} for each hour after.` },
 ];
 
 export default function Retreats() {

@@ -74,7 +74,7 @@ export const hourlyPrice = (hours: number) =>
   hours <= 0 ? 0 : RATES.hourly.first + RATES.hourly.additional * (Math.ceil(hours) - 1);
 
 export function hourlyAllowed(d: ISODate): boolean {
-  return seasonOf(d) === "off" && !isWeekendNight(d) && !holidayNights(Number(d.slice(0, 4))).includes(d);
+  return seasonOf(d) === "off" && !holidayNights(Number(d.slice(0, 4))).includes(d);
 }
 
 export function quote(q: QuoteInput, today?: ISODate): Quote {
@@ -112,7 +112,7 @@ export function quote(q: QuoteInput, today?: ISODate): Quote {
     }
   } else {
     const h = Math.ceil(q.hours ?? 0);
-    if (!hourlyAllowed(q.start)) problems.push("Hourly rentals are available Monday through Thursday, October through April.");
+    if (!hourlyAllowed(q.start)) problems.push("Hourly rentals are available any day from October through April, except holidays.");
     if (h < 1) problems.push("Choose how many hours you need.");
     if (h > 12) problems.push("For more than 12 hours, an overnight stay is usually the better value.");
     if (h >= 1) lines.push({ label: `Hourly rental (${h} hour${h > 1 ? "s" : ""})`, amount: hourlyPrice(h) });
