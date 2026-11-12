@@ -36,7 +36,7 @@ export default function HowToBook() {
 
           <div className="card" style={{ marginTop: 8 }}>
             <h2 style={{ fontSize: "1.3rem", marginTop: 0 }}>After your stay</h2>
-            <p className="muted" style={{ margin: 0 }}>Your $1,000 security deposit comes back after the stay, minus a $250 cleaning fee. If there&apos;s no damage, that&apos;s $750 back to you. Check-in begins at 3:00 p.m. and check-out is 11:00 a.m. See <Link href="/pricing">pricing and policies</Link> for cancellation and house rules.</p>
+            <p className="muted" style={{ margin: 0 }}>Your $1,000 security deposit comes back after the stay, minus a $250 cleaning fee. If there&apos;s no damage, that&apos;s $750 back to you. For hourly daytime rentals, the cleaning fee is waived or greatly reduced if everything is left clean. Check-in begins at 3:00 p.m. and check-out is 11:00 a.m. See <Link href="/pricing">pricing and policies</Link> for cancellation and house rules.</p>
           </div>
         </div>
       </section>

@@ -1,4 +1,4 @@
-import { ADDONS, POLICY, RATES } from "./site";
+import { ADDONS, HOURLY_CLEANING_NOTE, POLICY, RATES } from "./site";
 import { addDays, diffDays, dow, month, nightsBetween, nthWeekday, type ISODate } from "./dates";
 
 export type Season = "peak" | "off";
@@ -156,6 +156,7 @@ export function quoteText(q: Quote, o: { start: ISODate; end?: ISODate; name?: s
     `Due at booking (50%): $${q.dueAtBooking.toLocaleString("en-US")}`,
     q.balanceDue ? `Balance $${q.balance.toLocaleString("en-US")} due by ${q.balanceDue}` : `Balance: $${q.balance.toLocaleString("en-US")}`,
     `Refundable security deposit: $${q.securityDeposit.toLocaleString("en-US")} ($${q.depositRefund.toLocaleString("en-US")} back after the $${POLICY.cleaningFee} cleaning fee if there's no damage)`,
+    ...(q.nights.length === 0 ? [HOURLY_CLEANING_NOTE] : []),
     ...q.notes,
   ].join("\n");
 }

@@ -1,6 +1,6 @@
 import { fmtDate } from "@/lib/dates";
 import type { Quote } from "@/lib/pricing";
-import { fmtUSD, POLICY } from "@/lib/site";
+import { fmtUSD, HOURLY_CLEANING_NOTE, POLICY } from "@/lib/site";
 
 export function EstimateCard({ q, start, end, title = "Your estimate", children }: { q: Quote | null; start: string | null; end: string | null; title?: string; children?: React.ReactNode }) {
   return (
@@ -27,7 +27,7 @@ export function EstimateCard({ q, start, end, title = "Your estimate", children 
             <div><span>Due at booking (50%)</span><strong>{fmtUSD(q.dueAtBooking)}</strong></div>
             <div><span>Balance{q.balanceDue ? ` due ${fmtDate(q.balanceDue)}` : ""}</span><strong>{fmtUSD(q.balance)}</strong></div>
             <div><span>Refundable security deposit</span><strong>{fmtUSD(POLICY.securityDeposit)}</strong></div>
-            <div className="small"><span>You get {fmtUSD(POLICY.securityDeposit - POLICY.cleaningFee)} back after a {fmtUSD(POLICY.cleaningFee)} cleaning fee if there&apos;s no damage.</span></div>
+            <div className="small"><span>You get {fmtUSD(POLICY.securityDeposit - POLICY.cleaningFee)} back after a {fmtUSD(POLICY.cleaningFee)} cleaning fee if there&apos;s no damage.{q.nights.length === 0 ? ` ${HOURLY_CLEANING_NOTE}` : ""}</span></div>
           </div>
         </>
       )}

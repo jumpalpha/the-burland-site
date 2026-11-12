@@ -86,6 +86,8 @@ export const POLICY = {
   cleaningFee: 250,
 };
 
+export const HOURLY_CLEANING_NOTE = "For hourly daytime rentals, the cleaning fee is waived or greatly reduced if everything is left clean.";
+
 export const PACKAGES = [
   {
     key: "basic" as const,

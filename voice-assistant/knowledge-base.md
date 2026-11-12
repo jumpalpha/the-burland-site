@@ -61,6 +61,7 @@ Payment and policies:
 - 50% due when you book. Remaining balance due 90 days before arrival.
 - $1,000 security deposit, refunded after the stay minus a $250 cleaning fee
   ($750 back if there's no damage).
+- Hourly daytime rentals: the cleaning fee is waived or greatly reduced if everything is left clean (confirmed by owner 2026-11-11).
 - Check-in begins at 3:00 p.m.
 - Check-out is 11:00 a.m.
 - Cancellation: payments are non-refundable. If the owner can rebook the dates, all but $500 is refunded. Notify the owner as soon as possible if plans change. (Confirmed by owner 2026-11-09.)

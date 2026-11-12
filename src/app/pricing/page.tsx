@@ -3,7 +3,7 @@ import { CtaBand, Faq, PageHero } from "@/components/Blocks";
 import { JsonLd } from "@/components/JsonLd";
 import { FAQS } from "@/lib/content";
 import { crumbsSchema, faqSchema, meta } from "@/lib/seo";
-import { ADDONS, POLICY, RATES, fmtUSD } from "@/lib/site";
+import { ADDONS, HOURLY_CLEANING_NOTE, POLICY, RATES, fmtUSD } from "@/lib/site";
 
 export const metadata = meta({
   title: "Pricing and Rates",
@@ -87,7 +87,7 @@ export default function Pricing() {
             <ul className="check">
               <li>{POLICY.bookingPercent * 100}% due when you book</li>
               <li>Remaining balance due {POLICY.balanceDaysBefore} days before arrival</li>
-              <li>{fmtUSD(POLICY.securityDeposit)} refundable security deposit. After your stay you get {fmtUSD(POLICY.securityDeposit - POLICY.cleaningFee)} back if there&apos;s no damage, since {fmtUSD(POLICY.cleaningFee)} covers cleaning.</li>
+              <li>{fmtUSD(POLICY.securityDeposit)} refundable security deposit. After your stay you get {fmtUSD(POLICY.securityDeposit - POLICY.cleaningFee)} back if there&apos;s no damage, since {fmtUSD(POLICY.cleaningFee)} covers cleaning. {HOURLY_CLEANING_NOTE}</li>
               <li>Check-in begins at 3:00 p.m. and check-out is 11:00 a.m.</li>
               <li>Every total is confirmed in writing before you sign.</li>
             </ul>
