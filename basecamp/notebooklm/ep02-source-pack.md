@@ -51,7 +51,7 @@ If the group has teenagers or stronger hikers, the Fairy Falls overlook trail gi
 
 The West Entrance, through the town of West Yellowstone, is the closest gateway from St. Anthony. It is also the most popular entrance in summer. Parking at Grand Prismatic Spring and the Midway Geyser Basin area fills up early. By mid-morning, the overflow lots are full and cars are lined up along the road.
 
-**Recommendation:** leave before 7:00 a.m. Arrive at Grand Prismatic before 9:00 a.m. and you will park easily and walk with almost no crowd. Wait until 10:30 and you may park more than a mile away and walk in traffic.
+**Recommendation:** get an early start. Reach Grand Prismatic early in the morning and you will park easily and walk with almost no crowd. Arrive after mid-morning and you may park more than a mile away and walk in traffic.
 
 Packing a full breakfast or eating before you leave is better than stopping in West Yellowstone on the way in. Save the town for dinner on the way home, when the traffic has thinned.
 
@@ -59,11 +59,11 @@ Packing a full breakfast or eating before you leave is better than stopping in W
 
 ## Stop 1: Grand Prismatic Spring and Midway Geyser Basin
 
-**What it is:** The largest hot spring in the United States, famous for its concentric rings of color -- deep blue center, then green, yellow, orange, and rust, caused by heat-loving bacteria at different temperatures. It is roughly 300 feet across.
+**What it is:** The largest hot spring in the United States, famous for its concentric rings of color -- deep blue center, then green, yellow, orange, and rust, caused by heat-loving bacteria at different temperatures. It is roughly 370 feet across.
 
 **The boardwalk:** Flat, paved, and stroller and wheelchair accessible. The main loop around the spring takes about 20 to 30 minutes at a relaxed pace. It is exposed -- hot, with steam depending on wind direction -- so hats, sunscreen, and water bottles matter.
 
-**The Fairy Falls overlook:** A separate trailhead, about a half mile from the main Midway parking area, leads to Fairy Falls (a tall, narrow waterfall) and continues to an overlook ridge above Grand Prismatic. The overlook is about 2.5 miles each way from the trailhead. For a family with grandparents or small kids, the overlook is optional. For a group with teens or active adults, it is worth it and adds a couple of hours.
+**The Fairy Falls overlook:** A separate trailhead leads to Fairy Falls (a tall, narrow waterfall) and continues to an overlook ridge above Grand Prismatic. The overlook is about 2.5 miles each way from the trailhead. For a family with grandparents or small kids, the overlook is optional. For a group with teens or active adults, it is worth it and adds a couple of hours.
 
 **Practical notes:**
 - Arrive before 9:00 a.m. to find parking in the main lot.
@@ -130,7 +130,7 @@ If the group has members who do better with short walks and long sits, the formu
 
 This is an example. Groups should adjust to their own pace.
 
-- 6:30 a.m. -- Leave The Burland, packed breakfast or stop on the road
+- Early start -- Leave The Burland, packed breakfast or stop on the road
 - Arrive at Midway Geyser Basin / Grand Prismatic -- walk the boardwalk before the crowds arrive
 - Optional: Fairy Falls overlook trail for the group members who want more
 - Drive to Old Faithful
@@ -139,7 +139,7 @@ This is an example. Groups should adjust to their own pace.
 - Lunch at the deli or packed lunch at the picnic area
 - Upper Geyser Basin walk, or rest and head home
 - Drive back through West Yellowstone -- dinner and optional Grizzly and Wolf Discovery Center
-- Home by 7:00 or 8:00 p.m.
+- Back at The Burland in the evening
 
 ---
 
