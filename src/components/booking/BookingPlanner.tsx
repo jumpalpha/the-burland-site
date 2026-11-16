@@ -227,7 +227,7 @@ export function BookingPlanner() {
               </div>
               {Number(d.overnight) > 40 && <p className="notice small">The Burland sleeps 40+. Tell us your exact count and we&apos;ll help you plan beds by household.</p>}
               {maxGuests > SITE.maxInBuilding && <p className="notice warn small">The building holds up to {SITE.maxInBuilding} guests at one time. Call or text {SITE.phone} and we&apos;ll talk through options.</p>}
-              {d.eventType === "Wedding" && maxGuests > SITE.weddingSeats && maxGuests <= SITE.maxInBuilding && <p className="notice small">Wedding seating is up to about {SITE.weddingSeats}. Up to {SITE.maxInBuilding} can be in the building for a standing reception.</p>}
+              {d.eventType === "Wedding" && maxGuests > SITE.weddingSeats && maxGuests <= SITE.maxInBuilding && <p className="notice small">Seating is for {SITE.weddingSeats}. Up to {SITE.maxInBuilding} can be in the building for a standing reception.</p>}
               <div className="field">
                 <span className="legend">Spaces you&apos;re most excited about (optional)</span>
                 <div className="choice">

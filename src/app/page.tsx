@@ -112,7 +112,7 @@ export default function Home() {
             <div className="eyebrow">Weddings</div>
             <h2>A wedding that feels like family, not a convention hall</h2>
             <p>Ceremony and reception in one place, a bridal suite and groom&apos;s lounge for getting ready, and room for out-of-town family to stay the night. Both Rexburg temples are about 15 minutes away, so the celebration can start the moment you arrive.</p>
-            <p className="muted">Seats up to about 100 guests. Decor packages from $200.</p>
+            <p className="muted">Seating for 100, room for 130+ in the building. Decor packages from $200.</p>
             <Link href="/weddings" className="btn btn-dark">Explore weddings</Link>
           </div>
           <div className="media"><Picture src="img-ballroom-tables" sizes="(max-width: 860px) 100vw, 50vw" /></div>

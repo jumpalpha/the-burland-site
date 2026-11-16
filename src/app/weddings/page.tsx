@@ -14,7 +14,7 @@ export const metadata = meta({
 });
 
 const DETAILS = [
-  ["Seating", "Up to about 100 guests, intimate by design"],
+  ["Seating", "Seating for 100, room for 130+ in the building"],
   ["Ceremony and reception", "Both on site. The space converts quickly between the two."],
   ["Getting ready", "Bridal suite and groom's lounge, separate spaces on site"],
   ["Overnight stays", "Family and wedding party can stay together on site"],
