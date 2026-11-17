@@ -29,7 +29,7 @@ export const PHOTOS: Photo[] = [
   L("img-arcade-corner", "Arcade corner", "Games & media"),
   L("img-media-room", "Media room for movie night", "Games & media"),
   L("img-restoration-roof", "Roof work during the restoration", "Restoration", 1400, 1050),
-  L("img-restoration-facade", "The 1912 brick facade during restoration", "Restoration", 1400, 1867),
+  L("img-restoration-facade", "The finished Burland Event Center exterior, downtown St. Anthony", "Restoration", 333, 257),
   L("img-restoration-hall-balcony", "Hall and balcony during restoration", "Restoration", 1400, 1050),
   L("img-restoration-hall", "The main hall mid-restoration", "Restoration", 1400, 1050),
   L("img-restoration-room", "A room mid-restoration", "Restoration", 1400, 1867),
@@ -227,19 +227,27 @@ export const REVIEWS = [
   { text: "A returning guest said their family loves staying at The Burland, calling St. Anthony the perfect small town with plenty to do for young kids.", who: "Returning guest" },
 ];
 
+export const BOOKING_STEPS: { t: string; short: string; d: string; href?: string; cta?: string }[] = [
+  { t: "Pick your dates", short: "See your price instantly and send a request.", d: "Choose your dates in the booking planner. You'll see the full price, minimum-stay rules, and payment schedule right away. Sending a request is free and doesn't commit you to anything.", href: "/book", cta: "Check dates and pricing" },
+  { t: "We confirm personally", short: "We check the calendar and reach out, usually within one business day.", d: "Nothing is booked automatically. We look over your request, confirm the date is open, and get back to you by phone, text, or email, usually within one business day. This is a good time to ask questions or set up a tour." },
+  { t: "Fill out your rental details", short: "One short form with everything we need for your agreement.", d: "Once your date is confirmed, fill out the rental details form below (we'll also email you a link). It asks for your contact info, dates, guest count, the spaces you want, and add-ons. You only fill it out once.", href: "#rental-details", cta: "Go to the form" },
+  { t: "Sign through SignNow", short: "Your agreement arrives by email. Sign it online in a few minutes.", d: "We review your details, prepare your rental agreement, and send it to your email through SignNow. Read it over and sign online. No printing or scanning." },
+  { t: "Pay to reserve your date", short: "Your date is held once it's signed and the first payment is in.", d: "At signing you pay 50% of the rental plus the $1,000 security deposit. The rest of the rental is due 90 days before you arrive. If your stay is less than 90 days away, the full amount is due at signing. Your date is reserved once the agreement is signed and that payment is received." },
+];
+
 export const FAQS: { q: string; a: string; tag: "booking" | "stay" | "events" | "area" }[] = [
   { tag: "booking", q: "How does booking work?", a: "Pick your dates in our booking planner and you'll see an instant estimate. Send it to us and we'll confirm your date personally, usually within one business day. We then email a short rental details form and your agreement through SignNow. Your date is reserved once the agreement is signed and the payment due at signing is received. Nothing is booked automatically." },
-  { tag: "booking", q: "What does it cost?", a: "Off-season (October through April) is $800 a night Monday through Thursday and $1,000 a night Friday through Sunday, with holiday nights at $1,300. Peak season (May through September) is $1,200 a weeknight and $1,500 a weekend night. Off-season weekdays can also be rented by the hour. We confirm every total in writing." },
+  { tag: "booking", q: "What does it cost?", a: "Off-season (October through April) is $800 a night Monday through Thursday and $1,000 a night Friday through Sunday, with holiday nights at $1,300. Peak season (May through September) is $1,200 a weeknight and $1,500 a weekend night. Off-season days can also be rented by the hour, any day of the week except holidays. We confirm every total in writing." },
   { tag: "booking", q: "Is there a minimum stay?", a: "Off-season weeknights have no minimum. Off-season weekends need 2 nights and holidays need 3. Every peak-season stay has a 2-night minimum." },
-  { tag: "booking", q: "What are the payment terms?", a: "50% is due when you book and the rest is due 90 days before you arrive. There's also a $1,000 refundable security deposit. After your stay you get $750 back if there's no damage, since $250 covers cleaning." },
+  { tag: "booking", q: "What are the payment terms?", a: "50% is due when you book and the rest is due 90 days before you arrive. There's also a $1,000 refundable security deposit. After your stay you get $750 back if there's no damage, since $250 covers cleaning. For hourly daytime rentals, the cleaning fee is waived or greatly reduced if everything is left clean." },
   { tag: "booking", q: "How far ahead should we book?", a: "Summer weekends go first, especially during Yellowstone season and around Pioneer Days in late July. Reach out 6 to 12 months ahead for peak dates." },
   { tag: "booking", q: "Can we tour The Burland first?", a: "Yes, and we encourage it. Request a visit through our contact page and we'll find a time that works." },
   { tag: "stay", q: "How many people can stay overnight?", a: "The Burland sleeps 40+ on site across private family suites, so most families fit under one roof." },
-  { tag: "events", q: "How many guests can The Burland hold?", a: "Up to 130 guests in the building at one time, with seating for weddings of up to about 100. Overnight, it sleeps 40+." },
+  { tag: "events", q: "How many guests can The Burland hold?", a: "Seating for 100, with room for 130+ in the building. Overnight, it sleeps 40+." },
   { tag: "stay", q: "Can we cook our own food?", a: "Absolutely. The full kitchen is yours and it's set up for big-group cooking. Cook together, do a potluck, or bring a caterer. We don't provide catering." },
   { tag: "stay", q: "What are check-in and check-out times?", a: "Check-in begins at 3:00 p.m. and check-out is 11:00 a.m." },
   { tag: "stay", q: "Is it good for grandparents and little kids?", a: "Yes. The Burland is designed for all ages and the wedding spaces are ADA accessible. Kids get their own game room with ping-pong, air hockey, and an arcade corner. Tell us about any specific accessibility needs and we'll do our best to help." },
-  { tag: "events", q: "How many guests can attend a wedding?", a: "Wedding seating is up to about 100 guests, and the building holds up to 130 at one time." },
+  { tag: "events", q: "How many guests can attend a wedding?", a: "Seating for 100, with room for 130+ in the building for a standing reception." },
   { tag: "events", q: "Are tables and chairs included?", a: "Yes. Tables and chairs come with every rental, no package needed. The decor packages add linens, centerpieces, and, with the Deluxe package, staff setup." },
   { tag: "events", q: "Can we bring our own vendors?", a: "Yes. We have a flexible vendor policy, so you can bring the caterer, photographer, and DJ you love." },
   { tag: "events", q: "Is alcohol allowed?", a: "Alcohol can be served with approval. There's a $200 alcohol fee, and the rules are covered in your rental agreement." },

@@ -3,11 +3,11 @@ import { CtaBand, Faq, PageHero } from "@/components/Blocks";
 import { JsonLd } from "@/components/JsonLd";
 import { FAQS } from "@/lib/content";
 import { crumbsSchema, faqSchema, meta } from "@/lib/seo";
-import { ADDONS, POLICY, RATES, fmtUSD } from "@/lib/site";
+import { ADDONS, HOURLY_CLEANING_NOTE, POLICY, RATES, fmtUSD } from "@/lib/site";
 
 export const metadata = meta({
   title: "Pricing and Rates",
-  description: "Whole-building rates for The Burland in St. Anthony, Idaho. Off-season from $800 a night, peak season from $1,200, hourly off-season weekdays, plus deposit and payment policies.",
+  description: "Whole-building rates for The Burland in St. Anthony, Idaho. Off-season from $800 a night, peak season from $1,200, hourly off-season rentals any day of the week, plus deposit and payment policies.",
   path: "/pricing",
   image: "img-dining-area",
 });
@@ -43,7 +43,7 @@ export default function Pricing() {
                   <tr><td>Monday to Thursday nights</td><td className="amt">{fmtUSD(RATES.off.weeknight)} / night</td><td>None</td></tr>
                   <tr><td>Friday to Sunday nights</td><td className="amt">{fmtUSD(RATES.off.weekend)} / night</td><td>2 nights</td></tr>
                   <tr><td>Holidays</td><td className="amt">{fmtUSD(RATES.off.holiday)} / night</td><td>3 nights</td></tr>
-                  <tr><td>Hourly, Monday to Thursday</td><td className="amt">{fmtUSD(RATES.hourly.first)} first hour, then {fmtUSD(RATES.hourly.additional)} / hour</td><td>None</td></tr>
+                  <tr><td>Hourly, any day (except holidays)</td><td className="amt">{fmtUSD(RATES.hourly.first)} first hour, then {fmtUSD(RATES.hourly.additional)} / hour</td><td>None</td></tr>
                 </tbody>
               </table>
             </div>
@@ -87,9 +87,20 @@ export default function Pricing() {
             <ul className="check">
               <li>{POLICY.bookingPercent * 100}% due when you book</li>
               <li>Remaining balance due {POLICY.balanceDaysBefore} days before arrival</li>
-              <li>{fmtUSD(POLICY.securityDeposit)} refundable security deposit. After your stay you get {fmtUSD(POLICY.securityDeposit - POLICY.cleaningFee)} back if there&apos;s no damage, since {fmtUSD(POLICY.cleaningFee)} covers cleaning.</li>
+              <li>{fmtUSD(POLICY.securityDeposit)} refundable security deposit. After your stay you get {fmtUSD(POLICY.securityDeposit - POLICY.cleaningFee)} back if there&apos;s no damage, since {fmtUSD(POLICY.cleaningFee)} covers cleaning. {HOURLY_CLEANING_NOTE}</li>
               <li>Check-in begins at 3:00 p.m. and check-out is 11:00 a.m.</li>
               <li>Every total is confirmed in writing before you sign.</li>
+            </ul>
+            <div className="eyebrow" style={{ marginTop: 32 }}>Cancellation</div>
+            <ul className="check">
+              <li>Payments are non-refundable.</li>
+              <li>If we can rebook your dates, all but $500 is refunded. Let us know as soon as possible if your plans change.</li>
+            </ul>
+            <div className="eyebrow" style={{ marginTop: 32 }}>House rules</div>
+            <ul className="check">
+              <li>No smoking, no pets, no discharge of firearms.</li>
+              <li>Quiet time is 10:00 p.m.</li>
+              <li>Please remove shoes indoors when possible.</li>
             </ul>
           </div>
         </div>

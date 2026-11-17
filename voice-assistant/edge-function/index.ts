@@ -1,6 +1,8 @@
 // The Burland voice assistant backend (Supabase Edge Function "burland-voice").
 //
 // POST {action:"session", passcode}            -> {signed_url, token}       (gate for the test page)
+// POST {action:"chat"}                         -> {signed_url, token}       (public text chat bubble; no passcode,
+//                                                                              rate limited, site origins only)
 // POST {action:"availability", token, start_date, end_date}                  (read-only calendar check)
 // POST {action:"inquiry", token, ...lead}                                    (forwards to the existing
 //                                                                              Apps Script inquiry pipeline)
@@ -10,6 +12,7 @@
 //   TEST_PASSCODE        optional override for the test-page passcode (12+ characters).
 //                        If unset, the built-in passcode (stored below only as a SHA-256 hash) is used.
 //   ASSISTANT_MODE       "private" (default), "off" (kill switch), or "public" (no passcode; later)
+//   PUBLIC_CHAT          "off" turns off only the public chat bubble (test page keeps working)
 //
 // No Google credentials exist here. Availability comes from a separate Apps Script that holds only
 // read-only calendar permission and returns busy date ranges, so nothing here can change the calendar.
@@ -21,7 +24,9 @@ import { checkAvailability, liveToIcs } from "./calendar.ts";
 const CAL_URL = "https://script.google.com/macros/s/AKfycbyIDlI75smlerwJk4FdykGOJXOfAu-D7HTrBhSng3ARrMY2_8Qxroa3nJb68eRMY15Rsg/exec";
 const APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbyuwAzTwUtD1CHtg94bdir8_mx8_vSagoIu07MBtsykxTwnKAa6tB4ESmmFKq_-uan4/exec";
-const ALLOWED_ORIGINS = ["https://theburland.com", "https://www.theburland.com", "http://localhost:8000", "http://127.0.0.1:8000"];
+const ALLOWED_ORIGINS = ["https://theburland.com", "https://www.theburland.com", "http://localhost:8000", "http://127.0.0.1:8000", "http://localhost:3000", "http://localhost:3001"];
+const CHATS_PER_IP_PER_HOUR = 6;
+const CHATS_PER_DAY = 150;
 const TOKEN_TTL_MS = 30 * 60 * 1000;
 const MAX_LEADS_PER_TOKEN = 3;
 // SHA-256 of the default test passcode (random, 80+ bits). The passcode itself is not in this repo.
@@ -95,6 +100,20 @@ function noteFail(ip: string) {
   fails.set(ip, f);
 }
 
+const chatTimes = new Map<string, number[]>();
+let chatDay = "", chatsToday = 0;
+function chatLimited(ip: string) {
+  const day = new Date().toISOString().slice(0, 10);
+  if (day !== chatDay) { chatDay = day; chatsToday = 0; chatTimes.clear(); }
+  if (chatsToday >= CHATS_PER_DAY) return "daily";
+  const recent = (chatTimes.get(ip) ?? []).filter((t) => t > Date.now() - 3600_000);
+  if (recent.length >= CHATS_PER_IP_PER_HOUR) return "ip";
+  recent.push(Date.now());
+  chatTimes.set(ip, recent);
+  chatsToday++;
+  return "";
+}
+
 // ---------- agent lookup: ELEVENLABS_AGENT_ID if set, else find by name ----------
 const AGENT_NAME = "The Burland Receptionist";
 let cachedAgent = "";
@@ -115,7 +134,12 @@ async function agentId() {
 async function session(body: Record<string, unknown>, ip: string, origin: string | null) {
   const mode = env("ASSISTANT_MODE") || "private";
   if (mode === "off") return json({ error: "disabled", message: "The assistant is turned off right now." }, 503, origin);
-  if (mode !== "public") {
+  if (body.action === "chat") {
+    if (env("PUBLIC_CHAT") === "off") return json({ error: "disabled", message: "Chat is turned off right now." }, 503, origin);
+    if (!origin || !ALLOWED_ORIGINS.includes(origin)) return json({ error: "origin" }, 403, origin);
+    const lim = chatLimited(ip);
+    if (lim) return json({ error: "busy", message: "Chat is busy right now. Call or text 208-709-1403." }, 429, origin);
+  } else if (mode !== "public") {
     if (blocked(ip)) return json({ error: "locked", message: "Too many tries. Wait 15 minutes." }, 429, origin);
     if (!(await passOk(String(body.passcode ?? "")))) {
       noteFail(ip);
@@ -168,9 +192,10 @@ async function inquiry(body: Record<string, unknown>, tokenPayload: string, orig
   const name = clean(body.name, 80);
   if (!name) return json({ ok: false, error: "name", note: "Ask for their name." }, 200, origin);
 
+  const channel = body.channel === "chat" ? "chat" : "voice";
   const startDate = /^\d{4}-\d{2}-\d{2}$/.test(String(body.start_date)) ? String(body.start_date) : "";
   const summary = [
-    "NEW BURLAND BOOKING INQUIRY (via AI voice assistant)",
+    `NEW BURLAND BOOKING INQUIRY (via AI ${channel} assistant)`,
     `Name: ${name}`,
     `Phone: ${clean(body.phone, 40)}`,
     `Email: ${email}`,
@@ -201,7 +226,7 @@ async function inquiry(body: Record<string, unknown>, tokenPayload: string, orig
     nights: clean(body.nights, 3),
     max_guests: clean(body.guest_count, 6),
     overnight_guests: clean(body.overnight_guests, 6),
-    found_us: "AI voice assistant",
+    found_us: `AI ${channel} assistant`,
     message: summary,
   });
   try {
@@ -227,7 +252,7 @@ Deno.serve(async (req) => {
     return json({ error: "bad_json" }, 400, origin);
   }
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "?";
-  if (body.action === "session") return session(body, ip, origin);
+  if (body.action === "session" || body.action === "chat") return session(body, ip, origin);
   if ((env("ASSISTANT_MODE") || "private") === "off") return json({ error: "disabled" }, 503, origin);
   const payload = await verifyToken(body.token);
   if (!payload) return json({ error: "unauthorized" }, 401, origin);

@@ -4,7 +4,7 @@ import { QuickBar } from "@/components/QuickBar";
 import { CtaBand, Faq } from "@/components/Blocks";
 import { JsonLd } from "@/components/JsonLd";
 import { Icon, type IconName } from "@/components/Icon";
-import { ATTRACTIONS, FAQS, REVIEWS, TOWN_FACTS } from "@/lib/content";
+import { ATTRACTIONS, BOOKING_STEPS, FAQS, REVIEWS, TOWN_FACTS } from "@/lib/content";
 import { faqSchema, meta } from "@/lib/seo";
 import { RATES } from "@/lib/site";
 
@@ -51,6 +51,30 @@ export default function Home() {
           <div className="stack">
             <div className="media"><Picture src="img-lounge-upper" sizes="(max-width: 860px) 100vw, 50vw" /></div>
             <div className="media"><Picture src="img-coffee-bar" sizes="25vw" /></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="sand">
+        <div className="container">
+          <div className="section-head center">
+            <div className="eyebrow">How booking works</div>
+            <h2>Five simple steps, and a real person at every one</h2>
+            <p className="lede">Nothing is booked automatically. You&apos;ll know the price and payment schedule before you sign anything.</p>
+          </div>
+          <ol className="howto-strip">
+            {BOOKING_STEPS.map((s, i) => (
+              <li key={s.t}>
+                <span className="howto-num" aria-hidden="true">{i + 1}</span>
+                <h3>{s.t}</h3>
+                <p>{s.short}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="row" style={{ marginTop: 28, justifyContent: "center" }}>
+            <Link href="/book" className="btn btn-dark">Start with your dates</Link>
+            <Link href="/how-to-book" className="btn btn-line">See the full steps</Link>
+            <Link href="/how-to-book#rental-details" className="btn btn-line">Date confirmed? Fill out your details</Link>
           </div>
         </div>
       </section>

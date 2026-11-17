@@ -47,9 +47,11 @@ describe("rules", () => {
     expect(hourlyPrice(4)).toBe(425);
     expect(hourlyPrice(2.5)).toBe(350);
   });
-  it("hourly only Mon to Thu in the off-season", () => {
+  it("hourly any off-season day except holidays", () => {
     expect(hourlyAllowed(OFF_MON)).toBe(true);
-    expect(hourlyAllowed(addDays(OFF_MON, 4))).toBe(false);
+    expect(hourlyAllowed(addDays(OFF_MON, 4))).toBe(true);
+    expect(hourlyAllowed(addDays(OFF_MON, 5))).toBe(true);
+    expect(hourlyAllowed("2026-12-25")).toBe(false);
     expect(hourlyAllowed(PEAK_MON)).toBe(false);
   });
   it("add-ons and payment schedule", () => {

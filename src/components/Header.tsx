@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NAV } from "@/lib/site";
 
-const SOLID_ROUTES = /^\/(book|rental|owner|plan|contact|guide-|faq)/;
+const SOLID_ROUTES = /^\/(book|how-to-book|rental|owner|plan|contact|guide-|faq)/;
 
 export function Header() {
   const path = usePathname();

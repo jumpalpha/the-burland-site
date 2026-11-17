@@ -60,6 +60,7 @@ function detail(id){
     '<label>Renter notes</label><div class="note">'+(esc(r.Notes)||'None')+'<br><b>Decorations:</b> '+esc(r.Decorations)+'</div></div>'+
   '<div class="card"><h2>Pricing</h2><label>Fee lines (one per line, amount at the end)</label><textarea data-k="Fee lines" id="fees" rows="4">'+esc(r['Fee lines'])+'</textarea>'+
     '<div class="note">Suggested: '+esc(r['Pricing note'])+'</div><div class="two">'+fld('Security deposit','Deposit','number')+'<div><label>Due at signing (blank = automatic)</label><input id="due" type="number" placeholder=""></div></div>'+
+    '<div class="two"><div><label>Refundable if no damage (blank = automatic)</label><input data-k="Refundable" id="refund" type="number" min="0" value="'+esc(r.Refundable)+'"></div><div></div></div>'+
     '<div class="sum" id="sum" style="margin-top:12px"></div></div>'+
   '<button class="btn alt" onclick="save()">Save changes</button><button class="btn go" onclick="approve()">Approve and make contract</button>'+
   '<button class="btn alt" style="border-color:#9a3b2b;color:#9a3b2b" onclick="status(\'Declined\')">Decline</button>';
@@ -73,10 +74,13 @@ function calc(){
   var dep=Number(e.Deposit||0),start=new Date(e['Start date']+'T12:00:00'),dd=new Date(start.getTime()-D.finalDays*86400000),split=dd>new Date();
   var due=e['Due at signing']!==''?Number(e['Due at signing']):(split?dep+Math.round(rental/2):dep+rental),rem=Math.max(0,dep+rental-due);
   $('#due').placeholder=money(split?dep+Math.round(rental/2):dep+rental);
+  var autoRefund=Math.max(0,dep-D.cleaning),refund=e.Refundable!==''&&e.Refundable!=null?Number(e.Refundable):autoRefund;
+  $('#refund').placeholder=money(autoRefund);
   $('#sum').innerHTML='<div><span>Rental fees</span><span>'+money(rental)+'</span></div><div><span>Security deposit</span><span>'+money(dep)+'</span></div>'+
     '<div class="big"><span>Total</span><span>'+money(rental+dep)+'</span></div><div><span>Due at signing</span><span>'+money(due)+'</span></div>'+
     (rem>0?'<div><span>Remaining, due '+(dd.getMonth()+1)+'/'+dd.getDate()+'/'+dd.getFullYear()+'</span><span>'+money(rem)+'</span></div>':'')+
-    '<div class="muted"><span>Refundable if no damage</span><span>'+money(dep-D.cleaning)+'</span></div>';
+    '<div class="muted"><span>Refundable if no damage</span><span>'+money(refund)+'</span></div>'+
+    '<div class="muted"><span>Kept from deposit (cleaning)</span><span>'+money(Math.max(0,dep-refund))+'</span></div>';
 }
 function save(cb){toast('Saving...',0);run('save',cur.ID,edits(),function(){toast('Saved');if(cb)cb()},function(e){toast(e.message,6000)})}
 function status(s){run('save',cur.ID,{Status:s},function(){toast('Marked: '+s);load(cur.ID)},function(e){toast(e.message,6000)})}

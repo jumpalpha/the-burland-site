@@ -1,17 +1,17 @@
-# The Burland — Assistant Knowledge Base
+# The Burland: Assistant Knowledge Base
 
 Owner-editable. This is the ONLY source of facts the assistant may state.
 To change what the assistant says: edit this text, then paste it into the
 ElevenLabs agent's Knowledge Base document (see README "Update business info").
 
-Last verified: 2026-11-08. Capacity, Thu-Sun total, holidays, and check-out confirmed by owner; Yellowstone drive time checked against road distances.
+Last verified: 2026-11-11. Hourly cleaning fee waiver confirmed by owner 2026-11-11. Capacity, Thu-Sun total, holidays, check-out, tables/chairs, cancellation policy, and house rules confirmed by owner; Yellowstone drive time checked against road distances.
 Lines marked [CONFIRM WITH OWNER] are unverified or conflicting. The assistant
 must not state those as fact; it says the owner will confirm.
 
 ## About
 - The Burland is a restored historic building, built in 1912, in downtown St. Anthony, Idaho.
 - Built for family reunions, weddings, and gatherings where everyone stays under one roof.
-- "Not a hotel, not a conference center — a family home, made bigger."
+- "Not a hotel, not a conference center. A family home, made bigger."
 - Over 10,000 square feet across three floors.
 - A little over an hour from Yellowstone's West Entrance (about 60 to 70 miles on US-20 through Ashton and Island Park).
 - 10–15 minutes from both Rexburg, Idaho temples.
@@ -37,7 +37,7 @@ Off-season, October through April:
 - Monday–Thursday: $800 per night, no minimum.
 - Friday–Sunday: $1,000 per night, 2-night minimum.
 - Holidays: $1,300 per night, 3-night minimum. Holiday nights: the night before Thanksgiving, Thanksgiving, Dec 24, Dec 25, Dec 31, Jan 1.
-- Hourly (Monday–Thursday, off-season only): $200 first hour, $75 each additional hour.
+- Hourly (any day of the week, off-season only, not on holiday dates): $200 first hour, $75 each additional hour. Weekend day rentals confirmed by owner 2026-11-11. Good for Christmas parties, company parties, and other daytime events.
 
 Peak season, May through September (all peak stays: 2-night minimum):
 - Weeknights (Monday–Thursday): $1,200 per night.
@@ -50,9 +50,9 @@ Peak season, May through September (all peak stays: 2-night minimum):
 
 Add-ons and fees:
 - Tables and chairs are included with every rental, no decor package needed (confirmed by owner 2026-11-09).
-- Wedding Basic decor package: $200 per event — black tablecloths and table centerpieces
+- Wedding Basic decor package: $200 per event, including black tablecloths and table centerpieces
   from current selection. White tablecloths $10 each. Renter sets up.
-- Wedding Deluxe Celebration package: $500 per event — everything in Basic plus two
+- Wedding Deluxe Celebration package: $500 per event, including everything in Basic plus two
   pre-wedding consultations, octagon backdrop and decor signs, microphone, projector,
   cake table, choice of all decor varieties, staff setup.
 - Alcohol fee when alcohol is served: $200.
@@ -61,10 +61,11 @@ Payment and policies:
 - 50% due when you book. Remaining balance due 90 days before arrival.
 - $1,000 security deposit, refunded after the stay minus a $250 cleaning fee
   ($750 back if there's no damage).
+- Hourly daytime rentals: the cleaning fee is waived or greatly reduced if everything is left clean (confirmed by owner 2026-11-11).
 - Check-in begins at 3:00 p.m.
 - Check-out is 11:00 a.m.
-- [MISSING] Cancellation / refund policy is not published. Say the rental agreement covers it and the owner will explain.
-- [MISSING] House rules (noise, quiet hours, smoking, pets) are not published. Owner follows up.
+- Cancellation: payments are non-refundable. If the owner can rebook the dates, all but $500 is refunded. Notify the owner as soon as possible if plans change. (Confirmed by owner 2026-11-09.)
+- House rules: no smoking, no pets, no discharge of firearms. Quiet time is 10:00 PM. Remove shoes indoors when possible. (Confirmed by owner 2026-11-09.)
 - [CONFLICT] Reunions FAQ says pricing "depends on guest count." The pricing page bases price on season and days only. Use the pricing page.
 - Exact totals are always confirmed in writing by the owner.
 
@@ -75,6 +76,11 @@ Payment and policies:
 4. The owner sends a rental-agreement details link, then the agreement via SignNow.
 5. The date is reserved only after the agreement is signed and the payment due at signing is received.
 - Summer weekends fill fast; reach out 6–12 months ahead for peak dates.
+
+## Getting here / navigation (confirmed by owner 2026-11-10)
+- The Burland has no street mailing address at the site. Do not state or publish "38 N Bridge St."
+- Navigation instruction for guests: "Search 'The Burland Event Center' in Google Maps, or navigate to downtown St. Anthony, Idaho. It is the historic three-story building on Bridge Street."
+- Tour / arrival instruction: "We're in downtown St. Anthony. Text me at 208-709-1403 when you're out front and I'll meet you at the door."
 
 ## Tours
 - Site visits are encouraged. The owner arranges a time personally; the assistant

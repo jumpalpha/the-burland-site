@@ -181,7 +181,7 @@ export function BookingPlanner() {
                 <label><input type="radio" name="mode" checked={mode === "overnight"} onChange={() => { setMode("overnight"); setEnd(null); }} /><span>Overnight stay</span></label>
                 <label><input type="radio" name="mode" checked={mode === "hourly"} onChange={() => { setMode("hourly"); setEnd(start); }} /><span>Daytime, by the hour</span></label>
               </div>
-              {mode === "hourly" && <p className="notice small">Hourly rentals are $200 for the first hour and $75 for each hour after, Monday through Thursday, October through April.</p>}
+              {mode === "hourly" && <p className="notice small">Hourly rentals are $200 for the first hour and $75 for each hour after, any day from October through April (holidays excluded).</p>}
               {!avail.live && (
                 <p className="notice small">
                   We confirm every date by hand. Want to peek first? See the <Link href="/availability">live availability calendar</Link>.
@@ -202,7 +202,7 @@ export function BookingPlanner() {
                   <input type="number" min={1} max={12} value={hours} onChange={(e) => setHours(Math.max(1, Math.min(12, Number(e.target.value) || 1)))} />
                 </label>
               )}
-              {mode === "hourly" && start && !hourlyAllowed(start) && <p className="notice warn small">That date isn&apos;t available by the hour. Try a Monday through Thursday between October and April, or switch to an overnight stay.</p>}
+              {mode === "hourly" && start && !hourlyAllowed(start) && <p className="notice warn small">That date isn&apos;t available by the hour. Hourly rentals run October through April, except holidays. Try another date, or switch to an overnight stay.</p>}
               <div className="row" style={{ justifyContent: "space-between" }}>
                 <button type="button" className="btn btn-line btn-sm" onClick={() => { setStart(null); setEnd(null); }}>Clear dates</button>
                 <button type="button" className="btn btn-dark" disabled={!datesOk} onClick={() => go(1)}>Next: event details</button>
