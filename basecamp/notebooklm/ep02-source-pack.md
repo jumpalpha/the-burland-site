@@ -43,7 +43,7 @@ One day is enough for a first visit or for a family with young kids. You will no
 
 The two stops that work best for all ages are **Grand Prismatic Spring** and **Old Faithful**. Both have flat, paved boardwalks. Both are genuinely spectacular. Both can be done in a morning and an early afternoon.
 
-If the group has teenagers or stronger hikers, the Fairy Falls overlook trail gives a view down onto Grand Prismatic from above -- it's a moderate, mostly flat trail of about five miles round trip and well worth the extra time.
+If the group has teenagers or stronger hikers, the Fairy Falls overlook trail gives a view down onto Grand Prismatic from above. It's a moderate, mostly flat trail of about five miles round trip and well worth the extra time.
 
 ---
 
@@ -59,9 +59,9 @@ Packing a full breakfast or eating before you leave is better than stopping in W
 
 ## Stop 1: Grand Prismatic Spring and Midway Geyser Basin
 
-**What it is:** The largest hot spring in the United States, famous for its concentric rings of color -- deep blue center, then green, yellow, orange, and rust, caused by heat-loving bacteria at different temperatures. It is roughly 370 feet across.
+**What it is:** The largest hot spring in the United States, famous for its concentric rings of color: deep blue center, then green, yellow, orange, and rust, caused by heat-loving bacteria at different temperatures. It is roughly 370 feet across.
 
-**The boardwalk:** Flat, paved, and stroller and wheelchair accessible. The main loop around the spring takes about 20 to 30 minutes at a relaxed pace. It is exposed -- hot, with steam depending on wind direction -- so hats, sunscreen, and water bottles matter.
+**The boardwalk:** Flat, paved, and stroller and wheelchair accessible. The main loop around the spring takes about 20 to 30 minutes at a relaxed pace. It is exposed, hot, with steam depending on wind direction, so hats, sunscreen, and water bottles matter.
 
 **The Fairy Falls overlook:** A separate trailhead leads to Fairy Falls (a tall, narrow waterfall) and continues to an overlook ridge above Grand Prismatic. The overlook is about 2.5 miles each way from the trailhead. For a family with grandparents or small kids, the overlook is optional. For a group with teens or active adults, it is worth it and adds a couple of hours.
 
@@ -76,7 +76,7 @@ Packing a full breakfast or eating before you leave is better than stopping in W
 
 **What it is:** The most famous geyser in the world, erupting roughly every 60 to 110 minutes to a height of 100 to 180 feet, for 1.5 to 5 minutes. The Old Faithful Visitor Education Center posts the predicted time for the next eruption, accurate to within about 10 minutes.
 
-**The boardwalk:** A wide, flat paved path encircles the geyser. Benches and viewing areas fill up 10 to 15 minutes before an eruption. For grandparents and kids who are done walking, this is a great stop -- sit down, wait, watch, and go.
+**The boardwalk:** A wide, flat paved path encircles the geyser. Benches and viewing areas fill up 10 to 15 minutes before an eruption. For grandparents and kids who are done walking, this is a great stop: sit down, wait, watch, and go.
 
 **The Upper Geyser Basin walk:** A five-mile loop of the Upper Geyser Basin runs past a dozen more geysers, including Castle, Riverside, and Morning Glory Pool. Families with energy and time can walk it. Families with smaller kids can do the half-mile loop closest to Old Faithful and still see several active features.
 
@@ -102,11 +102,11 @@ The **Grizzly and Wolf Discovery Center** is in West Yellowstone, right next to 
 For a mixed-age group, day-trip basics:
 - Water bottles (one per person, more than you think you need)
 - Snacks and a packed lunch, or plan the deli stop
-- Sunscreen and hats -- the geyser basins are exposed
-- An extra layer -- mornings can be cool even in July
+- Sunscreen and hats: the geyser basins are exposed
+- An extra layer: mornings can be cool even in July
 - Comfortable walking shoes with closed toes
 - A stroller for little kids; the boardwalks are paved
-- Phone chargers -- navigation uses battery
+- Phone chargers: navigation uses battery
 
 ---
 
@@ -114,7 +114,7 @@ For a mixed-age group, day-trip basics:
 
 As of 2026, the standard park entry fee is $35 per vehicle for a seven-day pass. An America the Beautiful Annual Pass ($80 at time of writing) covers entry to all national parks and pays for itself quickly if the family plans more than two or three national park visits in a year.
 
-The park is open year-round. Most interior roads, including the roads to the geyser basins, are open to cars from mid-April through the end of October. Exact dates vary by year and conditions -- check the National Park Service website before you go.
+The park is open year-round. Most interior roads, including the roads to the geyser basins, are open to cars from mid-April through the end of October. Exact dates vary by year and conditions. Check the National Park Service website before you go.
 
 ---
 
@@ -130,15 +130,15 @@ If the group has members who do better with short walks and long sits, the formu
 
 This is an example. Groups should adjust to their own pace.
 
-- Early start -- Leave The Burland, packed breakfast or stop on the road
-- Arrive at Midway Geyser Basin / Grand Prismatic -- walk the boardwalk before the crowds arrive
+- Early start: leave The Burland, packed breakfast or stop on the road
+- Arrive at Midway Geyser Basin / Grand Prismatic: walk the boardwalk before the crowds arrive
 - Optional: Fairy Falls overlook trail for the group members who want more
 - Drive to Old Faithful
 - Check the visitor center for the next eruption time
 - Watch Old Faithful erupt
 - Lunch at the deli or packed lunch at the picnic area
 - Upper Geyser Basin walk, or rest and head home
-- Drive back through West Yellowstone -- dinner and optional Grizzly and Wolf Discovery Center
+- Drive back through West Yellowstone: dinner and optional Grizzly and Wolf Discovery Center
 - Back at The Burland in the evening
 
 ---

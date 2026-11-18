@@ -21,12 +21,12 @@ Upload this file as the only source in a new NotebookLM notebook.
 
 ## About this episode
 
-Episode 4 is about lava country -- the volcanic landscape that stretches across Southern Idaho and shapes everything from the terrain to the water supply. Most visitors come to Eastern Idaho for Yellowstone and the Tetons. They drive right past ancient lava fields, cinder cones, and atomic-age history without realizing what they are. This episode tells them what they are missing.
+Episode 4 is about lava country: the volcanic landscape that stretches across Southern Idaho and shapes everything from the terrain to the water supply. Most visitors come to Eastern Idaho for Yellowstone and the Tetons. They drive right past ancient lava fields, cinder cones, and atomic-age history without realizing what they are. This episode tells them what they are missing.
 
 The episode covers:
-1. Why Eastern Idaho looks the way it does -- the Snake River Plain and its volcanic history
+1. Why Eastern Idaho looks the way it does: the Snake River Plain and its volcanic history
 2. The close-to-home lava destinations: Menan Buttes and the Sand Dunes
-3. Mesa Falls and the Henry's Fork canyon -- water cutting through lava
+3. Mesa Falls and the Henry's Fork canyon: water cutting through lava
 4. Hell's Half Acre: the quick stop off the interstate
 5. EBR-I Atomic Museum: where nuclear power began, on the lava plain
 6. Craters of the Moon: the full-day destination
@@ -56,7 +56,7 @@ The Burland is a restored 1912 building in St. Anthony, Idaho, used for family r
 
 ## Why Eastern Idaho looks like this
 
-The Snake River Plain is a broad, flat arc across southern Idaho, cutting northeast to southwest. It is the scar left by the North American plate moving over the Yellowstone hotspot -- the same volcanic engine that powers Yellowstone's geysers. As the plate moved, the hotspot punched through it in sequence, leaving a trail of ancient calderas and lava flows. The lava fields visitors see today are some of the youngest on the continent: some erupted as recently as two thousand years ago.
+The Snake River Plain is a broad, flat arc across southern Idaho, cutting northeast to southwest. It is the scar left by the North American plate moving over the Yellowstone hotspot, the same volcanic engine that powers Yellowstone's geysers. As the plate moved, the hotspot punched through it in sequence, leaving a trail of ancient calderas and lava flows. The lava fields visitors see today are some of the youngest on the continent: some erupted as recently as two thousand years ago.
 
 The lava plain is not a dead landscape. It is a giant sponge. Precipitation soaks through the porous basalt and feeds one of the largest aquifers in North America, the Eastern Snake Plain Aquifer. That groundwater is a big part of why the farms of Eastern Idaho grow what they grow. Spring-fed water is also why the Henry's Fork starts cold and clear: the river begins at Big Springs near Island Park, where water wells up out of the volcanic rock at a steady temperature all year.
 
@@ -64,7 +64,7 @@ The lava plain is not a dead landscape. It is a giant sponge. Precipitation soak
 
 ## Menan Buttes
 
-The Menan Buttes are two volcanic cones rising out of the farmland west of Rexburg, near the town of Menan. They are tuff cones: they formed when rising magma met the groundwater and river water of the Snake River, and the steam blasts built the cones out of volcanic ash that later hardened into rock. The North Butte, the larger one, has a trail to the crater rim. The hike is short and steep. At the top, the view takes in the Snake River Plain, the Tetons to the east, and the river below. The inside of the crater is a bowl, completely hidden from the outside. The rock is layered, tan-colored tuff -- hardened volcanic ash -- very different from the flat black lava fields elsewhere on the plain.
+The Menan Buttes are two volcanic cones rising out of the farmland west of Rexburg, near the town of Menan. They are tuff cones: they formed when rising magma met the groundwater and river water of the Snake River, and the steam blasts built the cones out of volcanic ash that later hardened into rock. The North Butte, the larger one, has a trail to the crater rim. The hike is short and steep. At the top, the view takes in the Snake River Plain, the Tetons to the east, and the river below. The inside of the crater is a bowl, completely hidden from the outside. The rock is layered, tan-colored tuff, hardened volcanic ash, very different from the flat black lava fields elsewhere on the plain.
 
 The Menan Buttes are a National Natural Landmark. They are counted among the largest volcanic tuff cones in the world.
 
@@ -88,13 +88,13 @@ Mesa Falls sits on the Mesa Falls Scenic Byway between Ashton and Island Park. T
 
 Upper Mesa Falls has a boardwalk with close views of the falls and a historic lodge, Big Falls Inn, used as a visitor center in summer. Lower Mesa Falls is viewed from an overlook along the byway. Both are on the same byway, a short distance apart. In winter the byway is closed to cars and becomes a snowmobile route, so this is a late-spring to fall trip.
 
-The drive on the byway is scenic in its own right -- forest, canyon views, and the river below.
+The drive on the byway is scenic in its own right: forest, canyon views, and the river below.
 
 ---
 
 ## Hell's Half Acre Lava Field
 
-Hell's Half Acre is a large lava field south and west of Idaho Falls. The easiest way in is the interpretive trail at the Interstate 15 rest area between Idaho Falls and Blackfoot, a convenient stop on the way to or from the Idaho Falls airport. A short paved trail leads into the flow. The lava here is pahoehoe and aa -- two textures that form from the same eruption at different temperatures and flow speeds. The pahoehoe is ropy and smooth-looking, the aa is sharp and broken. Both are black and new-looking. The flow is young by geologic standards: thousands of years old, not millions.
+Hell's Half Acre is a large lava field south and west of Idaho Falls. The easiest way in is the interpretive trail at the Interstate 15 rest area between Idaho Falls and Blackfoot, a convenient stop on the way to or from the Idaho Falls airport. A short paved trail leads into the flow. The lava here is pahoehoe and aa, two textures that form from the same eruption at different temperatures and flow speeds. The pahoehoe is ropy and smooth-looking, the aa is sharp and broken. Both are black and new-looking. The flow is young by geologic standards: thousands of years old, not millions.
 
 Hell's Half Acre is not a destination on its own for most families, but as a short stop on a drive, it is a quick and genuine introduction to lava country.
 
@@ -102,9 +102,9 @@ Hell's Half Acre is not a destination on its own for most families, but as a sho
 
 ## EBR-I Atomic Museum
 
-EBR-I -- Experimental Breeder Reactor 1 -- sits on the flat lava plain southwest of Idaho Falls, surrounded by nothing. It was the first place in the world where electricity was generated from nuclear energy, on December 20, 1951. The original reactor building still stands. Visitors can walk through it, see the reactor and its control room, and read the story of the team that did it.
+EBR-I, Experimental Breeder Reactor 1, sits on the flat lava plain southwest of Idaho Falls, surrounded by nothing. It was the first place in the world where electricity was generated from nuclear energy, on December 20, 1951. The original reactor building still stands. Visitors can walk through it, see the reactor and its control room, and read the story of the team that did it.
 
-The museum is free and operated by the Department of Energy. It is open seasonally -- generally Memorial Day through Labor Day. The exhibits are more interesting than the name suggests. The story is partly scientific and partly human: a small team, a remote desert location, and a moment that changed what was possible.
+The museum is free and operated by the Department of Energy. It is open seasonally, generally Memorial Day through Labor Day. The exhibits are more interesting than the name suggests. The story is partly scientific and partly human: a small team, a remote desert location, and a moment that changed what was possible.
 
 For a family with kids who are curious about science, EBR-I is the right amount of strange and historical. For a family doing a Craters of the Moon day, EBR-I is on the route and worth the stop.
 
@@ -120,7 +120,7 @@ What it is: a lava field unlike anything most visitors have seen. Cinder cones, 
 
 **Inferno Cone:** A cinder cone with a trail to the top. The view from the top takes in the entire monument, the surrounding plain, and the mountains on the horizon. It is a short, steep climb on loose cinders. Worth it.
 
-**Lava tube caves:** Several lava tubes are open to visitors. A free cave permit from the visitor center is required before entering any cave. Indian Tunnel is large enough to walk through without a flashlight. The other caves -- Dewdrop, Boy Scout, Beauty -- are darker and require a flashlight or headlamp. Closed-toe shoes with good grip are essential inside. The caves are cool year-round -- bring a layer.
+**Lava tube caves:** Several lava tubes are open to visitors. A free cave permit from the visitor center is required before entering any cave. Indian Tunnel is large enough to walk through without a flashlight. The other caves (Dewdrop, Boy Scout, Beauty) are darker and require a flashlight or headlamp. Closed-toe shoes with good grip are essential inside. The caves are cool year-round. Bring a layer.
 
 **Spatter cones:** A short walk from the road to a cluster of small cones built by molten lava spattering out of a vent. They look like a row of broken chimneys.
 
@@ -136,7 +136,7 @@ What it is: a lava field unlike anything most visitors have seen. Cinder cones, 
 
 ### For families
 
-The caves are the highlight for kids. Indian Tunnel is accessible to most ages with minimal gear. The smaller caves add adventure for older kids and teens. Inferno Cone is worth the climb if the group has the energy. A full Craters day -- including EBR-I on the way -- is a long day from St. Anthony, but a memorable one.
+The caves are the highlight for kids. Indian Tunnel is accessible to most ages with minimal gear. The smaller caves add adventure for older kids and teens. Inferno Cone is worth the climb if the group has the energy. A full Craters day, including EBR-I on the way, is a long day from St. Anthony, but a memorable one.
 
 ---
 
@@ -152,7 +152,7 @@ The caves are the highlight for kids. Indian Tunnel is accessible to most ages w
 
 ## A note on what guests expect
 
-Most guests coming to The Burland are thinking about Yellowstone and the Tetons. The lava country is a surprise. It is older, stranger, and closer than they expect. The sand dunes are just down the road. The lava fields at Menan Buttes are visible from the valley. Craters of the Moon is a full day but a different kind of full day -- not the crowds of Yellowstone, not the dramatic peaks of the Tetons, but something genuinely other. For reunion groups that have done Yellowstone before, lava country is often the discovery of the trip.
+Most guests coming to The Burland are thinking about Yellowstone and the Tetons. The lava country is a surprise. It is older, stranger, and closer than they expect. The sand dunes are just down the road. The lava fields at Menan Buttes are visible from the valley. Craters of the Moon is a full day but a different kind of full day: not the crowds of Yellowstone, not the dramatic peaks of the Tetons, but something genuinely other. For reunion groups that have done Yellowstone before, lava country is often the discovery of the trip.
 
 ---
 

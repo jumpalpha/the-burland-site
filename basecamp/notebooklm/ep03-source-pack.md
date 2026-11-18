@@ -23,8 +23,8 @@ Upload this file as the only source in a new NotebookLM notebook.
 Episode 3 is a guide to the fishing around Eastern Idaho, centered on the Henry's Fork of the Snake River and the South Fork of the Snake. The audience is a family reunion group: a mix of experienced fly fishers, beginners who want to try, and family members who want to come along but aren't sure fishing is for them.
 
 The episode covers:
-1. The Henry's Fork -- what makes it famous, where beginners can catch something, where the serious anglers go
-2. The South Fork of the Snake -- floating, scenery, and guided trips
+1. The Henry's Fork: what makes it famous, where beginners can catch something, where the serious anglers go
+2. The South Fork of the Snake: floating, scenery, and guided trips
 3. Other nearby fishing: Island Park Reservoir, Henry's Lake, and Warm River
 4. What a beginner needs to get started
 5. How to build a family fishing day that works for everyone
@@ -45,19 +45,19 @@ What makes it exceptional: the water is exceptionally clear and cold, the insect
 
 ### Big Springs
 
-Big Springs, north of Island Park, is where the Henry's Fork begins. At this point the river wells up from an underground spring and immediately runs full and clear. The fish here are protected -- this is a catch-and-release, artificial-lure-only section -- but the spring and the fish are viewable from a boardwalk. It is worth a stop for the whole family. Kids love watching the large trout suspended in the current below the boardwalk.
+Big Springs, north of Island Park, is where the Henry's Fork begins. At this point the river wells up from an underground spring and immediately runs full and clear. The fish here are protected. This is a catch-and-release, artificial-lure-only section, but the spring and the fish are viewable from a boardwalk. It is worth a stop for the whole family. Kids love watching the large trout suspended in the current below the boardwalk.
 
 ### Harriman State Park and the Railroad Ranch water
 
 Harriman State Park was once the Railroad Ranch, a private retreat for wealthy industrialists. The park preserves the historic ranch buildings and miles of the Henry's Fork through open meadow country. Trumpeter swans, sandhill cranes, and moose are common sightings.
 
-The fishing water through Harriman is considered among the best dry-fly water in the world. It is also among the most technical. The fish are large, wild, and educated -- they have seen every fly pattern. Experienced fly fishers come here specifically for the challenge. For a beginner, the Harriman water is beautiful but humbling.
+The fishing water through Harriman is considered among the best dry-fly water in the world. It is also among the most technical. The fish are large, wild, and educated. They have seen every fly pattern. Experienced fly fishers come here specifically for the challenge. For a beginner, the Harriman water is beautiful but humbling.
 
 The park requires a fishing permit for the ranch water, in addition to an Idaho fishing license. Check current permit requirements with Idaho Fish and Game and Idaho State Parks before visiting.
 
 ### Box Canyon
 
-Just downstream from Harriman, the Henry's Fork drops through Box Canyon. The canyon section is fast, deep pocket water with big trout. It is wading water for experienced anglers -- the current is strong and the footing is uneven. Beginners should stay out of the canyon itself, but the canyon rim trail offers a dramatic walk with views of the river below.
+Just downstream from Harriman, the Henry's Fork drops through Box Canyon. The canyon section is fast, deep pocket water with big trout. It is wading water for experienced anglers. The current is strong and the footing is uneven. Beginners should stay out of the canyon itself, but the canyon rim trail offers a dramatic walk with views of the river below.
 
 ### Last Chance
 
@@ -91,7 +91,7 @@ What to expect on a guided float:
 - The canyon walls rise hundreds of feet above the water. This is big, dramatic scenery.
 - Bald eagles nest in the canyon and are commonly seen. Great blue herons, ospreys, and mergansers are regular sightings.
 - The fishing is for native cutthroat trout and large rainbow trout.
-- The floating is gentle -- no whitewater. It is accessible for older adults and kids.
+- The floating is gentle, with no whitewater. It is accessible for older adults and kids.
 
 Outfitters in Swan Valley run guided float trips, supplying all equipment including rods, waders, and flies. No prior fishing experience is needed. For a family reunion group, a float trip on the South Fork is one of the best full-day options in the region.
 
@@ -109,7 +109,7 @@ Island Park Reservoir is a large, impounded lake north of Harriman. It is primar
 
 ### Henry's Lake State Park
 
-Henry's Lake, in the high country near the Montana border, is known for trophy-sized trout -- hybrid cutthroat-rainbow crosses that reach weights unusual for this region. It is primarily a boat-fishing lake. The state park has a boat launch and campground. The lake's reputation draws serious trophy hunters. The drive goes through scenic high-elevation country near the Yellowstone border.
+Henry's Lake, in the high country near the Montana border, is known for trophy-sized trout: hybrid cutthroat-rainbow crosses that reach weights unusual for this region. It is primarily a boat-fishing lake. The state park has a boat launch and campground. The lake's reputation draws serious trophy hunters. The drive goes through scenic high-elevation country near the Yellowstone border.
 
 ### Warm River
 
@@ -138,7 +138,7 @@ For a beginner joining the family for a day of fishing, the simplest path is a g
 
 For a beginner fishing on their own, the basics:
 - An Idaho fishing license (required age 14 and up)
-- A simple spinning rod and reel setup (not fly fishing) -- less technique required, still effective
+- A simple spinning rod and reel setup (not fly fishing): less technique required, still effective
 - A handful of small spinners or PowerBait, appropriate to the river
 - A landing net
 
@@ -164,7 +164,7 @@ The challenge for reunion groups is that fishing enthusiasm varies widely. Here 
 
 The fly fishing culture around the Henry's Fork is serious and courteous. Anglers give each other space. Wading through someone else's water is poor form. For a family group, staying aware of other anglers on the water keeps the day pleasant for everyone.
 
-The river also has a conservation legacy. The Henry's Fork Foundation has worked for decades to maintain and restore the fishery. The catch-and-release culture on much of the river exists because wild trout populations are fragile and worth protecting. For a family introducing kids to fishing, the idea of catching and releasing -- that the fish goes back so someone else can catch it tomorrow -- is worth talking about.
+The river also has a conservation legacy. The Henry's Fork Foundation has worked for decades to maintain and restore the fishery. The catch-and-release culture on much of the river exists because wild trout populations are fragile and worth protecting. For a family introducing kids to fishing, the idea of catching and releasing, that the fish goes back so someone else can catch it tomorrow, is worth talking about.
 
 ---
 
