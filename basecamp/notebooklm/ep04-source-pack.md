@@ -142,7 +142,7 @@ The caves are the highlight for kids. Indian Tunnel is accessible to most ages w
 
 ## Building a lava-country day
 
-**Option A: Close to home, half day.** Morning at the Sand Dunes, then Menan Buttes in the afternoon. Both are close to home. Pair with a swim at Egin Lakes. Easy for all ages.
+**Option A: Close to home, half day.** Morning at the Sand Dunes, then Menan Buttes in the afternoon. Both are close to home. Cool off at Egin Lakes after the sand. Easy for all ages.
 
 **Option B: Mesa Falls and the byway.** Drive the Mesa Falls Scenic Byway: Warm River for a picnic, then Upper and Lower Mesa Falls, then back through Ashton. This is a half-day trip with good scenery and a dramatic waterfall. Add Box Canyon or the Henry's Fork for the anglers in the group.
 
