@@ -37,7 +37,8 @@ async function rpc<T>(fn: string, args: Record<string, unknown>): Promise<T> {
     (e as Error & { taken?: boolean }).taken = /taken/i.test(m);
     throw e;
   }
-  return r.json();
+  const t = await r.text();
+  return (t ? JSON.parse(t) : null) as T;
 }
 
 export type Tool = "meals" | "packing" | "itinerary";
@@ -56,4 +57,19 @@ export function getPlan<T>(code: string, tool: Tool) {
 
 export function savePlan<T>(code: string, tool: Tool, data: T, baseVersion: number) {
   return rpc<{ ok: boolean; version: number; data?: T | null }>("family_save", { code: normalizeCode(code), tool, d: data, base_version: baseVersion });
+}
+
+export type BoardPage = Tool | "plan";
+export interface BoardMessage { id: number; author: string; body: string; page: BoardPage | null; at: string }
+
+export function listMessages(code: string, afterId = 0) {
+  return rpc<BoardMessage[]>("family_board_list", { code: normalizeCode(code), after_id: afterId });
+}
+
+export function postMessage(code: string, author: string, body: string, page: BoardPage) {
+  return rpc<{ id: number; at: string }>("family_board_post", { code: normalizeCode(code), author, body, page });
+}
+
+export function deleteMessage(code: string, id: number) {
+  return rpc<null>("family_board_delete", { code: normalizeCode(code), id });
 }

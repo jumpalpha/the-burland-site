@@ -1,6 +1,7 @@
 "use client";
 import { copyText } from "@/lib/useStored";
 import { useFamilyPlan } from "@/lib/useFamilyPlan";
+import { FamilyBoard } from "./FamilyBoard";
 import { FamilyCodePanel } from "./FamilyCodePanel";
 
 interface Meal { day: string; meal: string; family: string; menu: string }
@@ -64,6 +65,7 @@ export function MealPlanner() {
         <button type="button" className="btn btn-line btn-sm" onClick={() => window.print()}>Print sign-up sheet</button>
       </div>
       <p className="small muted">{family.code ? "Shared with everyone who has your family code." : "Saved on this device only until you create a family code."} The Burland kitchen is set up for big-group cooking; bring your own groceries.</p>
+      <FamilyBoard code={family.code} page="meals" />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Icon, type IconName } from "@/components/Icon";
 import { CtaBand } from "@/components/Blocks";
 import { meta } from "@/lib/seo";
+import { PlanHubBoard } from "@/components/tools/PlanHubBoard";
 
 export const metadata = meta({
   title: "Free Reunion and Event Planning Tools",
@@ -26,7 +27,7 @@ export default function Plan() {
           <div className="section-head">
             <div className="eyebrow">Planning tools</div>
             <h1 style={{ fontSize: "clamp(2.2rem,4.5vw,3.4rem)" }}>Everything the family organizer needs</h1>
-            <p className="lede">Free, no sign-up, and saved right on your device. Print anything or copy it into the family group chat.</p>
+            <p className="lede">Free and no sign-up. Create one family code and every household can plan the meals, what to bring, and the itinerary together, and talk it over right here.</p>
           </div>
           <div className="grid g3">
             {TOOLS.map((x) => (
@@ -37,6 +38,7 @@ export default function Plan() {
               </Link>
             ))}
           </div>
+          <div style={{ marginTop: 32 }}><PlanHubBoard /></div>
         </div>
       </section>
       <CtaBand />
