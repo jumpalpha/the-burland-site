@@ -12,8 +12,15 @@ export function formatCode(c: string) {
   return n.length === 8 ? `${n.slice(0, 4)}-${n.slice(4)}` : n;
 }
 
+// Random codes are 8 characters; families can also pick their own 6 to 12 letters and numbers.
 export function isValidCode(c: string) {
-  return /^[A-HJ-NP-Z2-9]{8}$/.test(normalizeCode(c));
+  return /^[A-Z0-9]{6,12}$/.test(normalizeCode(c));
+}
+
+// Short or all-letter codes are allowed but easier for strangers to guess.
+export function isEasyToGuess(c: string) {
+  const n = normalizeCode(c);
+  return n.length < 8 || !/[0-9]/.test(n);
 }
 
 async function rpc<T>(fn: string, args: Record<string, unknown>): Promise<T> {
@@ -27,6 +34,7 @@ async function rpc<T>(fn: string, args: Record<string, unknown>): Promise<T> {
     try { m = (await r.json()).message || ""; } catch {}
     const e = new Error(m || `HTTP ${r.status}`) as Error & { notFound?: boolean };
     e.notFound = /not found/i.test(m);
+    (e as Error & { taken?: boolean }).taken = /taken/i.test(m);
     throw e;
   }
   return r.json();
@@ -36,6 +44,10 @@ export type Tool = "meals" | "packing" | "itinerary";
 
 export function createFamily<T>(tool: Tool, data: T) {
   return rpc<string>("family_create", { tool, d: data });
+}
+
+export function claimFamily<T>(code: string, tool: Tool, data: T) {
+  return rpc<string>("family_claim", { code: normalizeCode(code), tool, d: data });
 }
 
 export function getPlan<T>(code: string, tool: Tool) {
