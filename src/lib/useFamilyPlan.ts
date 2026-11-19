@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useStored } from "@/lib/useStored";
-import { createFamily, getPlan, isValidCode, normalizeCode, savePlan, type Tool } from "@/lib/familyCode";
+import { claimFamily, createFamily, formatCode, getPlan, isValidCode, normalizeCode, savePlan, type Tool } from "@/lib/familyCode";
 
 // One code per family, kept once on this device and reused by every planning tool.
 export const FAMILY_CODE_KEY = "burland-family-code";
@@ -13,7 +13,7 @@ export interface FamilyState {
   status: SyncStatus;
   msg: string;
   busy: boolean;
-  create: () => void;
+  create: (custom?: string) => void;
   join: (raw: string) => void;
   leave: () => void;
   setMsg: (m: string) => void;
@@ -65,7 +65,7 @@ export function useFamilyPlan<T>(tool: Tool, localKey: string, initial: T) {
   };
 
   const join = async (raw: string, quiet = false) => {
-    if (!isValidCode(raw)) { setMsg("That code doesn't look right. It's 8 letters and numbers, like K7QM-R2XD."); return; }
+    if (!isValidCode(raw)) { setMsg("That code doesn't look right. Codes are 6 to 12 letters and numbers, like K7QM-R2XD."); return; }
     setBusy(true);
     if (!quiet) setMsg("");
     try {
@@ -78,17 +78,20 @@ export function useFamilyPlan<T>(tool: Tool, localKey: string, initial: T) {
     } finally { setBusy(false); }
   };
 
-  const create = async () => {
+  const create = async (custom?: string) => {
+    if (custom !== undefined && !isValidCode(custom)) { setMsg("Your code needs 6 to 12 letters and numbers."); return; }
     setBusy(true); setMsg("");
     try {
-      const c = await createFamily(tool, s);
+      const c = custom !== undefined ? await claimFamily(custom, tool, s) : await createFamily(tool, s);
       version.current = 1;
       synced.current = JSON.stringify(s);
       linked.current = true;
       setCode(c);
       setStatus("saved");
       setMsg("Family code created. Share it so everyone can add to your plans. The same code works for meals, what to bring, and the itinerary.");
-    } catch { setMsg("Couldn't create a code right now. Check your connection and try again."); }
+    } catch (e) {
+      setMsg((e as { taken?: boolean }).taken ? "That code is already taken. Try another, or tap Join if it's your family's." : "Couldn't create a code right now. Check your connection and try again.");
+    }
     finally { setBusy(false); }
   };
 
@@ -97,7 +100,7 @@ export function useFamilyPlan<T>(tool: Tool, localKey: string, initial: T) {
     const old = code;
     setCode(""); setStatus("idle");
     version.current = 0; synced.current = ""; linked.current = false;
-    setMsg(`Stopped syncing. Rejoin anytime with code ${old.slice(0, 4)}-${old.slice(4)}.`);
+    setMsg(`Stopped syncing. Rejoin anytime with code ${formatCode(old)}.`);
   };
 
   // Join from a share link (?family=CODE), or reconnect with the code saved on this device.

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { formatCode } from "@/lib/familyCode";
+import { formatCode, isEasyToGuess, isValidCode, normalizeCode } from "@/lib/familyCode";
 import { copyText } from "@/lib/useStored";
 import type { FamilyState } from "@/lib/useFamilyPlan";
 
@@ -13,6 +13,8 @@ const TOOLS = [
 
 export function FamilyCodePanel({ family, current }: { family: FamilyState; current: string }) {
   const [input, setInput] = useState("");
+  const [own, setOwn] = useState("");
+  const ownOk = isValidCode(own);
   const { code, status, msg, busy } = family;
   const others = TOOLS.filter((t) => t.href !== current);
   const copy = async (text: string, label: string) => { if (await copyText(text)) family.setMsg(`${label} copied.`); };
@@ -42,12 +44,25 @@ export function FamilyCodePanel({ family, current }: { family: FamilyState; curr
           <strong>Plan together with a family code</strong>
           <p className="small muted" style={{ margin: 0 }}>Create one code for your family and share it. Every household can review and add to the meals, what to bring, and itinerary from their own phone.</p>
           <div className="row" style={{ flexWrap: "wrap" }}>
-            <button type="button" className="btn btn-dark btn-sm" disabled={busy} onClick={family.create}>Create family code</button>
+            <button type="button" className="btn btn-dark btn-sm" disabled={busy} onClick={() => family.create()}>Create family code</button>
             <form className="row" style={{ gap: 8 }} onSubmit={(e) => { e.preventDefault(); family.join(input); setInput(""); }}>
               <input className="input" aria-label="Family code" placeholder="Have a code? K7QM-R2XD" value={input} onChange={(e) => setInput(e.target.value)} style={{ width: 210, textTransform: "uppercase" }} />
               <button type="submit" className="btn btn-line btn-sm" disabled={busy || !input.trim()}>Join</button>
             </form>
           </div>
+          <form className="row" style={{ gap: 8, flexWrap: "wrap" }} onSubmit={(e) => { e.preventDefault(); family.create(own); }}>
+            <input className="input" aria-label="Choose your own family code" placeholder="Or pick your own, e.g. DOPP-2027" value={own} maxLength={20} onChange={(e) => setOwn(e.target.value)} style={{ width: 240, textTransform: "uppercase" }} />
+            <button type="submit" className="btn btn-line btn-sm" disabled={busy || !ownOk}>Use my code</button>
+          </form>
+          {own.trim() && (
+            <p className="small muted" style={{ margin: 0 }}>
+              {!ownOk
+                ? `Use 6 to 12 letters and numbers (you have ${normalizeCode(own).length}). Dashes and spaces are ignored.`
+                : isEasyToGuess(own)
+                  ? "Heads up: short codes, or codes without a number, are easier for strangers to guess. Anyone with the code can edit your plans."
+                  : "Looks good."}
+            </p>
+          )}
         </>
       )}
       {msg && <p className="small" role="status" style={{ margin: 0 }}>{msg}</p>}
