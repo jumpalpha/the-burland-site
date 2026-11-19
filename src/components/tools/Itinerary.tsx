@@ -1,8 +1,10 @@
 "use client";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ATTRACTIONS } from "@/lib/content";
-import { copyText, useStored } from "@/lib/useStored";
+import { copyText } from "@/lib/useStored";
+import { useFamilyPlan } from "@/lib/useFamilyPlan";
+import { FamilyCodePanel } from "./FamilyCodePanel";
 
 const EXTRAS = [
   { slug: "free-time", name: "Free time at The Burland", drive: "Right here" },
@@ -11,23 +13,36 @@ const EXTRAS = [
   { slug: "photo", name: "Family group photo", drive: "Right here" },
 ];
 const ALL = [...ATTRACTIONS.map((a) => ({ slug: a.slug, name: a.name, drive: a.drive })), ...EXTRAS];
-const nameOf = (slug: string) => ALL.find((x) => x.slug === slug);
+// Items are attraction slugs, or "custom:<text>" for outings a family adds themselves.
+const CUSTOM = "custom:";
+const nameOf = (slug: string) => (slug.startsWith(CUSTOM) ? { slug, name: slug.slice(CUSTOM.length), drive: "Added by your family" } : ALL.find((x) => x.slug === slug));
 
 interface S { days: { label: string; items: string[] }[] }
 const init: S = { days: [{ label: "Day 1", items: [] }, { label: "Day 2", items: [] }, { label: "Day 3", items: [] }] };
 
 export function Itinerary() {
-  const [s, setS, ready] = useStored<S>("burland-itinerary", init);
+  const [s, setS, ready, family] = useFamilyPlan<S>("itinerary", "burland-itinerary", init);
+  const [drafts, setDrafts] = useState<Record<number, string>>({});
+  // Wait for the family plan to load first so an outing added from another page isn't overwritten.
+  const loaded = ready && (!family.code || family.status !== "idle");
   useEffect(() => {
-    if (!ready) return;
+    if (!loaded) return;
     const add = new URLSearchParams(location.search).get("add");
     if (add && nameOf(add)) {
       setS((x) => (x.days.some((d) => d.items.includes(add)) ? x : { days: x.days.map((d, i) => (i === 0 ? { ...d, items: [...d.items, add] } : d)) }));
-      history.replaceState(null, "", location.pathname);
+      const q = new URLSearchParams(location.search);
+      q.delete("add");
+      history.replaceState(null, "", location.pathname + (q.toString() ? `?${q}` : ""));
     }
-  }, [ready, setS]);
+  }, [loaded, setS]);
 
   const addTo = (day: number, slug: string) => setS({ days: s.days.map((d, i) => (i === day ? { ...d, items: [...d.items, slug] } : d)) });
+  const addCustom = (day: number) => {
+    const t = (drafts[day] || "").trim();
+    if (!t) return;
+    addTo(day, CUSTOM + t);
+    setDrafts({ ...drafts, [day]: "" });
+  };
   const remove = (day: number, idx: number) => setS({ days: s.days.map((d, i) => (i === day ? { ...d, items: d.items.filter((_, j) => j !== idx) } : d)) });
   const shift = (day: number, idx: number, dir: -1 | 1) =>
     setS({ days: s.days.map((d, i) => { if (i !== day) return d; const it = [...d.items]; const j = idx + dir; if (j < 0 || j >= it.length) return d; [it[idx], it[j]] = [it[j], it[idx]]; return { ...d, items: it }; }) });
@@ -35,6 +50,7 @@ export function Itinerary() {
 
   return (
     <div className="grid" style={{ gap: 22 }}>
+      <FamilyCodePanel family={family} current="/plan/itinerary" />
       <div className="grid g3">
         {s.days.map((d, di) => (
           <div key={di} className="panel">
@@ -58,6 +74,10 @@ export function Itinerary() {
               <option value="">+ Add an outing</option>
               {ALL.map((a) => <option key={a.slug} value={a.slug}>{a.name}</option>)}
             </select>
+            <form className="row no-print" style={{ gap: 8, marginTop: 8, flexWrap: "nowrap" }} onSubmit={(e) => { e.preventDefault(); addCustom(di); }}>
+              <input className="input" aria-label={`Add your own to ${d.label}`} placeholder="Or add your own..." value={drafts[di] || ""} onChange={(e) => setDrafts({ ...drafts, [di]: e.target.value })} />
+              <button type="submit" className="btn btn-line btn-sm" disabled={!(drafts[di] || "").trim()}>Add</button>
+            </form>
           </div>
         ))}
       </div>
@@ -67,7 +87,7 @@ export function Itinerary() {
         <button type="button" className="btn btn-dark btn-sm" onClick={() => copyText(text)}>Copy itinerary</button>
         <button type="button" className="btn btn-line btn-sm" onClick={() => window.print()}>Print</button>
       </div>
-      <p className="small muted">Saved on this device only. Read more about each place in our <Link href="/area-attractions">local guide</Link>.</p>
+      <p className="small muted">{family.code ? "Shared with everyone who has your family code." : "Saved on this device only until you create a family code."} Read more about each place in our <Link href="/area-attractions">local guide</Link>.</p>
     </div>
   );
 }

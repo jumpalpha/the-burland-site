@@ -1,5 +1,7 @@
 "use client";
-import { copyText, useStored } from "@/lib/useStored";
+import { copyText } from "@/lib/useStored";
+import { useFamilyPlan } from "@/lib/useFamilyPlan";
+import { FamilyCodePanel } from "./FamilyCodePanel";
 
 interface Meal { day: string; meal: string; family: string; menu: string }
 interface S { families: string; meals: Meal[]; allergies: string }
@@ -17,7 +19,7 @@ const init: S = {
 };
 
 export function MealPlanner() {
-  const [s, setS] = useStored<S>("burland-meals", init);
+  const [s, setS, , family] = useFamilyPlan<S>("meals", "burland-meals", init);
   const fams = s.families.split("\n").map((x) => x.trim()).filter(Boolean);
   const upd = (i: number, k: keyof Meal, v: string) => setS({ ...s, meals: s.meals.map((m, j) => (j === i ? { ...m, [k]: v } : m)) });
   const autoAssign = () => fams.length && setS({ ...s, meals: s.meals.map((m, i) => ({ ...m, family: fams[i % fams.length] })) });
@@ -29,6 +31,7 @@ export function MealPlanner() {
 
   return (
     <div className="grid" style={{ gap: 22 }}>
+      <FamilyCodePanel family={family} current="/plan/meals" />
       <div className="grid g2">
         <label className="field panel"><span>Households (one per line)</span><textarea value={s.families} onChange={(e) => setS({ ...s, families: e.target.value })} /></label>
         <label className="field panel"><span>Allergies and dietary needs</span><textarea value={s.allergies} placeholder="e.g. Uncle Ray: no nuts. Maddie: gluten free." onChange={(e) => setS({ ...s, allergies: e.target.value })} /></label>
@@ -60,7 +63,7 @@ export function MealPlanner() {
         <button type="button" className="btn btn-dark btn-sm" onClick={() => copyText(text)}>Copy schedule</button>
         <button type="button" className="btn btn-line btn-sm" onClick={() => window.print()}>Print sign-up sheet</button>
       </div>
-      <p className="small muted">Saved on this device only. The Burland kitchen is set up for big-group cooking; bring your own groceries.</p>
+      <p className="small muted">{family.code ? "Shared with everyone who has your family code." : "Saved on this device only until you create a family code."} The Burland kitchen is set up for big-group cooking; bring your own groceries.</p>
     </div>
   );
 }
