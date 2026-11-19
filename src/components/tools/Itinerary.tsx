@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ATTRACTIONS } from "@/lib/content";
 import { copyText } from "@/lib/useStored";
 import { useFamilyPlan } from "@/lib/useFamilyPlan";
+import { FamilyBoard } from "./FamilyBoard";
 import { FamilyCodePanel } from "./FamilyCodePanel";
 
 const EXTRAS = [
@@ -88,6 +89,7 @@ export function Itinerary() {
         <button type="button" className="btn btn-line btn-sm" onClick={() => window.print()}>Print</button>
       </div>
       <p className="small muted">{family.code ? "Shared with everyone who has your family code." : "Saved on this device only until you create a family code."} Read more about each place in our <Link href="/area-attractions">local guide</Link>.</p>
+      <FamilyBoard code={family.code} page="itinerary" />
     </div>
   );
 }

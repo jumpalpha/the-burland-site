@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useStored } from "@/lib/useStored";
 import { useFamilyPlan } from "@/lib/useFamilyPlan";
+import { FamilyBoard } from "./FamilyBoard";
 import { FamilyCodePanel } from "./FamilyCodePanel";
 
 const SUGGESTED: Record<string, string[]> = {
@@ -93,6 +94,7 @@ export function Packing() {
         <button type="button" className="btn btn-line btn-sm" onClick={restore}>Restore suggested items</button>
       </div>
       <p className="small muted">{family.code ? "The list is shared with everyone who has your family code. Check marks stay on your own device, so each household tracks its own packing." : "Saved on this device only until you create a family code."}</p>
+      <FamilyBoard code={family.code} page="packing" />
     </div>
   );
 }
