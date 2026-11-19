@@ -58,7 +58,8 @@ export function Footer() {
         </div>
         <div className="footer-bottom">
           <span>&copy; {new Date().getFullYear()} The Burland &middot; St. Anthony, Idaho</span>
-          <span>
+          <Link href="/be-our-guest" className="footer-guest">Be Our Guest</Link>
+          <span className="footer-social">
             <a href={SITE.social.facebook} rel="noopener">Facebook</a> &middot; <a href={SITE.social.instagram} rel="noopener">Instagram</a> &middot;{" "}
             <a href={SITE.social.tiktok} rel="noopener">TikTok</a>
           </span>
