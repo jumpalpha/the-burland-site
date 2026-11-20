@@ -29,7 +29,7 @@ must not state those as fact; it says the owner will confirm.
 ## Capacity (confirmed by owner 2026-11-08)
 - Overnight: sleeps 40+ on site.
 - Most guests in the building at one time: 130.
-- Wedding seating: up to about 100 guests.
+- Seating: 100 (say "seating for 100"; the building holds more for a standing crowd, up to 130).
 - More than 130 guests: say that's over the building limit and the owner can talk through options.
 
 ## Pricing (verified from pricing page; matches internal rate sheet)
