@@ -189,7 +189,7 @@ export const PLANS = [
     kicker: "Little kids & grandparents",
     title: "Easy day, rain or shine",
     steps: [
-      ["Morning", "Yellowstone Bear World drive-through."],
+      ["Morning", "Museum of Idaho in Idaho Falls, good for all ages."],
       ["Lunch", "Rexburg, then the Porter Park carousel."],
       ["Afternoon", "Teton Flood Museum if it rains, or Menan Buttes if it doesn't."],
       ["Evening", "Green Canyon Hot Springs, then movie night."],
