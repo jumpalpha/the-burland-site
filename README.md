@@ -20,7 +20,7 @@ Local facts in the area guide are sourced (links on each `/area/...` page). Chec
 - **Rental details** (`/rental`): same form and `#r=CODE` prefill as the old `rental.html`.
 - **Guest planning tools** (`/plan`): cost splitter, itinerary builder, meal sign-up planner, packing list. Saved in the visitor's browser only.
 - **Owner toolkit** (`/owner`, hidden from search): quote builder with discounts, reply templates, payment tracker with calendar reminders, and turnover checklists. Saved in that browser only; the Burland sheet stays the official record.
-- **Live availability (optional):** set `NEXT_PUBLIC_AVAILABILITY_URL` to a public read-only feed in the same shape as `voice-assistant/calendar-apps-script` and the booking calendar greys out booked nights. Without it, the site links to the Google Calendar embed.
+- **Live availability:** `/availability` and the booking calendar read the busy-only "Burland Voice Calendar (read-only)" Apps Script (`voice-assistant/calendar-apps-script`). The public only sees Booked / Holiday per night; event titles and details stay on the Google Calendar. Override the feed with `NEXT_PUBLIC_AVAILABILITY_URL`. The Google Calendar embed is no longer used.
 
 ## Develop
 

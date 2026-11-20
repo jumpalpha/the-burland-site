@@ -20,13 +20,27 @@ export function parseEvents(events: { allDay: boolean; start: string; end: strin
   return { busy, holidays };
 }
 
+// The feed answers at most 400 days per request, so longer windows are fetched in chunks.
+const CHUNK_DAYS = 365;
+
+async function fetchChunk(from: ISODate, to: ISODate) {
+  const sep = SITE.availabilityEndpoint.includes("?") ? "&" : "?";
+  const r = await fetch(`${SITE.availabilityEndpoint}${sep}from=${from}&to=${to}`);
+  const j = await r.json();
+  if (!j.ok || !Array.isArray(j.events)) throw new Error("bad");
+  return j.events as { allDay: boolean; start: string; end: string; kind: string }[];
+}
+
 export async function loadAvailability(from: ISODate, to: ISODate): Promise<Availability> {
   if (!SITE.availabilityEndpoint) return { live: false, busy: new Set(), holidays: new Set() };
   try {
-    const r = await fetch(`${SITE.availabilityEndpoint}${SITE.availabilityEndpoint.includes("?") ? "&" : "?"}from=${from}&to=${to}`);
-    const j = await r.json();
-    if (!j.ok || !Array.isArray(j.events)) throw new Error("bad");
-    return { live: true, ...parseEvents(j.events) };
+    const ranges: [ISODate, ISODate][] = [];
+    for (let a = from; a <= to; a = addDays(a, CHUNK_DAYS + 1)) {
+      const b = addDays(a, CHUNK_DAYS);
+      ranges.push([a, b < to ? b : to]);
+    }
+    const chunks = await Promise.all(ranges.map(([a, b]) => fetchChunk(a, b)));
+    return { live: true, ...parseEvents(chunks.flat()) };
   } catch {
     return { live: false, busy: new Set(), holidays: new Set() };
   }

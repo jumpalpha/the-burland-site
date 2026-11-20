@@ -26,14 +26,15 @@ export const SITE = {
     instagram: "https://instagram.com/the_burland",
     tiktok: "https://tiktok.com/@theburland",
   },
-  calendarEmbed:
-    "https://calendar.google.com/calendar/embed?src=burlandevents%40gmail.com&ctz=America%2FBoise&mode=MONTH&showTitle=0&showPrint=0&showTabs=0&showCalendars=0",
   // Same Apps Script the old site used. It saves to the Burland sheet and emails the owner.
   formEndpoint:
     "https://script.google.com/macros/s/AKfycbyuwAzTwUtD1CHtg94bdir8_mx8_vSagoIu07MBtsykxTwnKAa6tB4ESmmFKq_-uan4/exec",
   // Optional public read-only availability feed returning {ok, events:[{allDay,start,end,kind}]}.
   // Leave empty and the booking calendar falls back to "we confirm by hand".
-  availabilityEndpoint: process.env.NEXT_PUBLIC_AVAILABILITY_URL ?? "",
+  availabilityEndpoint:
+    process.env.NEXT_PUBLIC_AVAILABILITY_URL ||
+    // "Burland Voice Calendar (read-only)" Apps Script: busy/note date ranges only, never titles or guest details.
+    "https://script.google.com/macros/s/AKfycbyIDlI75smlerwJk4FdykGOJXOfAu-D7HTrBhSng3ARrMY2_8Qxroa3nJb68eRMY15Rsg/exec",
   checkIn: "3:00 p.m.",
   checkOutDefault: "11:00 a.m.",
 };
