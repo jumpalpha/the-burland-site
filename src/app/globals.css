@@ -306,6 +306,23 @@ td.amt { font-weight: 600; white-space: nowrap; }
 .mini-table input { padding: 8px 10px; font-size: 0.95rem; }
 .mini-table td, .mini-table th { padding: 8px 10px; }
 .x-btn { border: 0; background: none; color: var(--rose); cursor: pointer; font-size: 1.1rem; }
+/* Planning tools on phones: tables become cards, larger tap targets, 16px inputs (no iOS zoom) */
+@media screen and (max-width: 620px) {
+  .mini-table.stack-sm, .mini-table.stack-sm tbody, .mini-table.stack-sm tr, .mini-table.stack-sm td { display: block; width: 100%; }
+  .mini-table.stack-sm thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .mini-table.stack-sm tr { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px 52px 10px 14px; margin-bottom: 12px; }
+  .mini-table.stack-sm td { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 10px; padding: 5px 0; border: 0; }
+  .mini-table.stack-sm td::before { content: attr(data-label); font-size: 0.9rem; font-weight: 600; color: var(--ink-2); }
+  .mini-table.stack-sm td.amt { font-weight: 700; font-size: 1.05rem; }
+  .mini-table.stack-sm td.x-cell { position: absolute; top: 4px; right: 4px; width: auto; display: block; padding: 0; }
+  .mini-table.stack-sm td.x-cell::before { content: none; }
+  .mini-table.stack-sm .input { width: 100% !important; }
+  .mini-table input, .field input, .field select, .field textarea, .input { font-size: 16px; }
+  .x-btn { min-width: 44px; min-height: 44px; font-size: 1.4rem; }
+  .btn-sm { min-height: 44px; padding: 11px 18px; }
+  .tick { min-height: 44px; align-items: center; padding: 4px 0; }
+  .tick input { margin-top: 0; width: 22px; height: 22px; }
+}
 .copy-box { white-space: pre-wrap; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.86rem; background: var(--sand-2); border-radius: 10px; padding: 16px; border: 1px solid var(--line); max-height: 420px; overflow: auto; }
 .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
 .tabs button { border: 0; background: none; font: inherit; padding: 8px 14px; border-radius: 999px; cursor: pointer; color: var(--ink-2); font-weight: 500; }

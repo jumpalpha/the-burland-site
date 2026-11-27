@@ -38,21 +38,21 @@ export function MealPlanner() {
         <label className="field panel"><span>Allergies and dietary needs</span><textarea value={s.allergies} placeholder="e.g. Uncle Ray: no nuts. Maddie: gluten free." onChange={(e) => setS({ ...s, allergies: e.target.value })} /></label>
       </div>
       <div className="table-wrap">
-        <table className="mini-table">
+        <table className="mini-table stack-sm">
           <thead><tr><th>Day</th><th>Meal</th><th>Who cooks</th><th>Menu</th><th><span className="sr-only">Remove</span></th></tr></thead>
           <tbody>
             {s.meals.map((m, i) => (
               <tr key={i}>
-                <td><input className="input" aria-label="Day" value={m.day} onChange={(e) => upd(i, "day", e.target.value)} style={{ width: 110 }} /></td>
-                <td><input className="input" aria-label="Meal" value={m.meal} onChange={(e) => upd(i, "meal", e.target.value)} /></td>
-                <td>
+                <td data-label="Day"><input className="input" aria-label="Day" value={m.day} onChange={(e) => upd(i, "day", e.target.value)} style={{ width: 110 }} /></td>
+                <td data-label="Meal"><input className="input" aria-label="Meal" value={m.meal} onChange={(e) => upd(i, "meal", e.target.value)} /></td>
+                <td data-label="Who cooks">
                   <select className="input" aria-label="Who cooks" value={m.family} onChange={(e) => upd(i, "family", e.target.value)}>
                     <option value="">Open</option>
                     {fams.map((f) => <option key={f}>{f}</option>)}
                   </select>
                 </td>
-                <td><input className="input" aria-label="Menu" value={m.menu} placeholder="Tacos, salad..." onChange={(e) => upd(i, "menu", e.target.value)} /></td>
-                <td><button type="button" className="x-btn" aria-label="Remove meal" onClick={() => setS({ ...s, meals: s.meals.filter((_, j) => j !== i) })}>&times;</button></td>
+                <td data-label="Menu"><input className="input" aria-label="Menu" value={m.menu} placeholder="Tacos, salad..." onChange={(e) => upd(i, "menu", e.target.value)} /></td>
+                <td className="x-cell"><button type="button" className="x-btn" aria-label="Remove meal" onClick={() => setS({ ...s, meals: s.meals.filter((_, j) => j !== i) })}>&times;</button></td>
               </tr>
             ))}
           </tbody>

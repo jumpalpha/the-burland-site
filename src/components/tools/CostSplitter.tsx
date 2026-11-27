@@ -57,17 +57,17 @@ export function CostSplitter() {
         <label className="tick"><input type="checkbox" checked={s.byNights} onChange={(e) => setS({ ...s, byNights: e.target.checked })} />Families staying fewer nights pay less</label>
       </div>
       <div className="table-wrap">
-        <table className="mini-table">
+        <table className="mini-table stack-sm">
           <thead><tr><th>Household</th><th>Adults</th><th>Kids</th>{s.byNights && <th>Nights</th>}<th>Owes</th><th><span className="sr-only">Remove</span></th></tr></thead>
           <tbody>
             {s.families.map((f, i) => (
               <tr key={i}>
-                <td><input className="input" aria-label="Household name" value={f.name} onChange={(e) => upd(i, "name", e.target.value)} /></td>
-                <td><input className="input" aria-label="Adults" type="number" min={0} value={f.adults} onChange={(e) => upd(i, "adults", e.target.value)} style={{ width: 72 }} /></td>
-                <td><input className="input" aria-label="Kids" type="number" min={0} value={f.kids} onChange={(e) => upd(i, "kids", e.target.value)} style={{ width: 72 }} /></td>
-                {s.byNights && <td><input className="input" aria-label="Nights" type="number" min={0} value={f.nights} onChange={(e) => upd(i, "nights", e.target.value)} style={{ width: 72 }} /></td>}
-                <td className="amt">{money(res[i]?.amount ?? 0)}</td>
-                <td><button type="button" className="x-btn" aria-label={`Remove ${f.name}`} onClick={() => setS({ ...s, families: s.families.filter((_, j) => j !== i) })}>&times;</button></td>
+                <td data-label="Household"><input className="input" aria-label="Household name" value={f.name} onChange={(e) => upd(i, "name", e.target.value)} /></td>
+                <td data-label="Adults"><input className="input" aria-label="Adults" type="number" min={0} value={f.adults} onChange={(e) => upd(i, "adults", e.target.value)} style={{ width: 72 }} /></td>
+                <td data-label="Kids"><input className="input" aria-label="Kids" type="number" min={0} value={f.kids} onChange={(e) => upd(i, "kids", e.target.value)} style={{ width: 72 }} /></td>
+                {s.byNights && <td data-label="Nights"><input className="input" aria-label="Nights" type="number" min={0} value={f.nights} onChange={(e) => upd(i, "nights", e.target.value)} style={{ width: 72 }} /></td>}
+                <td className="amt" data-label="Owes">{money(res[i]?.amount ?? 0)}</td>
+                <td className="x-cell"><button type="button" className="x-btn" aria-label={`Remove ${f.name}`} onClick={() => setS({ ...s, families: s.families.filter((_, j) => j !== i) })}>&times;</button></td>
               </tr>
             ))}
           </tbody>
